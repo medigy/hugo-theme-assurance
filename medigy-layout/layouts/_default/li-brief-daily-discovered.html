@@ -1,0 +1,39 @@
+<li class="slds-welcome-mat__tile">
+ 
+  <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+          {{ if isset .Params "featuredimage" }}
+            <a href="{{ .Permalink }}"><img src="{{.Params.featuredimage }}" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" ></a>
+          {{ else }}
+          <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="{{ .Params.alt }}"></a>
+          {{ end }}
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+            <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></h2>
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .Summary | safeHTML | truncate 200 }}</p>
+            
+            <p class="slds-text-body_small">Posted {{ .Date.Format "Jan 2, 2006" }}: 
+              {{ range $key, $value := .Params.categories }}
+              {{if ne $value "null"}}
+              {{ $valueLink := $value | urlize }}
+              {{ $textValue := replace $value "-hash-" " #"  }}
+              {{ $valueLink := replace $valueLink  "#" "hash-"  }}
+        
+               <span class="slds-badge slds-m-bottom_xx-small">{{  $textValue }}</span> 
+               {{end}}
+               {{ end }}
+              
+              </p>
+              {{ if and (isset .Params "updatedon" ) (ne .Params.updatedOn "null") (ne .Params.updatedOn "undefined")}}
+              {{ $timeUpdated :=substr .Params.updatedOn 0 10 }}
+              {{ $time := time (int $timeUpdated) }}
+              {{ $lastUpdatedDate :=  dateFormat "Jan 2, 2006" $time }}         
+           
+               <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated {{ $lastUpdatedDate }}</p>
+               {{ end }}
+              </div>
+        </div>
+  </article>
+
+</li>

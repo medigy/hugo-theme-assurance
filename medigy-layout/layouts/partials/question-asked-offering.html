@@ -1,0 +1,10 @@
+<div class="{{ .outerDivClass }} {{ .innerDivClass }}" data-id="{{ .productId }}" data-name="{{ .productName }}" >
+    <a href="#" title="{{ .tooltip }}">
+      <span id="{{ .label | urlize }}"><img class="bootstrap-tooltip-custom badgen-img" src='https://badgen.infra.medigy.com/badge/{{ replace .label " " "%20" }}/0/?color=grey&scale=1.2n&v={{ (time "2016-05-28T10:30:00.00+10:00").Unix }}&cache=60' alt="{{ .label }}" data-toggle="tooltip" data-html="true" data-placement="auto top"  title="{{ .tooltip }}"/></span>
+     
+    </a>           
+    <div class="{{ .countDivClass }}" id="{{ .countDivId }}" style="display: none;">
+      <span itemprop="reviewCount" class="hunt-comm-count" id="{{ .countSpanId }}">0</span>
+    </div>            
+    <div class="clearfix"></div>
+</div>
