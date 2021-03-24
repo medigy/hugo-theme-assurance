@@ -46,17 +46,30 @@
   <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
 
     <div class="slds-grid slds-wrap slds-gutters">
+      {{ if ( .Params.offeringlogo) }}
       <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-        <img src="images/unblock-health-logo.png" alt="" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small">
+        <img src="{{ .Params.offeringlogo }}" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small">
       </div>
+      {{ end }}
       <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-        <h2 class="slds-text-heading_small"><b>Netspective Communications LLC</b></h2>
-        <h3 class="slds-text-heading_medium"><b>Unblock Health</b></h3>
-        <p>Unblock health is revolutionizing patient autonomy and healthcare consumerism</p>
-        <p class="slds-text-body_small">
-          <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">HIMSS: Health Information Management</span></a>
-          <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">ManagementMeSH: Access to Information</span></a></p>
-          </div>
+        {{ if ne (.Params.organization) "null" }}
+         {{ $organizationName:= trim .Params.organization "." }}
+         <h2 class="slds-text-heading_small"><b>{{ .Params.organization }}</b></h2>
+        {{ end }}
+        <h3 class="slds-text-heading_medium"><b>{{ .Title }}</b></h3>
+        <p>{{ .Params.shortdescription }}</p>
+        {{ if .Params.categories}}
+          <p class="slds-text-body_small">
+            {{ range $key, $value := .Params.categories }} 
+            {{if ne $value "null"}}
+             {{ $valueLink := $value | urlize }}
+              {{ $valueLink := replace $valueLink "#" "hash-"  }}
+               <a href="/topic/{{ $valueLink }}"><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">{{ $value }}</span></a>          
+            {{ end }}
+            {{ end }}
+          </p>
+       {{ end }}
+      </div>
       </div>
   </div>
   <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
@@ -64,7 +77,7 @@
       <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12"></div>
         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12">
           <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center">
-            <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>Netspective Communications LLC</b></h2>
+            <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>{{ .Title }}</b></h2>
             <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Invite them to share their experience</button>
           </div>
           </div>
@@ -76,7 +89,33 @@
 <!-- git-buttons-row starts -->
 <div class="git-buttons-row slds-border_bottom slds-border_top slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
   <div class="slds-button-group" role="group">
-    <div>
+        {{ $productId := .Params.id }}          
+        {{ $productName := .Title }}
+        {{ $countInFrontmatter := 0 }}
+        {{ range  first 1 .Site.Data.offering_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range first 4 .items}}             
+              {{ $tooltip := .prefix.tooltip }}              
+              {{ $type := .prefix.type }}
+              {{ $badgeQueryType := .prefix.badgeQueryType }}
+              {{ partialCached "cadds-common.html" (dict   "productId" $productId "productName" $productName  "countInFrontmatter" $countInFrontmatter   "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $productId}}  
+              {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ range first 1 .Site.Data.offering_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range last 1 .items}}
+              {{ $label := .question }}
+              {{ $countInFrontmatter := 0 }}          
+              {{ $tooltip := .prefix.tooltip }}
+              {{ partialCached "question-asked-offering" (dict  "label"  $label   "productId" $productId "productName" $productName  "tooltip" $tooltip ) $label}}
+              {{ end }}
+
+          {{ end }}
+        {{ end }}
+        
+    <!-- <div>
       <button class="slds-button slds-button_neutral slds-button_first">Watch</button>
     </div>
     <div>
@@ -90,7 +129,7 @@
     </div>
     <div>
       <button class="slds-button slds-button_neutral slds-button_last">Questions Asked</button>
-    </div>
+    </div> -->
   </div>
 </div>
 <!-- git-buttons-row ends -->
@@ -98,18 +137,20 @@
 <!-- content-2 starts -->
   <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
-      <p class="slds-m-bottom_xx-small ">Unblock Health is a suite of services that finally provides patients and care partners with a way to level the playing field and demand access to the critical information needed to make informed, engaged, and empowered decisions about their care.</p>
-<p>Unblock Health, which is FHIR native and fully integratable, is strategically designed to:</p>
+      <p class="slds-m-bottom_xx-small ">{{ .Content }}</p>
+<!-- <p>Unblock Health, which is FHIR native and fully integratable, is strategically designed to:</p>
 <ul class="slds-list_dotted slds-m-bottom_xx-small">
 <li>Hold healthcare organizations accountable when they do not release medical records in a timely, HIPAA compliant manner, while carefully tracking the often intricate, multi-faceted process of interactions needed, reporting both violations and access champions in the public domain.</li>
 <li>Request patient-generated health data (PGHD) from mhealth &amp; digital health tech devices and apps.</li>
 <li>Request an itemized list of all the places that ones health information has been shared or sold to facilitate transparency and awareness of human data science practices.</li>
 <li>Unblock health is revolutionizing patient autonomy and healthcare consumerism.</li>
-</ul>
-<p class="slds-m-bottom_xx-small"><a href="#.">See more</a></p>
+</ul> -->
+<p class="slds-m-bottom_xx-small"><a href="{{ .Params.websiteUrl }}" target="_blank">See more</a></p>
+</div>
+{{ if ne .Params.featuredimage "Nil" }}
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"><img src="{{ .Params.featuredimage }}" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
     </div>
-    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"><img src="images/content-image-1.png" alt=""></div>
-      </div>
+{{ end }}
 <!-- content-2 ends -->
 
 <!-- content-3 starts -->
