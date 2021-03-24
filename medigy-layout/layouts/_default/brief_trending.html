@@ -1,79 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Medigy Design System: SLDS</title>
-    <link rel="stylesheet" href="styles/salesforce-lightning-design-system.min.css">
-    <link rel="stylesheet" href="styles/custom.css">  
-</head>
+    {{ partial "header" }}
 <body>
 
        
-<!-- menu items starts -->
-      <div class="slds-context-bar">
-        <div class="slds-context-bar__primary">
-            <div class="slds-context-bar__icon-action">
-              <a href="index.html"><img src="images/logo-icon-100x100.png" alt="" class="ico-logo"></a>
-            </div>
-            <span class="slds-context-bar__label-action slds-context-bar__app-name">
-              <span class="slds-truncate" title="App Name">Medigy</span>
-            </span>
-          
-        </div>
-        <nav class="slds-context-bar__secondary" role="navigation">
-          <ul class="slds-grid">
-            <li class="slds-context-bar__item">
-              <a href="index.html" class="slds-context-bar__label-action" title="Home">
-                <span class="slds-truncate" title="Home">Home</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item slds-is-active">
-              <a href="daily-brief.html" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Daily Brief</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="#" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Communities</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="#" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Topics</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="#" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Institutions</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="news-listing.html" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">News</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="#" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Events</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="#" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Feeds</span>
-              </a>
-            </li>
-            <li class="slds-context-bar__item">
-              <a href="#" class="slds-context-bar__label-action" title="Menu Item">
-                <span class="slds-truncate" title="Menu Item">Awards</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <!-- menu items ends -->
+    {{ $context := . }}
+    {{ partial "nav-bar" (dict  "activeMenu" "Daily Brief" "context" $context )  }}       
+  
       
 
 <!-- breadcrumbs starts -->
@@ -112,9 +45,9 @@
 <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
   <div class="slds-button-group" role="group">
     <button class="slds-button slds-button_inverse" disabled="">Offerings:</button>
-    <button class="slds-button slds-button_inverse">Discovered</button>
-    <button class="slds-button slds-button_inverse">Trending</button>
-    <button class="slds-button slds-button_inverse">Recently Updated</button>
+    <button class="slds-button slds-button_inverse"><a href ="/brief/daily/offerings/discovered/">Discovered</a></button>
+    <button class="slds-button slds-button_inverse slds-button_text-destructive"><a href="/brief/daily/offerings/trending/">Trending</a></button>
+    <a href="/brief/daily/offerings/updated/"><button class="slds-button slds-button_inverse">Recently Updated</button></a>
     <button class="slds-button slds-button_inverse" disabled="">Resources:</button>
     <button class="slds-button slds-button_inverse">Popular</button>
     <button class="slds-button slds-button_inverse">Latest</button>
@@ -128,109 +61,12 @@
 
   <ul class="slds-size_1-of-1 list-card">
 
-<li class="slds-welcome-mat__tile">
- 
-      <article class="slds-box">
-        <div class="slds-grid slds-wrap slds-gutters">
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                <a href="offering-home.html"><img src="images/offering-img-1.png" alt=""></a>
-            </div>
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-                <h2 class="slds-text-heading_medium"><a href="offering-home.html"><b>Unblock Health</b></a></h2>
-                <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">Unblock Health is a suite of services that finally provides patients and care partners with a way to,Unblock Health, which is FHIR native and fully integratable, is strategically designed to: Hold healthcare,Unblock health is revolutionizing patient autonomy and healthcare consumerism.</p>
-                
-                <p class="slds-text-body_small">Posted Jan 21, 2021:  <span class="slds-badge slds-m-bottom_xx-small">HIMSS: Health Information</span> <span class="slds-badge slds-m-bottom_xx-small">ManagementMeSH: Access to Information</span></p>
-                <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
-                
-                </div>
-            </div>
-      </article>
- 
-</li>
-  
-<li class="slds-welcome-mat__tile">
- 
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap slds-gutters">
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-            <a href="#."><img src="images/offering-img-1.png" alt=""></a>
-        </div>
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-            <h2 class="slds-text-heading_medium"><a href="#."><b>Baton - Hospital Price Transparency Solutions</b></a></h2>
-            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">Our secure software applications ensure that you achieve and maintain compliance with HHS 45 CFR Subchapter E price transparency regulations. Offload the burden, stop burning unnecessary dollars on …</p>
-            
-            <p class="slds-text-body_small">Posted Jan 21, 2021:  <span class="slds-badge slds-m-bottom_xx-small">Symplur: Payment Reform</span> <span class="slds-badge slds-m-bottom_xx-small">Gartner: Regulatory Compliance</span></p>
-            <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
-            
-            </div>
-        </div>
-  </article>
+    {{ $postCount := len (where (where (where .Site.Pages.ByWeight.Reverse "Params.type"  "post" ) "Params.displayinlist" "!=" false) "Params.author" "!=" "Shahid Shah") }}
+    {{ $paginator := .Paginate (where (where (where .Site.Pages.ByWeight.Reverse "Params.type"  "post" ) "Params.displayinlist" "!=" false) "Params.author" "!=" "Shahid Shah") }}
 
-</li>
-
-<li class="slds-welcome-mat__tile">
- 
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap slds-gutters">
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-            <a href="#."><img src="images/offering-img-1.png" alt=""></a>
-        </div>
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-            <h2 class="slds-text-heading_medium"><a href="#."><b>Baton - Hospital Price Transparency Solutions</b></a></h2>
-            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">Our secure software applications ensure that you achieve and maintain compliance with HHS 45 CFR Subchapter E price transparency regulations. Offload the burden, stop burning unnecessary dollars on …</p>
-            
-            <p class="slds-text-body_small">Posted Jan 21, 2021:  <span class="slds-badge slds-m-bottom_xx-small">Symplur: Payment Reform</span> <span class="slds-badge slds-m-bottom_xx-small">Gartner: Regulatory Compliance</span></p>
-            <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
-            
-            </div>
-        </div>
-  </article>
-
-</li>
-<li class="slds-welcome-mat__tile">
- 
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap slds-gutters">
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-            <a href="#."><img src="images/offering-img-1.png" alt=""></a>
-        </div>
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-            <h2 class="slds-text-heading_medium"><a href="#."><b>Baton - Hospital Price Transparency Solutions</b></a></h2>
-            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">Our secure software applications ensure that you achieve and maintain compliance with HHS 45 CFR Subchapter E price transparency regulations. Offload the burden, stop burning unnecessary dollars on …</p>
-            
-            <p class="slds-text-body_small">Posted Jan 21, 2021:  <span class="slds-badge slds-m-bottom_xx-small">Symplur: Payment Reform</span> <span class="slds-badge slds-m-bottom_xx-small">Gartner: Regulatory Compliance</span></p>
-            <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
-            
-            </div>
-        </div>
-  </article>
-
-</li>
-<li class="slds-welcome-mat__tile">
- 
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap slds-gutters">
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-            <a href="#."><img src="images/offering-img-1.png" alt=""></a>
-        </div>
-        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-            <h2 class="slds-text-heading_medium"><a href="#."><b>Baton - Hospital Price Transparency Solutions</b></a></h2>
-            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">Our secure software applications ensure that you achieve and maintain compliance with HHS 45 CFR Subchapter E price transparency regulations. Offload the burden, stop burning unnecessary dollars on …</p>
-            
-            <p class="slds-text-body_small">Posted Jan 21, 2021:  <span class="slds-badge slds-m-bottom_xx-small">Symplur: Payment Reform</span> <span class="slds-badge slds-m-bottom_xx-small">Gartner: Regulatory Compliance</span></p>
-            <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
-            
-            </div>
-        </div>
-  </article>
-
-</li>
-
-
-
-
-
-
+    {{ range $paginator.Pages }}
+        {{ .Render "li-brief-daily-trending" }}
+    {{ end }}
 
   </ul>
 
@@ -274,35 +110,7 @@
 </div>
 </section>
 
-<!-- footer starts -->
-<section class="footer">
-<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
-
-<article class="slds-text-align_center slds-p-top_large slds-p-bottom_large">
-  <div class="footer-menu">
-  <ul class="slds-list_horizontal slds-size_1-of-1 slds-text-align_center">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="">About Us</a></li>
-    <li><a href="daily-brief.html">Daily Brief</a></li>
-    <li><a href="">Communities</a></li>
-    <li><a href="">Topics</a></li>
-    <li><a href="">Institutions</a></li>
-    <li><a href="news-listing.html">News</a></li>
-    <li><a href="">Events</a></li>
-    <li><a href="">Feeds</a></li>
-    <li><a href="">Awards</a></li>
-    <li><a href="">Contact Us</a></li>
-  
- </ul>
-</div>
-  <p class="slds-m-bottom_small"><img src="images/medigy-innovation-network-footer.svg" class="ico-footer-1" alt=""></p>
-  <p class="slds-text-body_small">© 2021 Netspective Media LLC. All Rights Reserved.</p>
-  <p class="slds-text-body_small">Built on Jan 20, 2021 at 7:57am</p>  
-</article>
-
-</div>
-</section>
-<!-- footer ends -->
+{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
 
 </body>
 </html>
