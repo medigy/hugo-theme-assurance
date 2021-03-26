@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "header" }}
+  <body>
+  
+         
+      {{ $context := . }}
+      {{ partial "nav-bar" (dict  "activeMenu" "Daily Brief" "context" $context )  }}       
+    
+        
+
+<!-- breadcrumbs starts -->
+<section class="breadcrumbs-wrap">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+<nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
+    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+        <li class="slds-breadcrumb__item">
+            <a href="index.html">Home</a>
+          </li>
+          <li class="slds-breadcrumb__item">
+            <a href="daily-brief.html">Offering</a>
+          </li>
+          <li class="slds-breadcrumb__item">
+            <a href="daily-brief.html">Netspective Communications LLC</a>
+          </li>
+          <li class="slds-breadcrumb__item">
+            <a href="daily-brief.html">Solution</a>
+          </li>
+        <li class="slds-breadcrumb__item slds-p-left_x-small">
+          Unblock Health
+      </li>
+    </ol>
+  </nav>
+ 
+</div>
+</section>  
+<!-- breadcrumbs ends -->
+{{ $ownerVerifiedBadge := "" }}
+{{ $offeringTooltipData := .Site.Data.on_screen_tooltip_information.offeringProfileTooltips }}
+{{ range $offeringTooltipData }}
+{{ $ownerVerifiedBadge = .ownerVerifiedBadge }}
+{{ end }} 
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- content-1 starts -->
+<div class="slds-grid slds-wrap slds-gutters slds-p-top_large slds-p-bottom_large">
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+    <div class="slds-grid slds-wrap slds-gutters">
+      {{ if ( .Params.offeringlogo) }}
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+        <img src="{{ .Params.offeringlogo }}" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small">
+      </div>
+      {{ end }}
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+        {{ if ne (.Params.organization) "null" }}
+         {{ $organizationName:= trim .Params.organization "." }}
+         <h2 class="slds-text-heading_small"><b>{{ .Params.organization }}</b></h2>
+        {{ end }}
+        <h3 class="slds-text-heading_medium"><b>{{ .Title }}</b> {{ if .Params.claimStatus  }}<span class="slds-m-left_x-small"><img src="https://badgen.infra.medigy.com/badge/Owner/Verified?color=green" alt="{{ $ownerVerifiedBadge }}" title="{{ $ownerVerifiedBadge }}"></span>{{ end }}</h3>
+        <p>{{ .Params.shortdescription }}</p>
+        {{ if .Params.categories}}
+          <p class="slds-text-body_small">
+            {{ range $key, $value := .Params.categories }} 
+            {{if ne $value "null"}}
+             {{ $valueLink := $value | urlize }}
+              {{ $valueLink := replace $valueLink "#" "hash-"  }}
+               <a href="/topic/{{ $valueLink }}"><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">{{ $value }}</span></a>          
+            {{ end }}
+            {{ end }}
+          </p>
+       {{ end }}
+      </div>
+      </div>
+  </div>
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+    <div class="slds-grid slds-wrap slds-gutters slds-p-top_large">
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12"></div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12">
+          <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center">
+            <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>{{ .Title }}</b></h2>
+            <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Invite them to share their experience</button>
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<!-- content-1 ends -->
+
+<!-- git-buttons-row starts -->
+<div class="git-buttons-row slds-border_bottom slds-border_top slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
+  <div class="slds-button-group" role="group">
+        {{ $productId := .Params.id }}          
+        {{ $productName := .Title }}
+        {{ $countInFrontmatter := 0 }}
+        {{ range  first 1 .Site.Data.offering_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range first 4 .items}}             
+              {{ $tooltip := .prefix.tooltip }}              
+              {{ $type := .prefix.type }}
+              {{ $badgeQueryType := .prefix.badgeQueryType }}
+              {{ partialCached "cadds-common.html" (dict   "productId" $productId "productName" $productName  "countInFrontmatter" $countInFrontmatter   "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $productId}}  
+              {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ range first 1 .Site.Data.offering_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range last 1 .items}}
+              {{ $label := .question }}
+              {{ $countInFrontmatter := 0 }}          
+              {{ $tooltip := .prefix.tooltip }}
+              {{ partialCached "question-asked-offering" (dict  "label"  $label   "productId" $productId "productName" $productName  "tooltip" $tooltip ) $label}}
+              {{ end }}
+
+          {{ end }}
+        {{ end }}
+        
+    <!-- <div>
+      <button class="slds-button slds-button_neutral slds-button_first">Watch</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">Used By</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">Star</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">On Wishlist</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_last">Questions Asked</button>
+    </div> -->
+  </div>
+</div>
+<!-- git-buttons-row ends -->
+
+<!-- content-2 starts -->
+  <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+      <p class="slds-m-bottom_xx-small ">{{ .Content }}</p>
+<!-- <p>Unblock Health, which is FHIR native and fully integratable, is strategically designed to:</p>
+<ul class="slds-list_dotted slds-m-bottom_xx-small">
+<li>Hold healthcare organizations accountable when they do not release medical records in a timely, HIPAA compliant manner, while carefully tracking the often intricate, multi-faceted process of interactions needed, reporting both violations and access champions in the public domain.</li>
+<li>Request patient-generated health data (PGHD) from mhealth &amp; digital health tech devices and apps.</li>
+<li>Request an itemized list of all the places that ones health information has been shared or sold to facilitate transparency and awareness of human data science practices.</li>
+<li>Unblock health is revolutionizing patient autonomy and healthcare consumerism.</li>
+</ul> -->
+<p class="slds-m-bottom_xx-small"><a href="{{ .Params.websiteUrl }}" target="_blank">See more</a></p>
+</div>
+{{ if ne .Params.featuredimage "Nil" }}
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"><img src="{{ .Params.featuredimage }}" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
+    </div>
+{{ end }}
+<!-- content-2 ends -->
+
+<!-- content-3 starts -->
+  <div class="slds-card slds-m-bottom_large">
+    <ul class="slds-accordion">
+      {{ $.Scratch.Set "productId"  .Params.id }}
+      {{ $.Scratch.Set "productName"  .Title }}
+      {{ $.Scratch.Set "tenantId"  .Params.tenantId }}
+      {{ partial "offering-cadd-questions.html" . }}  
+    </ul>
+  </div>
+<!-- content-3 ends -->
+
+</div>
+</section>
+
+{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+
+</body>
+</html>
