@@ -18,58 +18,49 @@
 <!-- content-1 starts -->
 
   <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
-    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="images/news-listing-thumb-1.jpeg" alt="" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
-    <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+    {{ if .Params.featuredimage.href  }}
+     <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="{{ print .Params.basePath .Params.featuredimage.href }}" alt="{{ .Params.title }}" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
+    {{ else }}
+     <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/images/offering-img-1.png" alt="{{ .Params.title }}" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
+    {{ end }}
+     <div class="slds-col slds-size_1-of-1 slds-m-top_small">
         <div class="news-content-overlap">
-        <p class="slds-m-bottom_xx-small">The COVID-19 crisis has led some providers to inquire about partnering or acquiring insurance assets as the pandemic exposed the risk of relying on fee-for-service models.</p>
-        <p class="slds-m-bottom_xx-small">A year since COVID-19 hit U.S. shores, the pandemic is still raging as deaths and cases strain hospital resources. </p>
-        <p class="slds-m-bottom_xx-small">Amid the scrambling, however, providers and payers are adjusting to a new normal likely to continue for months if not beyond. Though arrival of vaccines has prompted hope, the rollout has been slow and fragmented, left up to each state to decide how to disseminate the shots. </p>
-        <p class="slds-m-bottom_xx-small">And the deadly pandemic has spurred historic job losses and economic upheaval, which will have lingering effects on the health sector for some time.</p>
-        <p class="slds-m-bottom_xx-small">These factors have accelerated moves to value-based care and led some providers to inquire about partnering or acquiring insurance assets as the pandemic exposed the risk of relying on fee-for-service models. At the same time, consumers are likely to seek continued access to telehealth, made widely available as an alternative to in-person care.</p>
-<hr>
-        <p class="slds-text-body_small">
-            <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">Medigy: Payer Administration</span></a>
-            <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">Symplur: Healthcare Providers</span></a></p>
+        <p class="slds-m-bottom_xx-small">{{ .Params.title }}</p>
+       <p class="slds-m-bottom_xx-small">{{ .Content }} </p>        
+      <hr>
+       <p class="slds-text-body_small">
+            {{ if (.Params.categories) }}
+            {{ range .Params.categories }}
+              {{ $textValue := replace . "-hash-" " #"  }}
+              {{ $valueLink := . | urlize }}
+              {{ $valueLink := replace $valueLink  "#" "hash-"  }}
+               <a href="/topic/{{  $valueLink }}"><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">{{ $textValue }}</span></a>
+            {{ end }}
+            {{ end }}
 
-<h2 class="slds-text-heading_small slds-m-bottom_xx-small slds-m-top_small"><b>See Also</b></h2>        
-<ul class="slds-list_dotted slds-m-bottom_xx-small">
-<li>How To Win Physician Confidence In Remote Patient Monitoring Programs</li>
-<li>Provider Engagement in the New Digital Era</li>
-<li>5 Ways to Improve the Patient Experience</li>
-<li>9 Ways to Reduce Hospital Readmissions from Hospital Executives</li>
-<li>4 Ways Health Execs Can Engage Providers</li>
-</ul>
+  {{ $related := .Site.RegularPages.Related . | first 5 }}
+   {{ with $related }}
+    <h2 class="slds-text-heading_small slds-m-bottom_xx-small slds-m-top_small"><b>See Also</b></h2>        
+    <ul class="slds-list_dotted slds-m-bottom_xx-small">
+      {{ range . }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>                                                                               -->
+      {{ end }}
+    </ul>
+   {{ end }}
     </div>
     </div>
-      </div>
+    </div>
 <!-- content-1 ends -->
 
 <!-- next article starts -->
 <div class="slds-welcome-mat slds-m-bottom_large slds-m-top_small">
-
+    {{ with .PrevInSection }}
     <div class="slds-m-bottom_x-small">
         <h2 class="slds-text-heading_small slds-text-align_center"><b>Next Article</b></h2>
     </div>
-  
-    <ul class="slds-size_1-of-1 list-card">
-        <li class="slds-welcome-mat__tile">
-            <article class="slds-box">
-              <div class="slds-grid slds-wrap slds-gutters">
-                  <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                      <a href="#."><img src="images/offering-img-1.png" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
-                  </div>
-                  <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
-                      <h2 class="slds-text-heading_medium"><a href="#."><b>Baton - Hospital Price Transparency Solutions</b></a></h2>
-                      <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">Our secure software applications ensure that you achieve and maintain compliance with HHS 45 CFR Subchapter E price transparency regulations. Offload the burden, stop burning unnecessary dollars on …</p>
-                      
-                      <p class="slds-text-body_small">Posted Jan 21, 2021:  <span class="slds-badge slds-m-bottom_xx-small">Symplur: Payment Reform</span> <span class="slds-badge slds-m-bottom_xx-small">Gartner: Regulatory Compliance</span></p>
-                      <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
-                      </div>
-                  </div>
-            </article>        
-          </li>
-    </ul>
-    </div>
+    {{ .Render "li-news" }}    
+    {{ end }}
+</div>
 <!-- next article ends -->
 
 </div>
