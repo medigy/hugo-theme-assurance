@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Events" "context" $context )  }}        
+  
+      
+
+    {{ partial "bread-crumb" }}
+
+
+<section class="">
+<div class="slds-container_large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- content-1 starts -->
+
+  <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
+    {{ if (eq .Params.featuredimage.href "Nil") }}
+    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small">
+      <a href="{{ .Params.link.href }}" target="_blank"><img src="images/event-img-2.jpg" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="post-figure"></a>
+    </div>
+    {{ else }}
+    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small">
+      <img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="post-figure">
+    </div>
+    {{ end }}
+    <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+        <div class="news-content-overlap">
+            {{ $startDate :=  dateFormat "January 2, 2006" .Params.date }}
+            {{ $endDate :=  dateFormat "January 2, 2006" .Params.eventenddate }}
+    
+            {{ $day := dateFormat "Monday" .Params.date }}
+            {{ $month := dateFormat "January" .Params.date }}
+            {{ $daydate := dateFormat "02" .Params.date }}
+          <article>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_3-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12">
+                            <article class="slds-card slds-theme_shade slds-theme_alert-texture event-date-card">
+                                <div class="slds-card__body slds-card__body_inner slds-text-align_center">
+                                    <p class="slds-text-body_medium">{{ $month }}</p>
+                                    <h4 class="slds-text-heading_large slds-m-top_xx-small slds-m-bottom_xx-small"><b>{{ $daydate }}</b></h4>
+                                    <p class="slds-text-body_medium">{{ $day }}</p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12">
+                    <h2 class="slds-text-heading_medium slds-m-top_x-small">
+                      <b>{{ .Title }}</b></h2>
+                    <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><img src="icons/utility/date_input.svg" class="ico-bt-sm-2-x" alt=""> March 29 to March 31, 2021 (in 3 days)</p>
+                    {{ if  (ne .Params.openProjectCustomFields.location "null") -}}
+                     {{ if or (eq .Params.openProjectCustomFields.location "Online") (eq .Params.openProjectCustomFields.location "online") }}
+                      <p class="slds-text-body_medium slds-m-bottom_xx-small"><img src="icons/utility/checkin.svg" class="ico-bt-sm-2-x" alt=""> {{ .Params.openProjectCustomFields.location }}</p>
+                     {{ else }}
+                     <p class="slds-text-body_medium slds-m-bottom_xx-small"><img src="icons/utility/checkin.svg" class="ico-bt-sm-2-x" alt=""> {{ .Params.openProjectCustomFields.location }}</p>
+                    {{ end }}
+                    {{- end }}
+                      </div>
+                      <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-m-top_x-small">
+                        <div class="slds-clearfix slds-m-bottom_x-small">
+                          {{ if ge .Date.Unix now.Unix   }}
+                          {{ with  .OutputFormats.Get "Calendar" -}}
+                            <div class="slds-float_right">
+                              <p><button class="slds-button slds-button_outline-brand"><img src="icons/utility/date_input.svg" class="ico-bt-sm-4" alt=""> Add to Calendar</button></p>
+                            </div>
+                          {{- end }}
+                         {{ end }}
+                        </div>
+                      </div>
+            </div>
+                    </div>
+                   
+                </div>
+          </article>
+          
+            <hr>
+        <p class="slds-m-bottom_xx-small"> {{ .Content }}</p>
+        {{/*  <p class="slds-m-bottom_xx-small">With evolving and dynamic change happening in today’s system between health plans, healthcare providers, and employers you won't want to miss the opportunity to hear from, and network with, fellow attendees including executives from leading healthcare organizations, top legal experts, and renowned thought leaders.</p>  */}}
+        {{/*  <p class="slds-m-bottom_xx-small"><a href="https://www.eventbrite.com/e/the-summit-2021-by-revivehealth-tickets-93531967633?aff=ebdssbdestsearch" target="_blank">Read on eventbrite.com</a></p>  */}}
+<hr>
+{{ $related := .Site.RegularPages.Related . | first 5 }}
+{{ with $related }}
+<h2 class="slds-text-heading_small slds-m-bottom_xx-small slds-m-top_small"><b>See Also</b></h2>        
+<ul class="slds-list_dotted slds-m-bottom_xx-small">
+  {{ range . }}
+   <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+{{ end }}
+    </div>
+    </div>
+      </div>
+<!-- content-1 ends -->
+
+<!-- next article starts -->
+<div class="slds-welcome-mat slds-m-bottom_large slds-m-top_small">
+  {{ with .NextInSection }}
+    <div class="slds-m-bottom_x-small">
+        <h2 class="slds-text-heading_small slds-text-align_center"><b>Next Event</b></h2>
+    </div>
+  
+    <ul class="slds-size_1-of-1 list-card">
+      {{ .Render "li-event" }}     
+    </ul>
+    {{ end }}
+    </div>
+<!-- next article ends -->
+
+</div>
+</section>
+<!-- footer starts -->
+
+{{ partial "footer" (dict  "activeMenu" "Events" "context" $context ) }}
+
+</body>
+</html>

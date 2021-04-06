@@ -18,7 +18,11 @@
 
     <div class="slds-clearfix slds-m-bottom_x-small">
       <div class="slds-float_right">
-        <p><button class="slds-button slds-button_outline-brand"><img src="icons/utility/add.svg" class="ico-bt-sm-3" alt="" > Add News</button></p>
+        <p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
+          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small blue-icon-color" aria-hidden="true">
+          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+          </svg>
+          </span> Add News</button></p>
       </div>
     </div>
          {{ $newsWithArchetypePages :=   (where .Site.RegularPages "Params.archetype" "in" (slice "news" "external-bookmark-news")) | union ( where .Site.RegularPages "Section" "in" (slice "news" )) }}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Events" "context" $context )  }}        
+  
+      
+
+    {{ partial "bread-crumb" }}
+
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- submenu starts -->
+<div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
+  <div class="slds-button-group" role="group">
+    <a href="/events"><button class="slds-button slds-button_inverse">Upcoming Events</button></a>
+    <a href="/events/past"><button class="slds-button slds-button_inverse">Past Events</button></a>
+    <a href="/events/canceled"><button class="slds-button slds-button_inverse">Canceled Events</button></a>
+  </div>
+</div>
+<!-- submenu ends -->  
+
+
+<!-- content starts -->
+<div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium event-section">
+    <div class="slds-clearfix slds-m-bottom_x-small">
+        <div class="slds-float_right">
+          <p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
+            <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small blue-icon-color" aria-hidden="true">
+            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+            </svg>
+            </span> Add Event</button></p>
+        </div>
+      </div>
+<ul class="slds-size_1-of-1 list-card">
+  {{ $postCount := len (where (where (where .Site.Pages.ByDate.Reverse "Section" "in" (slice "past") )  "Params.eventenddate" "lt" (now.Format "2006-01-02")) "Params.openprojectcustomfields.eventcancelled" "ne" "t") }} 
+  {{ $paginator := .Paginate (where (where (where .Site.Pages.ByDate.Reverse "Section" "in" (slice "past") )  "Params.eventenddate" "lt" (now.Format "2006-01-02")) "Params.openprojectcustomfields.eventcancelled" "ne" "t") }}
+  {{ range $paginator.Pages }}
+      {{ .Render "li-event" }}
+    {{ end }}
+</ul>
+
+</div>
+<!-- content ends -->
+
+<!-- paginations starts -->
+<div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
+  <div class="slds-button-group" role="group">
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_first">««</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">«</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">1</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">2</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">3</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">...</button>
+    </div>     
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">224</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">»</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_last">»»</button>
+    </div>
+  </div>
+</div>
+<!-- paginations ends -->
+
+</div>
+</section>
+<!-- footer starts -->
+
+{{ partial "footer" (dict  "activeMenu" "Events" "context" $context ) }}
+
+</body>
+</html>
