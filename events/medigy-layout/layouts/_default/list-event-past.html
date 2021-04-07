@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" }}
+  {{ partial "head" . }}
 <body>
 
        
@@ -9,7 +9,7 @@
   
       
 
-    {{ partial "bread-crumb" }}
+    {{ partial "bread-crumb" . }}
 
 
 <section class="">
@@ -19,7 +19,7 @@
 <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
   <div class="slds-button-group" role="group">
     <a href="/events"><button class="slds-button slds-button_inverse">Upcoming Events</button></a>
-    <a href="/events/past"><button class="slds-button slds-button_inverse">Past Events</button></a>
+    <a href="/events/past"><button class="slds-button slds-button_inverse slds-button_text-destructive">Past Events</button></a>
     <a href="/events/canceled"><button class="slds-button slds-button_inverse">Canceled Events</button></a>
   </div>
 </div>
