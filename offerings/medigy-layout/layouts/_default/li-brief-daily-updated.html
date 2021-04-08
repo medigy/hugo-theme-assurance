@@ -28,9 +28,28 @@
               {{ if and (isset .Params "updatedon" ) (ne .Params.updatedOn "null") (ne .Params.updatedOn "undefined")}}
               {{ $timeUpdated :=substr .Params.updatedOn 0 10 }}
               {{ $time := time (int $timeUpdated) }}
-              {{ $lastUpdatedDate :=  dateFormat "Jan 2, 2006" $time }}         
-           
-               <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated {{ $lastUpdatedDate }}</p>
+              {{ $lastUpdatedDate :=  dateFormat "Jan 2, 2006" $time }}    
+              
+               <div class="slds-clearfix">
+                <div class="slds-float_left">
+                  <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated {{ $lastUpdatedDate }}</p>
+                </div>
+                
+                <div class="slds-float_right">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                </div>
+                </div>
                {{ end }}
               </div>
         </div>

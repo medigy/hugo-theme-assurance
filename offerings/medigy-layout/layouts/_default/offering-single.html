@@ -140,17 +140,27 @@
 
 <!-- content-2 starts -->
   <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
-    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
-      <p class="slds-m-bottom_xx-small ">{{ .Content }}</p>
-<!-- <p>Unblock Health, which is FHIR native and fully integratable, is strategically designed to:</p>
-<ul class="slds-list_dotted slds-m-bottom_xx-small">
-<li>Hold healthcare organizations accountable when they do not release medical records in a timely, HIPAA compliant manner, while carefully tracking the often intricate, multi-faceted process of interactions needed, reporting both violations and access champions in the public domain.</li>
-<li>Request patient-generated health data (PGHD) from mhealth &amp; digital health tech devices and apps.</li>
-<li>Request an itemized list of all the places that ones health information has been shared or sold to facilitate transparency and awareness of human data science practices.</li>
-<li>Unblock health is revolutionizing patient autonomy and healthcare consumerism.</li>
-</ul> -->
-<p class="slds-m-bottom_xx-small"><a href="{{ .Params.websiteUrl }}" target="_blank">See more</a></p>
-</div>
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 content-inner-section">
+   {{ .Content }}
+  
+  <div class="slds-clearfix">
+    <div class="slds-float_left">
+      <p class="slds-m-bottom_xx-small"><a href="{{ .Params.websiteUrl }}" target="_blank">See more</a></p>
+    </div>
+    
+    <div class="slds-float_right">
+    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+    <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+    </button>
+    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+    <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+    </button>
+    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+    <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+    </button>
+    </div>
+    </div>
+    </div>
 {{ if ne .Params.featuredimage "Nil" }}
     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"><img src="{{ .Params.featuredimage }}" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
     </div>

@@ -9,7 +9,7 @@
   
       
 
-    {{ partial "bread-crumb" . }}
+    {{ partial "bread-crumb" .}}
 
 
 <section class="">
@@ -24,11 +24,14 @@
      <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/images/offering-img-1.png" alt="{{ .Params.title }}" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
     {{ end }}
      <div class="slds-col slds-size_1-of-1 slds-m-top_small">
-        <div class="news-content-overlap">
+        <div class="news-content-overlap content-inner-section">
         <p class="slds-m-bottom_xx-small">{{ .Params.title }}</p>
        <p class="slds-m-bottom_xx-small">{{ .Content }} </p>        
       <hr>
-       <p class="slds-text-body_small">
+
+      <div class="slds-clearfix">
+        <div class="slds-float_left">
+          <p class="slds-text-body_small">
             {{ if (.Params.categories) }}
             {{ range .Params.categories }}
               {{ $textValue := replace . "-hash-" " #"  }}
@@ -37,6 +40,24 @@
                <a href="/topic/{{  $valueLink }}"><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">{{ $textValue }}</span></a>
             {{ end }}
             {{ end }}
+         </p>
+        </div>
+        
+        <div class="slds-float_right">
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+          <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        </div>
+      </div>
 
   {{ $related := .Site.RegularPages.Related . | first 5 }}
    {{ with $related }}

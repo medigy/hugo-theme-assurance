@@ -51,12 +51,21 @@
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12">
                     <h2 class="slds-text-heading_medium slds-m-top_x-small">
                       <b>{{ .Title }}</b></h2>
-                    <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><img src="icons/utility/date_input.svg" class="ico-bt-sm-2-x" alt=""> March 29 to March 31, 2021 (in 3 days)</p>
+                    <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small" aria-hidden="true">
+                      <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                      </svg> March 29 to March 31, 2021 (in 3 days)
+                    </p>
                     {{ if  (ne .Params.openProjectCustomFields.location "null") -}}
                      {{ if or (eq .Params.openProjectCustomFields.location "Online") (eq .Params.openProjectCustomFields.location "online") }}
-                      <p class="slds-text-body_medium slds-m-bottom_xx-small"><img src="icons/utility/checkin.svg" class="ico-bt-sm-2-x" alt=""> {{ .Params.openProjectCustomFields.location }}</p>
+                      <p class="slds-text-body_medium slds-m-bottom_xx-small"><svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#checkin"></use>
+                        </svg> {{ .Params.openProjectCustomFields.location }}
+                      </p>
                      {{ else }}
-                     <p class="slds-text-body_medium slds-m-bottom_xx-small"><img src="icons/utility/checkin.svg" class="ico-bt-sm-2-x" alt=""> {{ .Params.openProjectCustomFields.location }}</p>
+                     <p class="slds-text-body_medium slds-m-bottom_xx-small"><svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                      <use xlink:href="/icons/utility-sprite/svg/symbols.svg#checkin"></use>
+                      </svg> {{ .Params.openProjectCustomFields.location }}
+                     </p>
                     {{ end }}
                     {{- end }}
                       </div>
@@ -81,7 +90,23 @@
         <p class="slds-m-bottom_xx-small"> {{ .Content }}</p>
         {{/*  <p class="slds-m-bottom_xx-small">With evolving and dynamic change happening in today’s system between health plans, healthcare providers, and employers you won't want to miss the opportunity to hear from, and network with, fellow attendees including executives from leading healthcare organizations, top legal experts, and renowned thought leaders.</p>  */}}
         {{/*  <p class="slds-m-bottom_xx-small"><a href="https://www.eventbrite.com/e/the-summit-2021-by-revivehealth-tickets-93531967633?aff=ebdssbdestsearch" target="_blank">Read on eventbrite.com</a></p>  */}}
-<hr>
+        <div class="slds-clearfix">          
+          <div class="slds-float_right">
+            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+            </button>
+            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+            </button>
+            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+            </button>
+            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+            </button>
+          </div>
+        </div>
+        <hr>
 {{ $related := .Site.RegularPages.Related . | first 5 }}
 {{ with $related }}
 <h2 class="slds-text-heading_small slds-m-bottom_xx-small slds-m-top_small"><b>See Also</b></h2>        
