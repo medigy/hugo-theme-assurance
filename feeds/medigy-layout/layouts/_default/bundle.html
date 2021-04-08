@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Feeds" "context" $context )  }}       
+  
+      
+
+    {{ partial "bread-crumb" . }}
+
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+  <div class="slds-clearfix slds-m-top_x-small">
+    <div class="slds-float_right">
+      <p><button class="slds-button slds-button_outline-brand"><img src="icons/utility/add.svg" class="ico-bt-sm-3" alt=""> Add Feed</button></p>
+    </div>
+  </div>
+<!-- submenu starts -->
+<div class="demo-only slds-m-top_x-small slds-text-align_center blue-bg-button-group">
+  <div class="slds-button-group" role="group">
+    <a href="/feed/latest"><button class="slds-button slds-button_inverse">Latest</button></a>
+    <a href="/feed/bundle"><button class="slds-button slds-button_inverse slds-button_text-destructive">Bundle</button></a>
+  </div>
+</div>
+<!-- submenu ends -->  
+
+
+<!-- content starts -->
+<div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium event-section">
+ 
+  <div class="slds-grid slds-wrap slds-gutters bundle-wrap">
+    {{ $.Scratch.Set "seeMoreCounter" 1 }}
+    {{range ($.Site.GetPage "taxonomyTerm" "feedSource").Pages }}
+<!-- bundle-1 -->
+<div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+  {{ $.Scratch.Set "siteUrl" "" }}
+  {{ range first 1 (.Pages.ByParam "feedSource") }}
+  {{ $.Scratch.Set "siteUrl" .Params.feed.site_url }}
+  {{ $.Scratch.Set "siteTitle" .Params.feed.title }}
+  {{ $.Scratch.Set "id" .Params.feed.id }}
+  {{ $.Scratch.Set "favicon" .Params.icon.href }}
+  {{ $.Scratch.Set "sourceFeed" .Params.feedSource }}
+  {{ end }} 
+  {{ $sitetitle := $.Scratch.Get "siteTitle" }} 
+  {{ $favicon := $.Scratch.Get "favicon" }}
+  {{ $source := $.Scratch.Get "sourceFeed" }}                                         
+  {{ with $source }}
+      {{ $firstTab := index . 0 }}
+        {{ $.Scratch.Set "firstTab" $firstTab }}
+    {{ end }}
+    {{ $sourceFeed := $.Scratch.Get "firstTab" }}                                                                               
+  {{ $imagepath  := print "/feed/latest/" $sourceFeed "/" $favicon }} 
+  <article class="slds-card bundle-card">
+    <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+    <div class="slds-media__figure">
+    <span class="slds-icon_container slds-icon-standard-account" title="">
+      {{ if $favicon }}<img src="{{ $imagepath }} {{ $.Scratch.Get "feed.id"  }}" width="16" height="16">{{ else }}<img src="images/health-it-answers-feed-icon.jpg" width="16" height="16">{{ end }}
+    </span>
+    </div>
+    <div class="slds-media__body">
+    <h2 class="slds-card__header-title">
+    <a href="{{ $.Scratch.Get "siteUrl"  }}" target="_blank" class="" title=""><span> {{ $.Scratch.Get "siteTitle"}} </span></a>
+    </h2>
+    </div>
+    </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner">
+      <ul class="slds-has-dividers_top">
+        {{ $.Scratch.Set "linksiteUrl" "" }}
+        {{ range first 3 (.Pages.ByParam "feedSource") }}
+        {{ $.Scratch.Set "linksiteUrl" .Params.link.href }}
+         <li class="slds-item slds-truncate"><a href="{{ $.Scratch.Get "linksiteUrl"  }}" target="_blank" class="slds-text-color_default">{{ .Title }}</a></li>
+        <!-- <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">What’s Happening at the ONC – 03-29-21</a></li>
+        <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">HIPAA as Standard of Care</a></li> -->
+        {{end}}  
+      </ul>
+    </div>
+    
+    <footer class="slds-card__footer">
+    <a class="slds-card__footer-action" href="#">See More</a>
+    </footer>
+    </article>
+</div>  
+{{ end }}
+
+    <!-- bundle-2 -->
+    <!-- <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+      <article class="slds-card bundle-card">
+        <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-account" title="">
+          <img src="images/med-tech-innovation-feed-icon.jpg" width="16" height="16">
+        </span>
+        </div>
+        <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+        <a href="#" class="" title=""><span>Med-Tech Innovation</span></a>
+        </h2>
+        </div>
+        </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <ul class="slds-has-dividers_top">
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">We're jabbing, I hope you like jabbing too</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">BATM develops new method for tuberculosis diagnosis</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">Shifting the needle: How can new innovation aid cancer care?</a></li>
+            </ul>
+        </div>
+        <footer class="slds-card__footer">
+        <a class="slds-card__footer-action" href="#">See More</a>
+        </footer>
+        </article>
+    </div> -->
+ 
+    <!-- bundle-3 -->
+    <!-- <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+      <article class="slds-card bundle-card">
+        <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-account" title="">
+          <img src="images/kevinmd-com-feed-icon.ico" width="16" height="16">
+        </span>
+        </div>
+        <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+        <a href="#" class="" title=""><span>KevinMD.com</span></a>
+        </h2>
+        </div>
+        </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <ul class="slds-has-dividers_top">
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">No mass shooting is “worse” than another mass shooting</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">You don’t have to drown in the paperwork [PODCAST]</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">For the love of baseball and music: a Boston Hope Music story</a></li>
+            </ul>
+        </div>
+        <footer class="slds-card__footer">
+        <a class="slds-card__footer-action" href="#">See More</a>
+        </footer>
+        </article>
+    </div> -->
+
+     <!-- bundle-4 -->
+     <!-- <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+      <article class="slds-card bundle-card">
+        <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-account" title="">
+          <img src="images/modern-healthcare-news-feed-icon.jpg" width="16" height="16">
+        </span>
+        </div>
+        <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+        <a href="#" class="" title=""><span>Modern Healthcare News</span></a>
+        </h2>
+        </div>
+        </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <ul class="slds-has-dividers_top">
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">States can restart normal hospital survey activities effective March 23</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">Lurie Children's CEO: Greater integration of behavioral health needed to address growing crisis</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">Mental health access for children needs attention</a></li>
+            </ul>
+        </div>
+        <footer class="slds-card__footer">
+        <a class="slds-card__footer-action" href="#">See More</a>
+        </footer>
+        </article>
+    </div> -->
+
+<!-- bundle-5 -->
+<!-- <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+  <article class="slds-card bundle-card">
+    <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+    <div class="slds-media__figure">
+    <span class="slds-icon_container slds-icon-standard-account" title="">
+      <img src="images/health-it-answers-feed-icon.jpg" width="16" height="16">
+    </span>
+    </div>
+    <div class="slds-media__body">
+    <h2 class="slds-card__header-title">
+    <a href="#" class="" title=""><span>Health IT Answers</span></a>
+    </h2>
+    </div>
+    </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner">
+      <ul class="slds-has-dividers_top">
+        <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">Maintaining Compliance with HIPAA Privacy and Security Rules in a Remote Work Environment</a></li>
+        <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">What’s Happening at the ONC – 03-29-21</a></li>
+        <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">HIPAA as Standard of Care</a></li>
+        </ul>
+    </div>
+    <footer class="slds-card__footer">
+    <a class="slds-card__footer-action" href="#">See More</a>
+    </footer>
+    </article>
+</div>   -->
+
+    <!-- bundle-6 -->
+    <!-- <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+      <article class="slds-card bundle-card">
+        <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-account" title="">
+          <img src="images/med-tech-innovation-feed-icon.jpg" width="16" height="16">
+        </span>
+        </div>
+        <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+        <a href="#" class="" title=""><span>Med-Tech Innovation</span></a>
+        </h2>
+        </div>
+        </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <ul class="slds-has-dividers_top">
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">We're jabbing, I hope you like jabbing too</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">BATM develops new method for tuberculosis diagnosis</a></li>
+            <li class="slds-item slds-truncate"><a href="#." class="slds-text-color_default">Shifting the needle: How can new innovation aid cancer care?</a></li>
+            </ul>
+        </div>
+        <footer class="slds-card__footer">
+        <a class="slds-card__footer-action" href="#">See More</a>
+        </footer>
+        </article>
+    </div> -->
+      
+
+</div>
+<!-- content ends -->
+
+<!-- paginations starts -->
+<div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
+  <div class="slds-button-group" role="group">
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_first">««</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">«</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">1</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">2</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">...</button>
+    </div>     
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">224</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">»</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_last">»»</button>
+    </div>
+  </div>
+</div>
+<!-- paginations ends -->
+
+</div>
+</section>
+
+<!-- footer starts -->
+{{ partial "footer" (dict  "activeMenu" "Feeds" "context" $context ) }}
+
+</body>
+</html>
