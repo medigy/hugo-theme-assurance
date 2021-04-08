@@ -16,7 +16,11 @@
 <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
   <div class="slds-clearfix slds-m-top_x-small">
     <div class="slds-float_right">
-      <p><button class="slds-button slds-button_outline-brand"><img src="icons/utility/add.svg" class="ico-bt-sm-3" alt=""> Add Feed</button></p>
+      <p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
+          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small blue-icon-color" aria-hidden="true">
+          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+          </svg>
+          </span> Add Feed</button></p>
     </div>
   </div>
 <!-- submenu starts -->
@@ -48,7 +52,7 @@
       <article class="slds-box">
       <div class="slds-grid slds-wrap">
         <div class="slds-clearfix feed-box">
-          <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small">{{ if .Params.icon.href }}<img src="{{ $imagepath }}{{ $.Scratch.Get "feed.id"  }}" width="16" height="16">{{ else }}<img src="images/med-tech-innovation-feed-icon.jpg" width="16" height="16">{{ end }}</div>
+          <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small">{{ if .Params.icon.href }}<img src="{{ $imagepath }}{{ $.Scratch.Get "feed.id"  }}" width="16" height="16" onerror="this.onerror=null; this.src='/images/health-it-answers-feed-icon.jpg'">{{ else }}<img src="/images/med-tech-innovation-feed-icon.jpg" width="16" height="16">{{ end }}</div>
           <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="{{ .Params.link.href }}" target="_blank">{{.Title}}</a></b></div>
           <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">a day ago</div>
           <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
@@ -59,176 +63,6 @@
       </article>
       </li>
       {{ end }}
-
-<li class="slds-welcome-mat__tile feed-card">
-      <article class="slds-box">
-        <div class="slds-grid slds-wrap">
-          <div class="slds-clearfix feed-box">
-            <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/kevinmd-com-feed-icon.ico" width="16" height="16"></div>
-            <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#.">How divorce helped this physician [PODCAST]</a></b></div>
-            <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">a day ago</div>
-            <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-              <span class="slds-badge slds-theme_warning"><em>KevinMD.com</em></span>
-          </div>
-          </div>
-            </div>
-      </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/modern-healthcare-news-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#."> Ochsner acquiring Louisiana's largest private OBGYN practice</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Modern Healthcare News</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/health-it-answers-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#.">NursesNOW Roundup March 2021</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Health IT Answers</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/modern-healthcare-news-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#."> Ochsner acquiring Louisiana's largest private OBGYN practice</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Modern Healthcare News</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/health-it-answers-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#.">NursesNOW Roundup March 2021</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Health IT Answers</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/modern-healthcare-news-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#."> Ochsner acquiring Louisiana's largest private OBGYN practice</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Modern Healthcare News</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/health-it-answers-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#.">NursesNOW Roundup March 2021</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Health IT Answers</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/modern-healthcare-news-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#."> Ochsner acquiring Louisiana's largest private OBGYN practice</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Modern Healthcare News</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/health-it-answers-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#.">NursesNOW Roundup March 2021</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Health IT Answers</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/modern-healthcare-news-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#."> Ochsner acquiring Louisiana's largest private OBGYN practice</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Modern Healthcare News</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-<li class="slds-welcome-mat__tile feed-card">
-  <article class="slds-box">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-clearfix feed-box">
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><img src="images/health-it-answers-feed-icon.jpg" width="16" height="16"></div>
-        <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="#.">NursesNOW Roundup March 2021</a></b></div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">1 day ago</div>
-        <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
-          <span class="slds-badge slds-theme_warning"><em>Health IT Answers</em></span>
-      </div>
-      </div>
-        </div>
-  </article>
-</li>
-
-
-
-
-
   
 </ul>
 
