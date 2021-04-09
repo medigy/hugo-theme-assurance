@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "head" . }}
+<body>
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Awards" "context" $context )  }}   
+
+    {{ partial "bread-crumb" . }}
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+
+<!-- content starts -->
+<div class="slds-welcome-mat slds-m-bottom_large slds-m-top_large">
+
+  <div class="slds-clearfix slds-m-bottom_x-small">
+    <div class="slds-float_right">
+      <p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
+        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small blue-icon-color" aria-hidden="true">
+        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+        </svg>
+        </span> Add Award</button></p>
+    </div>
+  </div>
+
+<ul class="slds-size_1-of-1 list-card">
+    {{ with $.Site.Data.awards_landing }}
+    {{ range .awardDetails}}
+    {{ $.Scratch.Set "awardUrl" .awardUrl }}
+    <li class="slds-welcome-mat__tile">
+    
+        <article class="slds-box">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                    <a href="{{ .awardUrl }}"><img src="{{ .awardUrl }}{{ .awardFeaturedImage }}" alt="medigy-awards"></a>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+                    <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="{{ .awardUrl }}"><b>{{ .awardTitle }}</b></a></h2>
+                    <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .awardDescription | base64Decode }}</p>
+                    
+                    
+                    <div class="slds-clearfix">
+                    <div class="slds-float_right">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+                        </button>
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+                        </button>
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                        </button>
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+                        </button>
+                    </div>
+                    </div>
+                    
+                    </div>
+                </div>
+        </article>
+    
+    </li>
+    {{ end }}
+    {{ end }}
+  
+{{/*  <li class="slds-welcome-mat__tile">
+ 
+  <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+            <a href="recognitions-listing.html"><img src="images/2021-medigy-hitmc-awards-banner-2.jpg" alt=""></a>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+            <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="recognitions-listing.html"><b>HHS Announces Winners of Easy EHR Issue Reporting Challenge</b></a></h2>
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">As part of ongoing efforts to improve the safe use of health information technology (health IT) and electronic health records (EHRs), the U.S. Department of Health and Human Services announced the winners of the Easy EHR Issue</p>
+
+            <div class="slds-clearfix">
+              <div class="slds-float_right">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/facebook.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/twitter.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/email.svg" class="ico-bt-sm-5" alt="">
+                </button>
+              </div>
+            </div>
+            
+            </div>
+        </div>
+  </article>
+
+</li>
+
+<li class="slds-welcome-mat__tile">
+ 
+  <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+            <a href="recognitions-listing.html"><img src="images/2021-medigy-hitmc-awards-banner-2.jpg" alt=""></a>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+            <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="recognitions-listing.html"><b>HHS Announces Winners of Easy EHR Issue Reporting Challenge</b></a></h2>
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">As part of ongoing efforts to improve the safe use of health information technology (health IT) and electronic health records (EHRs), the U.S. Department of Health and Human Services announced the winners of the Easy EHR Issue</p>
+
+            <div class="slds-clearfix">
+              <div class="slds-float_right">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/facebook.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/twitter.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/email.svg" class="ico-bt-sm-5" alt="">
+                </button>
+              </div>
+            </div>
+            
+            </div>
+        </div>
+  </article>
+
+</li>
+
+<li class="slds-welcome-mat__tile">
+ 
+  <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+            <a href="recognitions-listing.html"><img src="images/2021-medigy-hitmc-awards-banner-2.jpg" alt=""></a>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+            <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="recognitions-listing.html"><b>HHS Announces Winners of Easy EHR Issue Reporting Challenge</b></a></h2>
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">As part of ongoing efforts to improve the safe use of health information technology (health IT) and electronic health records (EHRs), the U.S. Department of Health and Human Services announced the winners of the Easy EHR Issue</p>
+
+            <div class="slds-clearfix">
+              <div class="slds-float_right">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/facebook.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/twitter.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/email.svg" class="ico-bt-sm-5" alt="">
+                </button>
+              </div>
+            </div>
+            
+            </div>
+        </div>
+  </article>
+
+</li>
+
+<li class="slds-welcome-mat__tile">
+ 
+  <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+            <a href="recognitions-listing.html"><img src="images/2021-medigy-hitmc-awards-banner-2.jpg" alt=""></a>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+            <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="recognitions-listing.html"><b>HHS Announces Winners of Easy EHR Issue Reporting Challenge</b></a></h2>
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">As part of ongoing efforts to improve the safe use of health information technology (health IT) and electronic health records (EHRs), the U.S. Department of Health and Human Services announced the winners of the Easy EHR Issue</p>
+
+            <div class="slds-clearfix">
+              <div class="slds-float_right">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/facebook.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/twitter.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                </button>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="images/email.svg" class="ico-bt-sm-5" alt="">
+                </button>
+              </div>
+            </div>
+            
+            </div>
+        </div>
+  </article>
+
+</li>  */}}
+
+</ul>
+
+  </div>
+<!-- content ends -->
+
+</div>
+</section>
+
+<!-- footer starts -->
+
+{{ partial "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
+
+</body>
+</html>

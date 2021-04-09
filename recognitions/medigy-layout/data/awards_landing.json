@@ -1,0 +1,76 @@
+{
+  "awardMetaDescription": "Medigy shows the detailed list of medical and healthcare innovation awards in the digital healthcare sector.",
+  "awardMetaTitle": "List of Medical and Healthcare Innovation Awards | Medigy",
+  "awardMastHead": "Awards",
+  "awardOgUrl": "/recognitions",
+  "awardOgImage": "images/home-graphic-1.png",
+  "awardHomeTitle": "Medigy | Awards",
+  "breadcrumbs":[
+    {"breadcrumbLabel": "Home","breadcrumbLink":"/"},
+    {"breadcrumbLabel": "Recognitions","breadcrumbLink":""}
+    
+  ],
+  "awardDetails": [
+    {
+      "awardTitle": "2021 Medigy HITMC Awards",
+      "awardDescription": "VGhlIEhJVE1DIEF3YXJkcyBjZWxlYnJhdGUgb3V0c3RhbmRpbmcgYWNoaWV2ZW1lbnQgaW4gaGVhbHRoY2FyZSBtYXJrZXRpbmcsIFBSIGFuZCBjb21tdW5pY2F0aW9ucy4gSXQgaXMgYSBjaGFuY2UgZm9yIHRoZSBIZWFsdGhjYXJlIGFuZCBJVCBNYXJrZXRpbmcgQ29tbXVuaXR5IChISVRNQykgdG8gYWNrbm93bGVkZ2UgdGhlIG1hcmtldGluZyB3b3JrIG9mIGluZGl2aWR1YWxzLCBoZWFsdGggSVQgY29tcGFuaWVzLCBoZWFsdGhjYXJlIHByb3ZpZGVycywgYWdlbmNpZXMsIGFuZCBhc3NvY2lhdGlvbnMgb3ZlciB0aGUgcGFzdCB5ZWFyLgo=",
+      "awardShortDescription": "",
+      "awardUrl": "/recognitions/awards/2021/hitmc-awards/",
+      "awardFeaturedImage": "2021-medigy-hitmc-awards-banner.jpg",
+      "award": "2021-medigy-hitmc-awards",
+      "awardSourceText": "2021 Medigy HITMC Awards",
+      "awardTabTitle": "The award categories include:",
+      "awardSourceUrl": "https://www.hitmc.com/2021-medigy-hitmc-awards/",        
+      "awardListingOrder": 1
+    },
+    {
+      "awardTitle": "2020 Medigy HITMC Awards",
+      "awardDescription": "VGhlIDIwMjAgTWVkaWd5IEhJVE1DIEF3YXJkcyBhcmUgYSBjZWxlYnJhdGlvbiBvZiBvdXRzdGFuZGluZyBhY2hpZXZlbWVudCBpbiBtYXJrZXRpbmcsIFBSIGFuZCBjb21tdW5pY2F0aW9ucyBmb3IgaGVhbHRoY2FyZSBhbmQgSGVhbHRoIElULiBJdCBpcyBhIGNoYW5jZSBmb3IgdGhlIEhlYWx0aGNhcmUgYW5kIElUIE1hcmtldGluZyBDb21tdW5pdHkgKEhJVE1DKSB0byBjb21lIHRvZ2V0aGVyIGFuZCBhY2tub3dsZWRnZSB0aGUgaGFyZCB3b3JrIGFuZCBlZmZvcnRzIG9mIGluZGl2aWR1YWxzLCBIZWFsdGggSVQgY29tcGFuaWVzLCBoZWFsdGhjYXJlIHByb3ZpZGVycyBhbmQgYWdlbmNpZXMu",
+      "awardShortDescription": "",
+      "awardUrl": "/recognitions/awards/2020/hitmc-awards/",
+      "awardFeaturedImage": "2020-medigy-hitmc-awards-banner.png",
+      "award": "2020-medigy-hitmc-award-winners",
+      "awardSourceText": "2020 Medigy HITMC Awards",
+      "awardTabTitle": "The winners include:",
+      "awardSourceUrl": "https://www.hitmc.com/2020-medigy-hitmc-awards/",
+      "awardListingOrder": 2
+    },
+    {
+      "awardTitle": "HHS Announces Winners of Easy EHR Issue Reporting Challenge",
+      "awardDescription": "QXMgcGFydCBvZiBvbmdvaW5nIGVmZm9ydHMgdG8gaW1wcm92ZSB0aGUgc2FmZSB1c2Ugb2YgaGVhbHRoIGluZm9ybWF0aW9uIHRlY2hub2xvZ3kgKGhlYWx0aCBJVCkgYW5kIGVsZWN0cm9uaWMgaGVhbHRoIHJlY29yZHMgKEVIUnMpLCB0aGUgVS5TLiBEZXBhcnRtZW50IG9mIEhlYWx0aCBhbmQgSHVtYW4gU2VydmljZXMgYW5ub3VuY2VkIHRoZSB3aW5uZXJzIG9mIHRoZSBFYXN5IEVIUiBJc3N1ZSBSZXBvcnRpbmcgQ2hhbGxlbmdlLiBXaW5uZXJzIG9mIHRoaXMgY2hhbGxlbmdlIGNyZWF0ZWQgc29mdHdhcmUgdG9vbHMgdGhhdCBjb3VsZCBoZWxwIGNsaW5pY2lhbnMgcmVwb3J0IEVIUiB1c2FiaWxpdHkgYW5kIHNhZmV0eSBpc3N1ZXMgZmFzdGVyLCBtb3JlIGVmZmljaWVudGx5LCBhbmQgaW4gYWxpZ25tZW50IHdpdGggdGhlaXIgcmVndWxhciBjbGluaWNhbCB3b3JrZmxvdy4KCiAgICAgICAgTWFueSBFSFIgdXNlcnMgaGF2ZSBpbmRpY2F0ZWQgdGhlIG5lZWQgZm9yIG1vcmUgZWZmaWNpZW50IGFuZCB1c2VyLWZyaWVuZGx5IG1lY2hhbmlzbXMgdG8gZmFjaWxpdGF0ZSByZXBvcnRpbmcgc2FmZXR5IGNvbmNlcm5zIHF1aWNrbHkgYW5kIGVhc2lseSwgd2l0aCBsaXR0bGUgb3Igbm8gZGlzcnVwdGlvbiB0byB0aGVpciBjbGluaWNhbCB3b3JrZmxvdy4=",
+      "awardShortDescription": "",
+      "awardUrl": "/recognitions/challenges/2019/hhs-winners-of-easy-ehr-issue/",        
+      "awardFeaturedImage": "hhs-announces-winners-of-easy-ehr-issue-reporting-challenge.jpg",
+      "award": "hhs",
+      "awardSourceText": "Easy EHR Issue Reporting Challenge",
+      "awardTabTitle": "The winners include:",
+      "awardSourceUrl": "https://www.hhs.gov/about/news/2018/11/28/hhs-announces-winners-easy-ehr-issue-reporting-challenge.html",
+      "awardListingOrder": 3
+    },    
+    {
+      "awardTitle": "NODE.Health From Innovation to Transformation (FITT) Awards",
+      "awardDescription": "Tk9ERS5IZWFsdGjigJlzIEZyb20gSW5ub3ZhdGlvbiB0byBUcmFuc2Zvcm1hdGlvbiBBd2FyZHMgbWlzc2lvbiBpcyBkaXNjb3ZlcnksIHN0YW5kYXJkaXphdGlvbiwgaW1wcm92ZW1lbnQgYW5kIHNoYXJpbmcgb2YgYmVzdCBwcmFjdGljZXMgaW4gZGlnaXRhbCBldmlkZW5jZS4gSW4gY29sbGFib3JhdGlvbiB3aXRoIG91ciBwYXJ0bmVycywgTk9ERS5IZWFsdGggaXMgb24gYSBtaXNzaW9uIHRvIGZpbmQgZGlnaXRhbCBzb2x1dGlvbnMgd2l0aCByZXN1bHRzIGJhY2tlZCBieSBjbGluaWNhbCBldmlkZW5jZS4=",
+      "awardShortDescription": "",
+      "awardUrl": "/recognitions/awards/2019/fitt-award-winners/",
+      "awardFeaturedImage": "featured-image-fitt.jpg",
+      "award": "fitt",
+      "awardSourceText": "Nodehealth-awards",
+      "awardTabTitle": "The winners include:",
+      "awardSourceUrl": "https://www.digitalmedicineconference.com/page/1446217/nodehealth-awards",
+      "awardListingOrder": 4
+    },  
+    {
+      "awardTitle": "2019 Medigy HITMC Award Winners",
+      "awardDescription": "T24gRnJpZGF5IEFwcmlsIDE5dGggdGhlIDIwMTkgTWVkaWd5IEhJVE1DIEF3YXJkcyB3ZXJlIGhhbmRlZCBvdXQgYXQgdGhlIGFubnVhbCBIZWFsdGhjYXJlICYgSVQgTWFya2V0aW5nIENvbmZlcmVuY2UuIFRoZSBBd2FyZHMgYXJlIG1lYW50IHRvIHNob3djYXNlIGFuZCBhY2tub3dsZWRnZSB0aGUgYW1hemluZyB3b3JrIGJlaW5nIGRvbmUgaW4gaGVhbHRoY2FyZSBtYXJrZXRpbmcgYW5kIFBSLiBUaGV5IGFyZSBhbiBleHRlbnNpb24gb2YgdGhlIEhlYWx0aGNhcmUgJiBJVCBNYXJrZXRpbmcgQ29tbXVuaXR5IChISVRNQykuCgpGaWZ0ZWVuIHdpbm5lcnMgZnJvbSBhIHNob3J0bGlzdCBvZiBmaW5hbGlzdHMgd2VyZSBhbm5vdW5jZWQgaW4gaW5kaXZpZHVhbCwgaGVhbHRoIElUIGFuZCBwcm92aWRlciBjYXRlZ29yaWVzLgoKVGhhbmsgeW91IHRvIGV2ZXJ5b25lIHdobyBzdWJtaXR0ZWQgYSBub21pbmF0aW9uIGFuZCB0byB0aGUgZmluYWxpc3RzIGluIGVhY2ggY2F0ZWdvcnkuCgpTcGVjaWFsIHRoYW5rIHlvdSB0byB0aGUgYXdhcmRzIHNwb25zb3IgTWVkaWd5Lg==",
+      "awardShortDescription": "",
+      "awardUrl": "/recognitions/awards/2019/hitmc-awards/",
+      "awardFeaturedImage": "hitmc-award-group.jpg",
+      "award": "2019-medigy-hitmc-award-winners",
+      "awardSourceText": "Medigy HITMC",
+      "awardTabTitle": "The winners include:",
+      "awardSourceUrl": "https://www.hitmc.com/hitmc-community/2019-medigy-hitmc-award-winners/",
+      "awardListingOrder": 5
+    }
+    
+  ]
+}
