@@ -1,6 +1,6 @@
 ---
 title: Recognitions
-layout: recognitions
+layout: badge-recognitions
 breadcrumbs:
   - Home
   - Recognitions
