@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Awards" "context" $context )  }}       
+  
+      
+
+    {{ partial "bread-crumb" . }}
+
+<section class="">
+<div class="slds-container_large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- content-1 starts -->
+
+  <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
+    {{ if eq .Params.recognition_group_url "2020-medigy-hitmc-awards" }} 
+    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/recognitions/hitmc-awards-2020/recognition/hitmc.com-2020-medigy-hitmc-awards.jpg" alt="{{ .Params.title }}" class="post-figure"></div>
+    {{ else if eq .Params.recognition_group_url "2019-medigy-hitmc-award-winners" }}
+    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/recognitions/hitmc-awards-2019/recognition/2019-medigy-hitmc-awards.jpg" alt="{{ .Params.title }}" class="post-figure"></div>
+    {{ else }}
+    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="" alt="{{ .Params.title }}" class="post-figure"></div>
+    {{ end }}
+    <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+        <div class="news-content-overlap">
+        <p class="slds-m-bottom_xx-small"> {{ .Content }}</p>
+       <hr>
+    </div>
+    </div>
+      </div>
+<!-- content-1 ends -->
+</div>
+</section>
+<!-- footer starts -->
+{{ partial "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
+
+</body>
+</html>
