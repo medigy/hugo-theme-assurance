@@ -19,7 +19,7 @@ youtube: ''
 winner_url: ""
 masthead: "Awards"
 aliases:
- - /recognition/award/2021/medigy-hitmc-awards/add-of-the-year 
+  - /recognition/award/2021/medigy-hitmc-awards/add-of-the-year 
 breadcrumbs:
   - Home
   - Recognition
