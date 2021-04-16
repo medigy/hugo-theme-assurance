@@ -12,28 +12,110 @@
     {{ partial "bread-crumb" . }}
 
 <section class="">
-<div class="slds-container_large slds-container_center slds-p-left_small slds-p-right_small">
-
-<!-- content-1 starts -->
-
-  <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
-    {{ if eq .Params.recognition_group_url "2020-medigy-hitmc-awards" }} 
-    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/recognitions/hitmc-awards-2020/recognition/hitmc.com-2020-medigy-hitmc-awards.jpg" alt="{{ .Params.title }}" class="post-figure"></div>
-    {{ else if eq .Params.recognition_group_url "2019-medigy-hitmc-award-winners" }}
-    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/recognitions/hitmc-awards-2019/recognition/2019-medigy-hitmc-awards.jpg" alt="{{ .Params.title }}" class="post-figure"></div>
-    {{ else }}
-    <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="" alt="{{ .Params.title }}" class="post-figure"></div>
-    {{ end }}
-    <div class="slds-col slds-size_1-of-1 slds-m-top_small">
-        <div class="news-content-overlap">
-        <p class="slds-m-bottom_xx-small"> {{ .Content }}</p>
-       <hr>
-    </div>
-    </div>
+  <div class="slds-container_large slds-container_center slds-p-left_small slds-p-right_small">
+  
+  <!-- content-1 starts -->
+  
+    <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
+      {{ if eq .Params.recognition_group_url "2020-medigy-hitmc-awards" }} 
+      <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/recognitions/hitmc-awards-2020/recognition/hitmc.com-2020-medigy-hitmc-awards.jpg" alt="" class="post-figure"></div>
+      {{ else if eq .Params.recognition_group_url "2019-medigy-hitmc-award-winners" }}
+      <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/recognitions/hitmc-awards-2019/recognition/2019-medigy-hitmc-awards.jpg" alt="" class="post-figure"></div>
+      {{ else }}
+      <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="" alt="" class="post-figure"></div>
+      {{ end }}     
+      <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+          <div class="news-content-overlap">
+              
+            <article>
+              <div class="slds-grid slds-wrap slds-gutters">
+                  <div class="slds-col slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                      <div class="slds-grid slds-wrap slds-gutters">
+                          <div class="slds-col slds-size_4-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12">
+                            <span class="slds-avatar slds-avatar_circle mg-avatar">
+                              <img alt="Person name" src="{{ .Params.folderPath }}{{ .Params.profileimage }}" title="Profile Image">
+                            </span>
+                          </div>
+                          <div class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_10-of-12">
+                          <h1 class="slds-text-heading_medium slds-m-top_x-small">
+                            <b>{{ .Params.title }}</b></h1>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                          <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12">
+                            {{ $aboutWinnerCount :=  .Params.about_winner | countwords }}
+                          <p class="slds-text-heading_small slds-m-top_xx-small slds-m-bottom_xx-small"><b>{{ .Params.recognized }}</b>{{ if gt $aboutWinnerCount 0}} - {{ end }} {{ .Params.about_winner }}</p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-m-top_x-small">
+                          <div class="slds-clearfix slds-m-bottom_x-small">
+                            <div class="slds-float_right">
+                              {{ if  .Params.profile_url}}
+                              <p><a href="{{ .Params.profile_url }}"><button class="slds-button slds-button_brand"><img src="/icons/utility/adduser.svg" class="ico-bt-sm-4" alt=""> View Profile</button></a></p>
+                              {{ else }}
+                              <p><a  href="{{ .Params.winner_url }}"><button class="slds-button slds-button_brand"><img src="/icons/utility/adduser.svg" class="ico-bt-sm-4" alt=""> View Profile</button></a></p>
+                              {{ end }}
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        </div>
+              </div>
+                      </div>
+                     
+                  </div>
+            </article>
+            
+              <hr>
+          <p class="slds-m-bottom_xx-small">{{ .Content }}</p>     
+  
+          <div class="slds-clearfix">
+            <div class="slds-float_left">
+              <p class="slds-m-bottom_xx-small"><a href="{{ .Params.source_url }}" target="_blank">Read More</a></p>
+            </div>
+            
+            <div class="slds-float_right">
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+              </button>
+            </div>
+          </div>
+  
+          <article>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                      {{ if .Params.youtube}} 
+                      <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+                          <iframe width="100%" height="265" class="slds-m-top_small" src="{{ .Params.youtube }}" frameborder="0" allow="autoplay" allowfullscreen=""></iframe>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                          <div class="slds-m-top_small"><img alt="HITMC Awards" src="/recognitions/hitmc-awards-2020/recognition/award-youtube-thumb-1-2-play-button.jpg" title="HITMC Awards"></div>
+                          <div class="slds-m-top_small"><img alt="Barby Ingle" src="{{ print .Params.folderPath .Params.featuredimage }}" title="Barby Ingle"></div>
+                          
+                      </div>
+                      {{ else }}
+                      <div class="slds-m-top_small"><img alt="Barby Ingle" src="{{ print .Params.folderPath .Params.featuredimage }}" title="{{ .Params.Title }}"></div>
+                      {{ end }}
+                    </div>
+                    </div>
+                   
+                </div>
+          </article>
+  
       </div>
-<!-- content-1 ends -->
-</div>
-</section>
+      </div>
+        </div>
+  <!-- content-1 ends -->
+  
+  </div>
+  </section>
 <!-- footer starts -->
 {{ partial "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
 
