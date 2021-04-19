@@ -1,0 +1,78 @@
+{{ if (eq .Params.sub "events") }}
+{{ $startDate :=  dateFormat "January 2, 2006" .Params.date }}
+{{ $endDate :=  dateFormat "January 2, 2006" .Params.eventenddate }}
+{{ $day := dateFormat "Monday" .Params.date }}
+{{ $month := dateFormat "January" .Params.date }}
+{{ $daydate := dateFormat "02" .Params.date }}
+<li class="slds-welcome-mat__tile">
+    <article class="slds-box">
+      <div class="slds-grid slds-wrap slds-gutters">
+          <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+              <div class="slds-grid slds-wrap slds-gutters">
+                  <div class="slds-col slds-size_5-of-12 slds-medium-size_4-of-12 slds-large-size_2-of-12">
+                      <article class="slds-card slds-theme_shade slds-theme_alert-texture event-date-card">
+                          <div class="slds-card__body slds-card__body_inner slds-text-align_center">
+                              <p class="slds-text-body_medium">{{ $month }}</p>
+                              <h4 class="slds-text-heading_large slds-m-top_xx-small slds-m-bottom_xx-small"><b>{{ $daydate }}</b></h4>
+                              <p class="slds-text-body_medium">{{ $day }}</p>
+                          </div>
+                      </article>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_10-of-12">
+              <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></h2>
+              <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><span class="slds-icon_container">
+                <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                </svg>
+                </span> March 29 to March 31, 2021 (in 3 days)</p>
+              <p class="slds-text-body_medium slds-m-bottom_xx-small"><span class="slds-icon_container">
+                <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                <use xlink:href="/icons/utility-sprite/svg/symbols.svg#checkin"></use>
+                </svg>
+            </span>
+                {{ if  (ne .Params.openProjectCustomFields.location "null") -}}  {{ .Params.openProjectCustomFields.location }}
+                {{ end -}}</p>
+                {{ if ge .Date.Unix now.Unix   }}
+                {{ with  .OutputFormats.Get "Calendar" -}}
+                <div class="slds-clearfix slds-m-bottom_x-small">
+                  <div class="slds-float_right">
+                    <p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
+                      <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small blue-icon-color" aria-hidden="true">
+                      <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                      </svg>
+                      </span> Add to Calendar</button></p>
+                  </div>
+                </div>
+                {{- end }}
+                {{ end }}
+                </div>
+      </div>
+              </div>
+              {{ if .Params.featuredimage.href }}
+              {{ if ne .Params.featuredimage.href "Nil" }}
+                {{ if eq .Params.openprojectcustomfields.eventcancelled "t" }}
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                    </div>
+                {{ else }}
+                 {{ if ge .Params.eventenddate (now.Format "2006-01-02")}}
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                    </div>
+                 {{ else }}
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                    </div>
+                 {{ end }}
+                {{ end }}
+               {{ else }} 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                    <a href="{{ .Permalink }}"><img src="/images/event-img-2.jpg" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                </div>
+              {{ end }}
+              {{ end }}
+          </div>
+    </article>
+</li>
+{{ end }}
+

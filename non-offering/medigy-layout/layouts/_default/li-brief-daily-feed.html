@@ -1,0 +1,25 @@
+
+     {{ $.Scratch.Set "id" .Params.feed.id }}
+      {{ with .Params.feedSource }}
+          {{ $firstTab := index . 0 }}
+          {{ $.Scratch.Set "firstTab" $firstTab }}
+      {{ end }}
+      {{ $source := $.Scratch.Get "firstTab" }}  
+      {{ $imagepath  := print "/feed/latest/" $source "/" .Params.icon.href }} 
+    <li class="slds-welcome-mat__tile feed-card">
+      <article class="slds-box">
+      <div class="slds-grid slds-wrap">
+        <div class="slds-clearfix feed-box">
+          <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small">{{ if .Params.icon.href }}<img src="{{ $imagepath }}{{ $.Scratch.Get "feed.id"  }}" width="16" height="16" onerror="this.onerror=null; this.src='/images/health-it-answers-feed-icon.jpg'">{{ else }}<img src="/images/med-tech-innovation-feed-icon.jpg" width="16" height="16">{{ end }}</div>
+          <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="{{ .Params.link.href }}" target="_blank">{{.Title}}</a></b></div>
+          <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">a day ago</div>
+          <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
+            <span class="slds-badge slds-theme_warning"><em>{{ .Params.feed.title }}</em></span>
+        </div>
+        </div>
+          </div>
+      </article>
+      </li>
+
+
+<!-- content ends -->

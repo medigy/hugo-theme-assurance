@@ -20,10 +20,10 @@
   <div class="slds-button-group" role="group">
     <button class="slds-button slds-button_inverse" disabled="">Offerings:</button>
     <button class="slds-button slds-button_inverse"><a href ="/brief/daily/offerings/discovered/">Discovered</a></button>
-    <button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href="/brief/daily/offerings/trending/">Trending</a></button>
+    <button class="slds-button slds-button_inverse"><a href="/brief/daily/offerings/trending/">Trending</a></button>
     <button class="slds-button slds-button_inverse"><a href="/brief/daily/offerings/updated/">Recently Updated</a></button>
     <button class="slds-button slds-button_inverse" disabled="">Resources:</button>
-    <button class="slds-button slds-button_inverse"><a href="/brief/daily/resources/popular">Popular</a></button>
+    <button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href="/brief/daily/resources/popular">Popular</a></button>
     <button class="slds-button slds-button_inverse"><a href="/brief/daily/resources/latest">Latest</a></button>
   </div>
 </div>
@@ -35,12 +35,29 @@
 
   <ul class="slds-size_1-of-1 list-card">
 
-    {{ $postCount := len (where (where (where .Site.Pages.ByWeight.Reverse "Params.type"  "post" ) "Params.displayinlist" "!=" false) "Params.author" "!=" "Shahid Shah") }}
-    {{ $paginator := .Paginate (where (where (where .Site.Pages.ByWeight.Reverse "Params.type"  "post" ) "Params.displayinlist" "!=" false) "Params.author" "!=" "Shahid Shah") }}
-
-    {{ range $paginator.Pages }}
-        {{ .Render "li-brief-daily-trending" }}
-    {{ end }}
+    {{ $postCount := len (where (where (where (where (where .Site.RegularPages  "Params.displayinlist" "!="  "false") "Params.type" "!="  "post") "Params.date" "<=" now ) "Params.searchcategory" "!=" nil) "Params.sub" "!=" "sessions") }}
+    {{ $paginator :=  .Paginate (where (where (where (where (where .Site.RegularPages  "Params.displayinlist" "!="  "false") "Params.type" "!="  "post") "Params.date" "<=" now ) "Params.searchcategory" "!=" nil) "Params.sub" "!=" "sessions") }}
+        {{ range  $paginator.Pages }}
+            {{ if eq .Params.searchCategory "Awards" }}
+                {{ .Render "li-brief-daily-award" }}
+            {{ else }}
+                {{ if eq .Params.sub "events" }}
+                    {{ .Render "li-brief-daily-event" }}
+                {{ else }}
+                    {{ if eq .Params.sub "feeds" }}
+                        {{ .Render "li-brief-daily-feed" }}
+                    {{ else }}
+                        {{ if eq .Params.sub "brief" }}
+                            {{ .Render "li-brief-daily-news" }}
+                        {{ else}}
+                            {{ if eq .Params.searchCategory "HDO" }}
+                                {{ .Render "li-brief-daily-hdo" }}
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
 
   </ul>
 

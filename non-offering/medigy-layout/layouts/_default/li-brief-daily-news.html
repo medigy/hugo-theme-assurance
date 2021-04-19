@@ -1,0 +1,52 @@
+<li class="slds-welcome-mat__tile">
+   
+  <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+            <a href="{{ .Permalink }}"><img src="{{ print .Params.basePath .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+            <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></h2>
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .Summary | safeHTML | truncate 200 }}</p>
+            
+            <p class="slds-text-body_small">Posted {{ .Date.Format "Jan 2, 2006" }}
+              {{ $source := .Params.source }}
+              {{ $taxo := "categories" }}
+              {{ range .Param $taxo }}
+          {{ $name := . }}
+          {{ with $.Site.GetPage (printf "/%s/%s" $taxo ($name | urlize)) }}
+              {{ $.Scratch.Set "permalink" .Permalink }}
+          {{ end }}
+          {{ $name := replace $name "-hash-" "#" }}
+          {{ if eq $source "dropmark-curations"}}
+                <span class="slds-badge slds-m-bottom_xx-small">{{  $name }}</span>
+              {{ else }} 
+              <span class="slds-badge slds-m-bottom_xx-small">{{ $name }}</span>
+          {{ end }}
+          {{ end }}
+          </p>
+            <div class="slds-clearfix">
+              <div class="slds-float_left">
+                <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated Jan 21, 2021</p>
+              </div>
+              
+              <div class="slds-float_right">
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+              <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+              </button>
+              </div>
+            </div>
+            </div>
+        </div>
+  </article>
+
+</li>
