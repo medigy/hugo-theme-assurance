@@ -1,0 +1,90 @@
+<li class="slds-welcome-mat__tile">
+
+    <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+     {{ if .Params.logo}}
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12 slds-text-align_center">
+        {{ if ne .Params.logo "Nil" }}
+          <a href="{{ .Permalink }}"><img src="{{.Params.logo }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        {{ else }}
+        <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        {{ end }}
+        </div>
+    {{ else }}
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12 slds-text-align_center">
+        <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+    </div>
+    {{ end }}
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+    <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Params.title }}</b></a></h2>
+    {{ if (not ( .Params.companydescription)) | or (eq .Params.companydescription "") }}
+    <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"> Description about this institution is not provided. </p>
+    {{ else }}
+    <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .Params.companydescription | safeHTML | truncate 200 }}</p>
+    {{ end }}
+    <div class="slds-clearfix">
+    
+    <p class="slds-text-body_small slds-m-top_medium slds-m-bottom_xx-small">
+       {{ $industry := .Params.industry }}    
+      {{ $industryValue := substr $industry  0 9}} 
+      {{ if or ( .Params.industry) (and  (ne .Params.industry "Nil") (ne .Params.industry "") (ne $industryValue "undefined"))}}
+      <span class="slds-m-right_xx-small">
+        <span class="slds-icon_container">
+            <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#company"></use>
+            </svg>
+          </span>
+        {{ .Params.industry }}
+      </span>
+        {{ end }}
+
+        {{ $company := .Params.companySize }}    
+        {{ $companyValue := substr $company  0 9}} 
+        {{ if or ( .Params.companySize) (and  (ne .Params.companySize "Nil") (ne .Params.companySize "") (ne $companyValue "undefined"))}}
+      <span class="slds-m-right_xx-small">
+        <span class="slds-icon_container">
+            <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#people"></use>
+            </svg>
+          </span>
+        {{ .Params.companySize }}
+      </span>
+        {{ end }}
+        <span class="slds-m-right_xx-small">
+            <span class="slds-icon_container">
+            <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#checkin"></use>
+            </svg>
+        </span>
+        {{ $address := .Params.addressHouseBuilding }}    
+         {{ $addressHousevalue := substr $address  0 9}} 
+        {{ if or ( .Params.addressHouseBuilding) (and  (ne .Params.addressHouseBuilding "Nil") (ne .Params.addressHouseBuilding "") (ne $addressHousevalue "undefined"))}}
+        {{ .Params.addressHouseBuilding }}
+        {{if and ( .Params.addressTownCity) (and (ne .Params.addressTownCity "Nil") (ne .Params.addressTownCity "undefined")) }},
+        {{ .Params.addressTownCity }} {{ end }}
+        {{ if  and ( .Params.addressStateProvince) (and (ne .Params.addressStateProvince "Nil")  (ne .Params.addressStateProvince "undefined")) }},
+        {{ .Params.addressStateProvince }}{{ end }}{{ if  and ( .Params.addressCountryRegion) (and (ne .Params.addressCountryRegion "Nil") (ne .Params.addressCountryRegion "undefined")) }},
+        {{ .Params.addressCountryRegion}}{{ end }}{{ if  and ( .Params.addressZipPostalCode) (and (ne .Params.addressZipPostalCode "Nil") (ne .Params.addressZipPostalCode "undefined")) }},
+        {{ .Params.addressZipPostalCode}} {{ end }}
+        {{ end }}
+       </span>
+        </p>
+      <div class="slds-float_right">
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        </div>
+    </div>
+    
+    </div>
+    </div>
+    </article>
+    
+    </li>
+  

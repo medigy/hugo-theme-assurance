@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Institutions" "context" $context )  }}       
+  
+      
+
+    {{ partial "bread-crumb" . }}
+
+
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- submenu starts -->
+<div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
+    <div class="slds-button-group" role="group">
+      <button class="slds-button slds-button_inverse" disabled="">Institutions:</button>
+      <button class="slds-button slds-button_inverse"><a href ="/profile/regulated/institution/us-dhhs-cms/hospital/">Heathcare Delivery Organization</a></button>
+      <button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href="/profile/offeror/institution/">Innovators</a></button>
+     </div>
+  </div>
+  <!-- submenu ends -->  
+
+
+
+<!-- content starts -->
+<div class="slds-welcome-mat slds-m-bottom_large slds-m-top_large">
+ <ul class="slds-size_1-of-1 list-card">
+    {{ $postCount := len (.Pages.ByDate) }}
+    {{ $paginator :=  .Paginate .Pages.ByDate  }}                
+     {{ range $paginator.Pages}}                     
+        {{ .Render "li-offeror-institution" }}
+      {{ end }}  
+ </ul>
+  
+    </div>
+  <!-- content ends -->
+
+<!-- paginations starts -->
+<div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
+  <div class="slds-button-group" role="group">
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_first">««</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">«</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">1</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">2</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">3</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">...</button>
+    </div>     
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">224</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_middle">»</button>
+    </div>
+    <div>
+      <button class="slds-button slds-button_neutral slds-button_last">»»</button>
+    </div>
+  </div>
+</div>
+<!-- paginations ends -->
+
+</div>
+</section>
+
+{{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+
+</body>
+</html>

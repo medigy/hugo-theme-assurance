@@ -1,0 +1,16 @@
+{{ $rating := int .rating }}
+{{ range $i, $sequence :=  (seq .totalStar) }}
+  {{ if le $sequence $rating }}
+    <span class="slds-icon_container slds-icon-action-priority slds-icon_container_circle rating-circle">
+        <svg class="slds-icon slds-icon_xx-small" aria-hidden="true">
+        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#favorite"></use>
+        </svg>
+    </span>
+  {{ else }}
+    <span class="slds-icon_container slds-icon-action-download slds-icon_container_circle rating-circle">
+        <svg class="slds-icon slds-icon_xx-small" aria-hidden="true">
+        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#favorite"></use>
+        </svg>
+    </span>
+  {{ end }}
+{{ end }}
