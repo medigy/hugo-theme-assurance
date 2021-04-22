@@ -5,37 +5,11 @@
   
          
       {{ $context := . }}
-      {{ partial "navbar" (dict  "activeMenu" "Daily Brief" "context" $context )  }}       
+      {{ partial "navbar" (dict  "activeMenu" "Daily Brief" "mastHead" .Params.mastHead "context" $context )  }}       
     
         
+      {{ partial "bread-crumb" . }}
 
-<!-- breadcrumbs starts -->
-<section class="breadcrumbs-wrap">
-<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
-
-<nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
-    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
-        <li class="slds-breadcrumb__item">
-            <a href="index.html">Home</a>
-          </li>
-          <li class="slds-breadcrumb__item">
-            <a href="daily-brief.html">Offering</a>
-          </li>
-          <li class="slds-breadcrumb__item">
-            <a href="daily-brief.html">Netspective Communications LLC</a>
-          </li>
-          <li class="slds-breadcrumb__item">
-            <a href="daily-brief.html">Solution</a>
-          </li>
-        <li class="slds-breadcrumb__item slds-p-left_x-small">
-          Unblock Health
-      </li>
-    </ol>
-  </nav>
- 
-</div>
-</section>  
-<!-- breadcrumbs ends -->
 {{ $ownerVerifiedBadge := "" }}
 {{ $offeringTooltipData := .Site.Data.on_screen_tooltip_information.offeringProfileTooltips }}
 {{ range $offeringTooltipData }}
