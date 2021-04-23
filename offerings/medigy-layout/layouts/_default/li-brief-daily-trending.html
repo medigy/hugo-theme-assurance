@@ -20,7 +20,7 @@
               {{ $textValue := replace $value "-hash-" " #"  }}
               {{ $valueLink := replace $valueLink  "#" "hash-"  }}
         
-               <span class="slds-badge slds-m-bottom_xx-small">{{  $textValue }}</span> 
+              <a  href="/topic/{{ $valueLink }}" ><span class="slds-badge slds-m-bottom_xx-small">{{  $textValue }}</span></a>
                {{end}}
                {{ end }}
               
