@@ -12,7 +12,11 @@
         <div class="slds-clearfix feed-box">
           <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small">{{ if .Params.icon.href }}<img src="{{ $imagepath }}{{ $.Scratch.Get "feed.id"  }}" width="16" height="16" onerror="this.onerror=null; this.src='/images/health-it-answers-feed-icon.jpg'">{{ else }}<img src="/images/med-tech-innovation-feed-icon.jpg" width="16" height="16">{{ end }}</div>
           <div class="slds-float_left slds-m-bottom_xx-small slds-m-right_xx-small"><b><a href="{{ .Params.link.href }}" target="_blank">{{.Title}}</a></b></div>
-          <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">a day ago</div>
+          {{ $unixtime := .Date.Unix }}
+          {{ $addedTime := add $unixtime 14400}}
+          {{ $datenew:= dateFormat "2006-01-02 15:04:05 MST" .Date }}
+          {{ $datenew1 := dateFormat "2006-01-02" $addedTime }} 
+          <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small"><time class="timeago" datetime="{{ $datenew }}">{{ .Date }}</time></div>
           <div class="slds-float_right slds-m-bottom_xx-small slds-m-left_xx-small">
             <span class="slds-badge slds-theme_warning"><em>{{ .Params.feed.title }}</em></span>
         </div>
@@ -20,6 +24,7 @@
           </div>
       </article>
       </li>
+      
 
 
 <!-- content ends -->

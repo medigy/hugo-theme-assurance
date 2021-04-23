@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {{ partial "head" . }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.js"></script>
 <body>
 
        
@@ -72,7 +73,11 @@
 
 </div>
 </section>
-
+<script>
+    $(document).ready(function() {
+      $("time.timeago").timeago();
+    });
+</script>
 {{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
 
 </body>
