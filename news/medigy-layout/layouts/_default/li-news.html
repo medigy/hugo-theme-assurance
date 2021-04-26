@@ -15,9 +15,9 @@
                   <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .Summary | safeHTML | truncate 200 }}</p>
                   
                   <p class="slds-text-body_small">Posted {{ .Date.Format "Jan 2, 2006" }}
-                    {{ $source := .Params.source }}
-                    {{ $taxo := "categories" }}
-                    {{ range .Param $taxo }}
+                {{ $source := .Params.source }}
+                {{ $taxo := "categories" }}
+                {{ range .Param $taxo }}
                 {{ $name := . }}
                 {{ with $.Site.GetPage (printf "/%s/%s" $taxo ($name | urlize)) }}
                     {{ $.Scratch.Set "permalink" .Permalink }}
@@ -26,7 +26,7 @@
                 {{ if eq $source "dropmark-curations"}}
                       <span class="slds-badge slds-m-bottom_xx-small">{{  $name }}</span>
                     {{ else }} 
-                    <span class="slds-badge slds-m-bottom_xx-small">{{ $name }}</span>
+                    <a href="{{ $.Scratch.Get "permalink" }}" ><span class="slds-badge slds-m-bottom_xx-small">{{ $name }}</span></a>
                 {{ end }}
                 {{ end }}
                 </p>
