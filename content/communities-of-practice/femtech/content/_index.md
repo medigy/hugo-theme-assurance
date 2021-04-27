@@ -17,6 +17,6 @@ breadcrumbLinks:
  - "/"
  - "/communities"
  - "/communities/FemTech"
-layOut: "community-with-out-taxonomy-listing"
+layOut: "community-with-out-taxonomy-listing-femtech"
 ---
 Welcome to the FemTech community. This platform will keep you abreast with the latest technologies for millennial moms. The mission of this community is to create a healthy ecosystem that empower women across the globe to use smart technologies that help look after their own physical and mental health and to maximise their children’s potential. To get started, we have a couple of curated and contributes articles in this space and informative infographics that update about the latest innovations for new moms-to be. This platform not only provides an option to explore the various employment opportunities for women in the health tech space, but also brings together like-minded women across the digital health industry and supports them in achieving their goals and ambitions.
