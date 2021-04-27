@@ -17,6 +17,7 @@ breadcrumbLinks:
  - "/"
  - "/communities"
  - "/communities/risk-and-compliance"
+layOut: "community-with-out-taxonomy-listing-risk-and-compliance"
 ---
 
 
