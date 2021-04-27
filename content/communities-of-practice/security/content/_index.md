@@ -17,6 +17,7 @@ breadcrumbLinks:
  - "/"
  - "/communities"
  - "/communities/security"
+layOut: "community-with-out-taxonomy-listing-security" 
 ---
 
 
