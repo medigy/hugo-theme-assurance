@@ -1,0 +1,66 @@
+<li class="slds-welcome-mat__tile">
+
+    <article class="slds-box">
+    <div class="slds-grid slds-wrap slds-gutters">
+      {{ if .Params.featuredimg}}
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+        {{ if ne .Params.featuredimg "Nil" }}
+          <a href="{{ .Permalink }}"><img src="{{ print "/profile/regulated/institution/us-dhhs-cms/hospital/" .Params.featuredimg }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        {{ else }}
+        <a href="{{ .Permalink }}"><img src="" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        {{ end }}
+        </div>
+    {{ else }}
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+        <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+    </div>
+    {{ end }}
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+    <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Params.title }}</b></a></h2>
+    <p class="slds-text-body_medium slds-m-top_xx-small">
+    <span class="slds-avatar slds-avatar_circle">
+    <img alt="Rating" src="/images/hospital_compare.jpg" title="Rating" width="28">
+    </span> Rating: 
+    {{ if ne .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating "Not Available" }}
+    {{ $rating := int .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
+    {{ $totalStar := 5}}
+    {{ partial  "star-rating.html" (dict  "rating"  $rating  "totalStar" $totalStar) .Params.facilityId}}
+    {{ else }}
+    {{ .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
+    {{ end }}
+    </p>
+    <p class="slds-text-body_medium slds-m-bottom_xx-small"><span class="slds-icon_container">
+        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#checkin"></use>
+        </svg>
+    </span>
+      {{ if (ne .Params.usDhhsCmsHospitalCompareModel.address "Nil") }}{{ .Params.usDhhsCmsHospitalCompareModel.address }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.city "Nil")}}, {{.Params.usDhhsCmsHospitalCompareModel.city}}{{ end }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.countyName "Nil")}}, {{.Params.usDhhsCmsHospitalCompareModel.countyName}}{{ end }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.state.name "Nil")}}, {{.Params.usDhhsCmsHospitalCompareModel.state.name}}{{ end }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.zipCode "Nil")}}, {{.Params.usDhhsCmsHospitalCompareModel.zipCode}}{{ end }}{{ end }}</p>
+    
+    {{ range .Params.hdotypes }}
+    {{ $link := (replace (. | lower) " " "-") }}
+    <p class="slds-badge slds-m-bottom_xx-small"><a title="HDO Type" href="/hdotypes/{{ $link }}">{{.}}</a></p>
+  {{ end }} 
+    <div class="slds-clearfix">
+    
+    
+      <div class="slds-float_right">
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+        <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+          <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+        </button>
+        </div>
+    </div>
+    
+    </div>
+    </div>
+    </article>
+    
+    </li>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>      
+    {{ $context := . }}
+    {{ partial "navbar" (dict "mastHead" "Login" "context" $context )  }}        
+  
+    {{ partial "bread-crumb" . }}
+<section class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+<!-- content starts -->
+<div class="slds-m-bottom_large slds-p-bottom_medium slds-m-top_large slds-p-top_medium login-section">
+  <div class="slds-grid slds-wrap slds-gutters">
+    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-12"></div>
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+    <article class="slds-box slds-m-bottom_large">
+      <div class="slds-m-top_x-small slds-m-bottom_x-small">
+      <h2 class="slds-text-heading_medium slds-m-bottom_xx-small"><b>Please Login</b></h2>
+      <div class="slds-form-element slds-m-bottom_x-small">
+        <label class="slds-form-element__label"><b>Username</b></label>
+        <div class="slds-form-element__control">
+          <input type="text" id="form-element-03" placeholder="Email" required="" class="slds-input" />
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label"><b>Password</b></label>
+        <div class="slds-form-element__control">
+          <input type="text" id="form-element-03" placeholder="Password" required="" class="slds-input" />
+        </div>
+      </div>
+      <div class="slds-text-align_right">
+      <p class="slds-m-top_small slds-m-bottom_x-small"><a href="/reset-password">Forgot Your Password?</a></p>
+      <button class="slds-button slds-button_brand slds-text-body_medium slds-p-top_xx-small slds-p-bottom_xx-small"><b>LOGIN</b></button>
+    </div>
+    </div>
+    </article>
+  </div>
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+    <article class="slds-box">
+      <div class="slds-m-top_x-small slds-m-bottom_x-small">
+      <h2 class="slds-text-heading_medium slds-m-bottom_xx-small"><b>Signup</b></h2>
+      <div class="slds-form-element slds-m-bottom_x-small">
+        <label class="slds-form-element__label"><b>First Name</b></label>
+        <div class="slds-form-element__control">
+          <input type="text" id="form-element-03" placeholder="First Name" required="" class="slds-input" />
+        </div>
+      </div>
+      <div class="slds-form-element slds-m-bottom_x-small">
+        <label class="slds-form-element__label"><b>Last Name</b></label>
+        <div class="slds-form-element__control">
+          <input type="text" id="form-element-03" placeholder="Last Name" required="" class="slds-input" />
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label"><b>Email</b></label>
+        <div class="slds-form-element__control">
+          <input type="text" id="form-element-03" placeholder="Email" required="" class="slds-input" />
+        </div>
+      </div>
+      <div class="slds-m-top_small slds-m-bottom_x-small">
+        <!-- Catch come here -->
+      </div>
+      <div class="slds-text-align_right">
+      <p class="slds-m-top_small slds-m-bottom_x-small"><span>By clicking Agree &amp; Join, you agree to the Medigy<br><a target="_blank" href="https://www.medigy.com/terms-of-services/">Terms of Services </a>and <a target="_blank" href="https://www.medigy.com/privacy-policy/">Privacy Policy </a></span></p>
+      <button class="slds-button slds-button_brand slds-text-body_medium slds-p-top_xx-small slds-p-bottom_xx-small"><b>AGREE & JOIN</b></button>
+    </div>
+    </div>
+    </article>
+</div>
+<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-12"></div>
+</div>
+</div>
+<!-- content ends -->
+</section>
+
+<!-- footer starts -->
+
+{{ partial "footer" (dict  "activeMenu" "News" "context" $context ) }}
+
+</body>
+</html>
