@@ -17,6 +17,7 @@ breadcrumbLinks:
  - "/"
  - "/communities"
  - "/communities/covid-19-pandemic"
+layOut: "community-with-out-taxonomy-listing-covid-19-pandemic"
 ---
 
 # Pandemic
