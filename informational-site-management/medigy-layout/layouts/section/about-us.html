@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head" . }}
+<body>
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "mastHead" "About Us" "context" $context )  }}       
+  {{ partial "bread-crumb" . }}
+
+  <section>
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section slds-text-heading_small semi-light">
+
+<!-- content starts -->
+{{ replace .Content "{{ $.Site.Params.brand }}"  $.Site.Params.brand | safeHTML}}
+<!-- content ends -->
+
+</div>
+</section>
+
+<!-- footer starts -->
+
+{{ partial "footer" (dict  "activeMenu" "Communities" "context" $context ) }}
+
+</body>
+</html>
