@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Hospital" "context" $context )  }}       
+  
+      
+
+    {{ partial "bread-crumb" . }}
+
+<section class="">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+    
+    <!-- content-1 starts -->
+    <div class="slds-grid slds-wrap slds-gutters slds-p-top_large slds-p-bottom_large">
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+    <h2 class="slds-text-heading_large slds-m-top_large slds-m-bottom_medium"><b>Adirondack Medical Center - Physician</b></h2>
+    </div>
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+        <div class="slds-grid slds-wrap slds-gutters">
+          <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center slds-m-top_small">
+              <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>Do you want to manage this HDO's profile?</b></h2>
+              <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Yes, Claim this HDO</button>
+            </div>  
+          </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+              <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center slds-m-top_small">
+                <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>Do you know anyone who's been to this HDO?</b></h2>
+                <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Invite them to share their experience</button>
+              </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    <!-- content-1 ends -->
+    
+    <!-- git-buttons-row starts -->
+    <div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center grey-bg">
+      <div class="slds-button-group" role="group">
+        <div>
+          <button class="slds-button slds-button_neutral slds-button_first">Watch</button>
+        </div>
+        <div>
+          <button class="slds-button slds-button_neutral slds-button_middle">Used By</button>
+        </div>
+        <div>
+          <button class="slds-button slds-button_neutral slds-button_middle">Star</button>
+        </div>
+        <div>
+          <button class="slds-button slds-button_neutral slds-button_middle">On Wishlist</button>
+        </div>
+        <div>
+          <button class="slds-button slds-button_neutral slds-button_last">Questions Asked</button>
+        </div>
+      </div>
+    </div>
+    <!-- git-buttons-row ends -->
+    
+    <!-- content-2 starts -->
+    <article class="slds-box slds-m-bottom_large hdo-section">
+      <div class="slds-tabs_default">
+        <ul class="slds-tabs_default__nav slds-wrap" role="tablist">
+        <li class="slds-tabs_default__item slds-is-active" title="Overview" role="presentation">
+        <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Overview</a>
+        </li>
+        <li class="slds-tabs_default__item" title="Innovation Programs" role="presentation">
+        <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">Innovation Programs</a>
+        </li>
+        <li class="slds-tabs_default__item" title="Timely & Effective Care" role="presentation">
+          <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Timely & Effective Care</a>
+          </li>
+          <li class="slds-tabs_default__item" title="Complications & Deaths" role="presentation">
+            <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-3__item">Complications & Deaths</a>
+            </li>
+            <li class="slds-tabs_default__item" title="Unplanned Hospital Visits" role="presentation">
+              <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-5" id="tab-default-3__item">Unplanned Hospital Visits</a>
+              </li>
+              <li class="slds-tabs_default__item" title="Payment & Value of Care" role="presentation">
+                <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-6" id="tab-default-3__item">Payment & Value of Care</a>
+                </li>
+                <li class="slds-tabs_default__item" title="Patient Access & Data Friction" role="presentation">
+                  <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-7" id="tab-default-3__item">Patient Access & Data Friction</a>
+                  </li>
+                  <li class="slds-tabs_default__item" title="Survey of patients' experiences" role="presentation">
+                    <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-8" id="tab-default-3__item">Survey of patients' experiences</a>
+                    </li>
+          </ul>
+        <!-- overview starts -->
+        <div id="tab-default-1" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+          <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+              <div class="slds-region_narrow list-col-2">
+                <dl class="slds-dl_horizontal">
+                  <dt class="slds-dl_horizontal__label"><b>Address:</b></dt>
+                  <dd class="slds-dl_horizontal__detail">
+                    2233 STATE ROUTE 86, SARANAC LAKE, FRANKLIN, 
+                    <a href="/geographystates/new-york">New York</a>, <a href="/geographyzipcodes/12983">12983</a>
+                  </dd>
+        
+                  <dt class="slds-dl_horizontal__label"><b>Phone:</b></dt>
+                  <dd class="slds-dl_horizontal__detail">(518) 891-4141</dd>
+                  
+                  <dt class="slds-dl_horizontal__label"><b>Rating:</b></dt>
+                  <dd class="slds-dl_horizontal__detail">
+                    <span class="slds-avatar slds-avatar_circle">
+                    <img alt="Rating" src="images/hospital_compare.jpg" title="Rating" width="28"/>
+                    </span> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""><br>
+                    <a href="#.">View rating details</a>
+                  </dd>
+                </dl>
+              </div>
+    <hr>
+    <h2 class="slds-text-heading_small slds-m-bottom_x-small"><b>General information</b></h2>
+    <div class="slds-region_narrow list-col-2">
+      <dl class="slds-dl_horizontal">
+        <dt class="slds-dl_horizontal__label">Hospital type <a href="#."><img src="icons/utility/info_alt.svg" class="ico-bt-sm-5" alt=""></a>:</dt>
+        <dd class="slds-dl_horizontal__detail"><a href="#.">Acute Care Hospitals</a></dd>
+    
+        <dt class="slds-dl_horizontal__label">Provides emergency services:</dt>
+        <dd class="slds-dl_horizontal__detail">Yes</dd>
+        
+        <dt class="slds-dl_horizontal__label">Hospital Ownership:</dt>
+        <dd class="slds-dl_horizontal__detail">Voluntary non-profit - Other</dd>
+    
+        <dt class="slds-dl_horizontal__label">Institution type:</dt>
+        <dd class="slds-dl_horizontal__detail"><a href="#.">Healthcare Delivery Organization (HDO)</a></dd>
+        
+        <dt class="slds-dl_horizontal__label">Geography Census Division:</dt>
+        <dd class="slds-dl_horizontal__detail"><a href="#.">Mid-Atlantic</a></dd>
+        
+        <dt class="slds-dl_horizontal__label">Geography Census Region:</dt>
+        <dd class="slds-dl_horizontal__detail"><a href="#.">Northeast</a></dd>
+        
+      </dl>
+    </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <aside>
+              <iframe class="hospitalmap" width="100%" height="350px" id="mapcanvas" src="https://maps.google.com/maps?q=Adirondack%20Medical%20Center%20-%20Physician12983&amp;output=embed&amp;wmode=transparent" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+              </div>
+              </iframe>
+            </aside>
+            </div>
+          </div>  
+        </div>
+        <!-- overview ends -->
+    
+    
+        <div id="tab-default-2" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-2__item">Item Two Content</div>
+        <div id="tab-default-3" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-3__item">Item Three Content</div>
+        </div>
+      
+        </article>
+    <!-- content-2 ends -->
+    
+    </div>
+    </section>
+    {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+
+</body>
+</html>
