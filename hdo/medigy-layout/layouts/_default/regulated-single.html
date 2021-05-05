@@ -12,12 +12,14 @@
     {{ partial "bread-crumb" . }}
 
 <section class="">
+  {{ $productId := .Params.facilityId }}          
+  {{ $productName := .Title }}
     <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
     
     <!-- content-1 starts -->
     <div class="slds-grid slds-wrap slds-gutters slds-p-top_large slds-p-bottom_large">
     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
-    <h2 class="slds-text-heading_large slds-m-top_large slds-m-bottom_medium"><b>Adirondack Medical Center - Physician</b></h2>
+    <h2 class="slds-text-heading_large slds-m-top_large slds-m-bottom_medium"><b>{{ .Title }}</b></h2>
     </div>
       <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
         <div class="slds-grid slds-wrap slds-gutters">
@@ -41,7 +43,33 @@
     <!-- git-buttons-row starts -->
     <div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center grey-bg">
       <div class="slds-button-group" role="group">
-        <div>
+
+        {{ $countInFrontmatter := 0 }}
+        {{ $urlAjax  := $.Site.Params.GraphQLUrl }}
+        {{ range first 1 .Site.Data.hdo_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range .items}}
+              {{ $label := .question }}
+              {{ $outerDivClass := .prefix.outerDivClass }}
+              {{ $anchorTagId := .questionCode }}
+              {{ $anchorTagClass := .prefix.anchorTagClass }}
+              {{ $spanId := .prefix.spanId }}
+              {{ $countDivId := .prefix.countDivId }}
+              {{ $countSpanId := .prefix.countSpanId }}
+              {{ $MetricName := .localQuestionCode }}
+              {{ $globalStatusVar := .prefix.globalStatusVar }}
+              {{ $metricKeyId := .prefix.metricKeyId }}
+              {{ $tooltip := .prefix.tooltip }}
+              {{ $metricKeyName := .prefix.metricKeyName }}
+              {{ $type := .prefix.type }}
+              {{ $badgeQueryType := .prefix.badgeQueryType }}
+              {{ partial "cadds-common" (dict  "label"  $label  "outerDivClass" $outerDivClass  "anchorTagId" $anchorTagId  "anchorTagClass" $anchorTagClass   "productId" $productId "productName" $productName "spanId" $spanId "countDivId" $countDivId  "countSpanId" $countSpanId "countInFrontmatter" $countInFrontmatter "MetricName" $MetricName "urlAjax" $urlAjax "globalStatusVar" $globalStatusVar "metricKeyId" $metricKeyId "metricKeyName" $metricKeyName "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $MetricName $tooltip $productId }}  
+            {{ end }}
+
+          {{ end }}
+        {{ end }}
+
+        <!-- <div>
           <button class="slds-button slds-button_neutral slds-button_first">Watch</button>
         </div>
         <div>
@@ -55,7 +83,7 @@
         </div>
         <div>
           <button class="slds-button slds-button_neutral slds-button_last">Questions Asked</button>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- git-buttons-row ends -->
@@ -97,19 +125,35 @@
                 <dl class="slds-dl_horizontal">
                   <dt class="slds-dl_horizontal__label"><b>Address:</b></dt>
                   <dd class="slds-dl_horizontal__detail">
-                    2233 STATE ROUTE 86, SARANAC LAKE, FRANKLIN, 
-                    <a href="/geographystates/new-york">New York</a>, <a href="/geographyzipcodes/12983">12983</a>
+                    {{ if (ne .Params.usDhhsCmsHospitalCompareModel.address "Nil") }}{{ .Params.usDhhsCmsHospitalCompareModel.address }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.city "Nil")}}, {{.Params.usDhhsCmsHospitalCompareModel.city}}{{ end }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.countyName "Nil")}}, {{.Params.usDhhsCmsHospitalCompareModel.countyName}}{{ end }}
+                    {{if (ne .Params.usDhhsCmsHospitalCompareModel.state.name "Nil")}},{{ $link := (replace (.Params.usDhhsCmsHospitalCompareModel.state.name | lower) " " "-") }} <a href="/geographystates/{{ $link }}">{{.Params.usDhhsCmsHospitalCompareModel.state.name}}</a>     {{ end }}{{if (ne .Params.usDhhsCmsHospitalCompareModel.zipCode "Nil")}}, <a href="/geographyzipcodes/{{.Params.usDhhsCmsHospitalCompareModel.zipCode}}">{{.Params.usDhhsCmsHospitalCompareModel.zipCode}}</a>{{ end }}
+                    {{ end }}
                   </dd>
         
                   <dt class="slds-dl_horizontal__label"><b>Phone:</b></dt>
-                  <dd class="slds-dl_horizontal__detail">(518) 891-4141</dd>
+                  <dd class="slds-dl_horizontal__detail">{{ range first 1 (.Params.usDhhsCmsHospitalCompareModel.unplannedHospitalVisits) }} {{ if (ne .phoneNumber "Nil") }}{{ .phoneNumber}}{{else}}Not Available{{ end }}{{ end }}</dd>
                   
                   <dt class="slds-dl_horizontal__label"><b>Rating:</b></dt>
+                  {{ if lt (len (string .Params.facilityId)) 6 }}
+                  {{ $facilityId := print "0" .Params.facilityId }}
+                  {{ $.Scratch.Set "facilityId"  $facilityId }}
+                  {{ else }}
+                  {{ $.Scratch.Set "facilityId" .Params.facilityId }}
+                  {{ end }}
                   <dd class="slds-dl_horizontal__detail">
                     <span class="slds-avatar slds-avatar_circle">
-                    <img alt="Rating" src="images/hospital_compare.jpg" title="Rating" width="28"/>
-                    </span> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""> <img src="icons/utility/favorite.svg" class="ico-bt-sm-2-x" alt=""><br>
-                    <a href="#.">View rating details</a>
+                      
+                    <img alt="Rating" src="/images/hospital_compare.jpg" title="Rating" width="28"/></span>
+                    {{ if (ne  .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating   "Not Available") }}
+                    {{ $rating := int .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
+                    {{ $totalStar := 5}}
+                    {{ partialCached "star-rating.html" (dict  "rating"  $rating  "totalStar" $totalStar) $productId $productName}}
+                     <br>
+                    {{/*  <a id="rateViewClick" class="cursorLink">View rating details</p>  */}}
+                    {{ else }}
+                    {{ .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
+                  {{ end }}
+                   
                   </dd>
                 </dl>
               </div>
@@ -117,32 +161,47 @@
     <h2 class="slds-text-heading_small slds-m-bottom_x-small"><b>General information</b></h2>
     <div class="slds-region_narrow list-col-2">
       <dl class="slds-dl_horizontal">
-        <dt class="slds-dl_horizontal__label">Hospital type <a href="#."><img src="icons/utility/info_alt.svg" class="ico-bt-sm-5" alt=""></a>:</dt>
-        <dd class="slds-dl_horizontal__detail"><a href="#.">Acute Care Hospitals</a></dd>
-    
+        <dt class="slds-dl_horizontal__label">Hospital type <a href="#."><img src="/icons/utility/info_alt.svg" class="ico-bt-sm-5" alt=""></a>:</dt>
+        <dd class="slds-dl_horizontal__detail">
+          {{ if (ne .Params.usDhhsCmsHospitalCompareModel.hospitalType.type "Nil") }}
+          {{ $label := .Params.usDhhsCmsHospitalCompareModel.hospitalType.type }}
+          {{ range .Params.hdoTypes }}
+          {{ $link := (replace ( . | lower) " " "-") }} 
+          <a href="/hdotypes/{{ $link }}">{{.}}</a>
+          {{ end }}
+          {{ end }}
+        </dd>
         <dt class="slds-dl_horizontal__label">Provides emergency services:</dt>
-        <dd class="slds-dl_horizontal__detail">Yes</dd>
+        <dd class="slds-dl_horizontal__detail">{{ .Params.usDhhsCmsHospitalCompareModel.emergencyServices }} </dd>
         
         <dt class="slds-dl_horizontal__label">Hospital Ownership:</dt>
-        <dd class="slds-dl_horizontal__detail">Voluntary non-profit - Other</dd>
+        <dd class="slds-dl_horizontal__detail">{{ .Params.usDhhsCmsHospitalCompareModel.hospitalOwnership.structure }}</dd>
     
         <dt class="slds-dl_horizontal__label">Institution type:</dt>
-        <dd class="slds-dl_horizontal__detail"><a href="#.">Healthcare Delivery Organization (HDO)</a></dd>
+        <dd class="slds-dl_horizontal__detail"> {{ range .Params.institutionTypes }}
+          {{ $link := (replace (replace (replace ( . | lower) " " "-") "(" "" ) ")" "")}}  
+          <a href="/institutiontypes/{{ $link }}">{{ . }}</a>
+          {{ end }}
+        </dd>
         
         <dt class="slds-dl_horizontal__label">Geography Census Division:</dt>
-        <dd class="slds-dl_horizontal__detail"><a href="#.">Mid-Atlantic</a></dd>
+        <dd class="slds-dl_horizontal__detail">{{ range .Params.geographyCensusDivisions }}
+          {{ $link := (replace ( . | lower) " " "-") }}
+                <a href="/geographycensusdivisions/{{ $link }}">{{ . }}</a>
+          {{ end }} </dd>
         
         <dt class="slds-dl_horizontal__label">Geography Census Region:</dt>
-        <dd class="slds-dl_horizontal__detail"><a href="#.">Northeast</a></dd>
+        <dd class="slds-dl_horizontal__detail">{{ range .Params.geographycensusRegions }}
+          {{ $link := (replace (. | lower) " " "-") }}
+                <a href="/geographycensusregions/{{ $link }}">{{ . }}</a>
+          {{ end }}</dd>
         
       </dl>
     </div>
             </div>
             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
             <aside>
-              <iframe class="hospitalmap" width="100%" height="350px" id="mapcanvas" src="https://maps.google.com/maps?q=Adirondack%20Medical%20Center%20-%20Physician12983&amp;output=embed&amp;wmode=transparent" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-              </div>
-              </iframe>
+              {{ partial "hospitalmap.html" . $productId $productName}} 
             </aside>
             </div>
           </div>  
@@ -159,6 +218,22 @@
     
     </div>
     </section>
+    <script>
+      $(document).ready(function () {
+        $('#rateViewClick').on("click", function () {
+          if ($(this).html().search('View rating details') != -1)
+          {
+            $(this).html('<a> Hide rating details</a>');
+            $('#rateDetlArea').show();
+          }
+          else
+          {
+            $(this).html('<a> View rating details</a>');
+            $('#rateDetlArea').hide();        
+          }       
+        });
+      });
+    </script>
     {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
 
 </body>

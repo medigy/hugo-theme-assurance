@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+{{ $context := . }}
+{{ partial "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Hospital" "context" $context )  }}       
+  
+<!-- breadcrumbs starts -->
+<section class="breadcrumbs-wrap">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+    
+    <nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
+        <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+            <li class="slds-breadcrumb__item">
+                <a href="/">Home</a>
+              </li>
+              <li class="slds-breadcrumb__item">
+                <a href="/profile/regulated/institution/us-dhhs-cms/hospital"> Geography Zip Codes</a>
+              </li>
+              <li class="slds-breadcrumb__item slds-p-left_x-small">{{.Title}}</li>
+        </ol>
+      </nav>
+     
+    </div>
+</section>  
+    <!-- breadcrumbs ends -->
+    <section class="">
+        <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+        
+        <!-- content-1 starts -->
+        <div class="slds-grid slds-wrap slds-gutters slds-p-top_large slds-p-bottom_large">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+        <h2 class="slds-text-heading_large slds-m-top_large slds-m-bottom_medium"><b>{{ .Title }}</b></h2>
+        </div>
+        <!-- content-1 ends -->
+        
+     </div>
+    {{ $posts := where .Site.Pages "Type" "post" }}
+    {{ $.Scratch.Set "tagCounter" 0 }}
+    {{ $.Scratch.Set "productCounter" 0 }}
+    {{ $.Scratch.Set "serviceCounter" 0 }}
+    {{ $.Scratch.Set "solutionCounter" 0 }}
+    {{ $categoryName := .Title }}
+    {{ range $posts}}
+    {{ if (in .Params.categories $categoryName) }}
+    {{ $.Scratch.Add "tagCounter" 1 }}
+    {{ if (in .Params.offeringType "Product")}}
+    {{ $.Scratch.Add "productCounter" 1 }}
+    {{ end }}
+    {{ if (in .Params.offeringType "Service")}}
+    {{ $.Scratch.Add "serviceCounter" 1 }}
+    {{ end }}
+    {{ if (in .Params.offeringType "Solution")}}
+    {{ $.Scratch.Add "solutionCounter" 1 }}
+    {{ end }}
+    {{ end }}
+    {{ end }}
+       <!-- Topic Community Insights starts -->
+       <div class="git-buttons-row slds-border_bottom slds-border_top slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_medium">
+        <h3 class="slds-text-heading_small slds-m-top_xx-small"><b>Topic Community Insights</b></h3>
+        <div class="slds-m-top_x-small">
+        <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Total: <em class="slds-text-color_error">{{ $.Scratch.Get "tagCounter" }}</em></span> 
+        <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Product: <em class="slds-text-color_error">{{ $.Scratch.Get "productCounter" }}</em></span> 
+        <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Solution: <em class="slds-text-color_error">{{ $.Scratch.Get "solutionCounter" }}</em></span> 
+        <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Service: <em class="slds-text-color_error">{{ $.Scratch.Get "serviceCounter" }}</em></span> 
+        </div>
+        </div>
+        <!-- Topic Community Insights ends -->
+              <!-- Related Topic Community starts -->
+      <div class="git-buttons-row slds-border_bottom slds-p-bottom_small slds-m-bottom_medium">
+        <h3 class="slds-text-heading_small"><b>Related Topic Community</b></h3>
+        <div class="slds-m-top_x-small">
+          <ul class="slds-list_dotted slds-grid slds-wrap slds-gutters">
+            {{/*  <li class="slds-item slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                <a href="topic-details.html">Medigy: Coding / Billing And Claims</a>
+            </li>  */}}
+          </ul>
+        </div>
+        </div>
+        <!-- Related Topic Community ends -->
+        <article>
+            <h4 class="slds-text-heading_medium slds-m-bottom_xx-small slds-text-align_center"><b>Top 5 Most Popular HDO having {{ replace .Title "Medigy: " ""}}</b></h4>
+            <!-- submenu starts -->
+    <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
+        <div class="slds-button-group" role="group">
+          <button class="slds-button slds-button_outline-brand">Followed</button>
+          <button class="slds-button slds-button_inverse">Starred</button>
+          <button class="slds-button slds-button_inverse">Used by</button>
+          <button class="slds-button slds-button_inverse">Wishlisted</button>
+        </div>
+      </div>
+      <!-- submenu ends -->  
+      <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
+        <ul class="slds-size_1-of-1 list-card">
+        {{ range first 5  ( .Pages.ByParam "follow").Reverse }}
+        {{ .Render "li-regular-institution" }}
+        {{ end }}
+        </ul>
+
+      </div>
+        </article>
+   </section>
+    
+{{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+
+</body>
+</html>
