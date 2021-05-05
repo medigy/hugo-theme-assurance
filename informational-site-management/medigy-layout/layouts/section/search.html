@@ -27,10 +27,6 @@
       <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
       
         <ul class="slds-size_1-of-1 list-card" id="search-results">
-      
-
-              {{ .Render "li-search" }}
-      
         </ul>
       
         </div>
@@ -373,7 +369,7 @@ if(value.highlight.categories!=undefined){
       var cat_text = '';
       if(cat !=undefined){
       for(i=0;i< cat.length; i++){
-          cat_text +='<span class="tag-style-1 mr-1"><a href="#">'+cat[i]+'</a></span>';
+          cat_text +='<span class="class="slds-badge slds-m-left_x-small slds-m-bottom_x-small""><a href="#">'+cat[i]+'</a></span>';
          if(i==2){
               break;
           }
