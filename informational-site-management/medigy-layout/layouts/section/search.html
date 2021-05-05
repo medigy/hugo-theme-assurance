@@ -283,7 +283,7 @@ function populateResults(result){
           templateDefinition +='<div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12"><h2 class="slds-text-heading_medium"><a href="${link}" ${target}><b>${title}</b></a></h2>';
                     
             templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">${snippet}</p>';
-            templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><b>Categories:</b><span>${categories}</span></p>';
+            templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><b>Categories:</b>${categories}</p>';
             templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><b>Breadcrumbs:</b><span>${breadcrub}</span></p>';
             templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><a href="${link}" ${target}>Read More</a></p></div></div></article></li>';
                 
@@ -369,7 +369,7 @@ if(value.highlight.categories!=undefined){
       var cat_text = '';
       if(cat !=undefined){
       for(i=0;i< cat.length; i++){
-          cat_text +='<span class="class="slds-badge slds-m-left_x-small slds-m-bottom_x-small""><a href="#">'+cat[i]+'</a></span>';
+          cat_text +='<span class="slds-badge slds-m-left_x-small slds-m-bottom_x-small"><a href="#">'+cat[i]+'</a></span>';
          if(i==2){
               break;
           }
