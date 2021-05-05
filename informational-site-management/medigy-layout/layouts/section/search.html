@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>      
+    {{ $context := . }}
+    {{ partial "navbar" (dict "mastHead" "Search Results" "context" $context )  }}        
+  
+    {{ partial "bread-crumb" . }}
+
+    <section class="">
+      <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+      
+      <!-- submenu starts -->
+      <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
+        <div class="slds-button-group" role="group">
+          <button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href ="#">All</a></button>
+          <button class="slds-button slds-button_inverse"><a href="#">Products</a></button>
+          <button class="slds-button slds-button_inverse"><a href="#">Solutions</a></button>
+          <button class="slds-button slds-button_inverse"><a href="#">Services</a></button>
+          <button class="slds-button slds-button_inverse"><a href="#">News</a></button>
+        </div>
+      </div>
+      <!-- submenu ends -->  
+      
+      
+      <!-- content starts -->
+      <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
+      
+        <ul class="slds-size_1-of-1 list-card" id="search-results">
+      
+
+              {{ .Render "li-search" }}
+      
+        </ul>
+      
+        </div>
+      <!-- content ends -->
+      
+      <!-- paginations starts -->
+      <div class="custom-pagination-block git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
+        
+        {{  partial "pagination" . }}
+        
+      </div>
+      <!-- paginations ends -->
+      
+      </div>
+      </section>
+
+<!-- footer starts -->
+
+{{ partial "footer" (dict  "activeMenu" "News" "context" $context ) . }}
+
+
+<script>
+  var searchQuery = param("s");
+   var es_page = param("page");
+   if(es_page==1){
+        $("#es_prev").hide();
+   }
+  if(searchQuery){
+    $("#search-for-breadcrumb").text("'"+searchQuery+"'");
+      $("#search-query").val(searchQuery);
+      // $("#es-page").val(es_page);
+      $("#es_nxt").hide();
+      $("#es_prev").hide();
+      //$('#search-results').html("<p id='ajx_text'>Please wait.</p>");
+      $('#search-results').html('<div class="text-center"><div class="spinner-border" role="status" id="ajx_text"><span class="sr-only">Loading...</span></div></div>');
+
+      executeSearch(searchQuery);
+  }else {
+      $("#es_nxt").hide();
+      $('#search-results').append("<p>Please enter a word or phrase above</p>");
+  }
+
+  function param(name) {
+      return decodeURIComponent((location.search.split(name + '=')[1] || '').split('&')[0]).replace(/\+/g, ' ');
+  }
+
+  function executeSearch(searchQuery){
+      var size=10
+       var offset
+       var es_page = param("page");
+       var cat_param=param("category");
+       if(es_page==''){
+         es_page=1;  
+       }
+
+      if(es_page==1){
+      offset=0
+      }else{
+      offset=(es_page-1)*size;
+  }
+
+  var req_data='';
+  
+ // req_data='{"query": {"multi_match" : { "query" :"'+searchQuery+'" }},"size":"'+size+'", "from":"'+offset+'","highlight" : {"fields" : {"*":{}}},"aggs" : {"sub_count" : {"terms" : {"field" : "sub"}}}}';
+    if(cat_param==''){
+// req_data='{"query": {"multi_match" : { "query" :"'+searchQuery+'" }},"size":"'+size+'", "from":"'+offset+'","highlight" : {"fields" : {"*":{}}},"aggs" : {"sub_count" : {"terms" : {"field" : "searchCategory"}}}}';
+ //req_data='{"query":  {"bool": {"filter": [{"multi_match": {"query": "'+searchQuery+'"}},{"exists": {"field": "searchCategory" }}]}},"size":"'+size+'", "from":"'+offset+'","highlight" : {"fields" : {"*":{}}},"aggs" : {"sub_count" : {"terms" : {"field" : "searchCategory"}}}}';
+// req_data='{"query":  {"bool": {"filter": [{"multi_match": {"query": "'+searchQuery+'"}},{"exists": {"field": "searchCategory" }}],"should": [{"multi_match": {"query": "'+searchQuery+'","type": "phrase","boost": 10}}]}},"size":"'+size+'", "from":"'+offset+'","highlight" : {"fields" : {"*":{}}},"aggs" : {"sub_count" : {"terms" : {"field" : "searchCategory"}}}}';
+ req_data='{"query":  {"bool": {"filter": [{"multi_match": {"query": "'+searchQuery+'","fields" :  [ "title", "content", "categories","tags" ]}},{"exists": {"field": "searchCategory" }}],"must_not": [{"match_phrase": { "searchCategory": {"query": "null" }}}],"should": [{"multi_match": {"query": "'+searchQuery+'","type": "phrase","boost": 10}}]}},"size":"'+size+'", "from":"'+offset+'","_source": [ "title", "content", "breadcrumbs", "aliases", "uri", "link", "date","categories","tags","sub","feed","slug", "searchCategory", "owlType", "type"],"highlight" : {"fields" : {"*":{}}},"aggs" : {"sub_count" : {"terms" : {"field" : "searchCategory"}}}}';
+
+    }else{
+        if(cat_param=='product'||cat_param=='hdo'||cat_param=='solution'||cat_param=='service'||cat_param=='innovator'){
+                if(cat_param=='hdo') {
+                   cat_param_2='HDOs' 
+                   $("#search-for-breadcrumb-cat").text(cat_param_2);
+
+                }else{     
+                      
+                       $("#search-for-breadcrumb-cat").text(cat_param+'s');
+                }
+
+        }else{
+         $("#search-for-breadcrumb-cat").text(cat_param);
+        }
+         $("#search-for-breadcrumb-cat").removeClass("d-none");  
+        
+
+  req_data='{"query": {"bool": {"must" : {"multi_match" : {"query": "'+searchQuery+'","fields" :  [ "title", "content", "categories","tags", "tags"  ]}}}},"post_filter": {"term": {"searchCategory": "'+cat_param+'"}},"size":"'+size+'", "from":"'+offset+'","_source": [ "title", "content", "breadcrumbs", "aliases", "uri", "link", "date","categories","tags","sub","feed","slug","searchCategory","owlType","type" ],"highlight" : {"fields" : {"*":{}}},"aggs" : {"sub_count" : {"terms" : {"field" : "searchCategory"}}}}';
+
+    } 
+     
+     
+     
+      var settings = {
+          "async": true,
+          "cors": true ,
+          // "url": "http://localhost:9200/posts/_search?q=medigy",
+          //"url":"https://es.medigy.com/posts/_search",
+          "url": "{{ $.Site.Params.elasticSearchUrl }}medigy_posts_ui_*/_search",
+
+
+         // "url":"http://localhost:9200/posts/_search",
+          "method": "POST",
+          "data": req_data,
+          "headers": {
+              "Content-Type": "application/json"
+          }
+      }
+
+  $.ajax(settings).done(function (response) {
+      var aggs_fn=response.aggregations.sub_count.buckets;
+      var aggs_name='';
+      var cat_sum=0;
+      var all_url="?s=" + searchQuery + "&page=1"
+
+       if(cat_param==''){
+                  $("#es_total").append("<li class='nav-item'><a href='"+all_url+"'  class='nav-link black-link text-capitalize active'>All (<span id='total_count'></span>)</a></li>");
+       }else{
+                  $("#es_total").append("<li class='nav-item'><a href='"+all_url+"'  class='nav-link black-link text-capitalize'>All (<span id='total_count'></span>)</a></li>");
+
+       }
+//console.log(cat_sum);
+//var rem_total=response.hits.total.value-cat_sum;
+// $("#es_total").append("<span class='total-count-1'>Offerings: <strong>"+rem_total+"</strong></span>");
+
+
+      var offset2 = es_page * size
+      $("#es_total").show();
+      $("#add_clrfx").addClass("clearfix")
+
+          if (response.hits.hits.length) {
+             populateResults(response);
+             $('#ajx_text').hide();
+             $("#es_nxt").show();    
+             if (es_page > 1) {
+                  $("#es_prev").show();
+             }
+              if (offset2 >= response.hits.total.value) {
+               $("#es_nxt").hide();
+              }
+              var newurl = "";
+              var prevurl = "";
+              var cat_url="";
+              var nxturl="";
+              var prevurl="";
+              var n_no = parseInt(es_page) + 1
+              var p_no = parseInt(es_page) - 1
+
+               if(cat_param==''){
+              nxturl = "?s=" + searchQuery + "&page=" + n_no
+              prevurl = "?s=" + searchQuery + "&page=" + p_no
+
+               }else{
+              nxturl = "?s=" + searchQuery + "&page=" + n_no+"&category="+cat_param
+              prevurl = "?s=" + searchQuery + "&page=" + p_no+"&category="+cat_param
+
+               }
+              $("#es_nxt").attr("href", nxturl);
+              $("#es_prev").attr("href", prevurl);
+
+
+      for(k=0;k<aggs_fn.length;k++){
+
+          cat_url="?s=" + searchQuery + "&page=1&category="+aggs_fn[k]['key'];
+          if( aggs_fn[k]['key'] != undefined) {
+
+             if(aggs_fn[k]['key']=='hdo'){
+                  cat_name="HDOs";
+              }else if(aggs_fn[k]['key']=='product'){
+                cat_name="products";  
+              }
+              else if(aggs_fn[k]['key']=='solution'){
+                cat_name="solutions";  
+              }
+               else if(aggs_fn[k]['key']=='service'){
+                cat_name="services";  
+              }
+              else if(aggs_fn[k]['key']=='innovator'){
+                cat_name="innovators";  
+              }
+
+              else{
+                  cat_name=aggs_fn[k]['key'].replace(/_/g, ' ');
+              }
+
+if(aggs_fn[k]['key']!='null')
+{
+                      if(cat_param==aggs_fn[k]['key']){
+
+
+
+           $("#es_total").append("<li class='nav-item'><a href='"+cat_url+"' class='nav-link show black-link text-capitalize active'>"+ cat_name+" ("+aggs_fn[k]['doc_count']+")</a></li>");
+                      }else{
+                                       $("#es_total").append("<li class='nav-item'><a href='"+cat_url+"' class='nav-link show black-link text-capitalize'>"+ cat_name+" ("+aggs_fn[k]['doc_count']+")</a></li>");
+
+                      }
+}
+
+
+
+          }
+
+         
+
+  var cat_sum=cat_sum+aggs_fn[k]['doc_count']  ;
+
+
+}
+$("#total_count").html(cat_sum);
+//if(cat_param!=''){
+         //   $('#es_total').removeClass('pull-left').addClass('pull-right');
+
+ //              $("#es_total").append("<span class='cat_key capitalize new-ofer-btn-1'><a href=?s=" + searchQuery + "&page=1>Back to results</a></span>");
+//}
+
+
+
+
+          } else {
+              $('#search-results').html("No results found");
+              $("#es_nxt").hide()
+              $("#es_prev").hide();
+               $("#es_tabs").hide();
+          }
+  }).fail(function(data){
+              $('#search-results').html("Try again later");
+              $("#es_nxt").hide()
+              $("#es_prev").hide();
+               $("#es_total").hide();
+                $("#es_tabs").hide();
+});
+}
+
+  
+function populateResults(result){
+  console.log(result);
+  $.each(result.hits.hits,function(key,value){
+      var contents= value._source.contents;
+      var snippet = "";
+      var snippetHighlights=[];
+      var tags =[];
+                 
+      //pull template from hugo templarte definition
+      var templateDefinition = $('#search-result-template').html();
+      //console.log(templateDefinition);
+      if(templateDefinition == null || templateDefinition == 'undefined')
+      {
+
+
+        templateDefinition = '<li class="slds-welcome-mat__tile search-match"><article class="slds-box"><div class="slds-grid slds-wrap slds-gutters" id="summary-${key}">';
+          
+            
+      
+          templateDefinition +='<div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12"><h2 class="slds-text-heading_medium"><a href="${link}" ${target}><b>${title}</b></a></h2>';
+                    
+            templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">${snippet}</p>';
+            templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><b>Categories:</b><span>${categories}</span></p>';
+            templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><b>Breadcrumbs:</b><span>${breadcrub}</span></p>';
+            templateDefinition +='<p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><a href="${link}" ${target}>Read More</a></p></div></div></article></li>';
+                
+
+
+
+     // templateDefinition = '<section class="card blog-card search-match"><article class="card-body"><div id="summary-${key}"><h4><a href="${link}" ${target} >${title}</a></h4><p class="card-text ch-limit">${snippet}</p>${ isset tags }<p>Tags: ${tags}</p>${ end }'; 
+     // templateDefinition += '<p><b>Categories:</b><span class="search-categories">${categories}</span></p>';
+     // templateDefinition += '<p><b>Breadcrumbs:</b><span class="es-breadcrub">${breadcrub}</span></p>';
+    //  templateDefinition += '<p><a href="${link}" class="search-read">Read More</a></p></div></article></section>';
+      }
+      var es_content = "";
+      var es_title="";
+      // console.log(value.highlight);
+      if(value.highlight.content!=undefined){
+          es_content=value.highlight.content
+      }else{
+          if(value._source.content.length > 150){ 
+              es_content = es_content.substring(0,150) + '....'; 
+              console.log(value._source.searchCategory);
+              if(value._source.searchCategory == 'topic'){
+                  es_content = atob(value._source.content);
+                  es_content = es_content.substring(0,150) + '....';
+              }
+          }
+          else{
+             es_content = value._source.content 
+             if(value._source.searchCategory == 'topic'){
+                  es_content = atob(value._source.content);
+              }                  
+          }
+      }
+
+    if(value.highlight.title!=undefined){
+          es_title=value.highlight.title
+     }else{
+          es_title=value._source.title
+     }
+
+      var breadcrumbsJs = value._source.breadcrumbs;
+      var breadcrub="";
+      var red_more="";
+      red_more="Read More";
+      if(breadcrumbsJs!=undefined){
+      breadcrumbsJs.splice(-1,1)
+      breadcrub = breadcrumbsJs.join(' > '); 
+      }
+      var target = "";
+      var permalink="";
+      if(value._source.aliases){
+          permalink=value._source.aliases
+      }else{
+         permalink=value._source.uri  
+      }
+      if(value._source.sub == 'feeds')
+      {
+          
+          var website_ur=value._source.link.brand;
+          //var domain_uri = website_ur.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+
+         // var hostname_1 = website_ur.hostname;
+          red_more="Read More on "+website_ur;
+          //var readmore_feed="Read on"+value._source.feedTitle;
+          breadcrub = 'Home > Feed > '+value._source.feed.title;
+          //$("#es_read").html(readmore_feed)
+          permalink=value._source.link.href;
+          target = 'target="_blank"';
+      }
+      if(value._source.sub == 'brief' && value._source.owlType != "Medigy Communities")
+      {
+          breadcrub = 'Home > News';
+          var splittedDate = value._source.date.split('T');
+          var arraydate = splittedDate[0].split('-'); 
+          permalink='/news/'+arraydate[0]+'/'+arraydate[1]+'/'+arraydate[2]+'/'+value._source.slug;
+      }    
+
+     
+if(value.highlight.categories!=undefined){
+          var cat=value.highlight.categories
+     }else{
+          var cat=value._source.categories
+     }
+      var cat_text = '';
+      if(cat !=undefined){
+      for(i=0;i< cat.length; i++){
+          cat_text +='<span class="tag-style-1 mr-1"><a href="#">'+cat[i]+'</a></span>';
+         if(i==2){
+              break;
+          }
+   }
+      }        
+
+   //console.log(value._source.title);
+      //console.log($('#search-result-template').html());
+      //console.log(templateDefinition);
+      //replace values
+      //value._source.aliases[0]
+      //value._source.uri
+      if(value._source.title!=undefined){
+      var output = render(templateDefinition,{key:key,title:es_title,link:permalink,tags:value.tags,read_more:red_more,breadcrub:breadcrub,snippet:es_content,target:target,categories:cat_text});
+      }
+      $('#search-results').append(output);
+  });
+  }
+  
+function render(templateString, data) {
+var conditionalMatches,conditionalPattern,copy;
+conditionalPattern = /\$\{\s*isset ([a-zA-Z]*) \s*\}(.*)\$\{\s*end\s*}/g;
+//since loop below depends on re.lastInxdex, we use a copy to capture any manipulations whilst inside the loop
+copy = templateString;
+while ((conditionalMatches = conditionalPattern.exec(templateString)) !== null) {
+if(data[conditionalMatches[1]]){
+//valid key, remove conditionals, leave contents.
+copy = copy.replace(conditionalMatches[0],conditionalMatches[2]);
+}else{
+//not valid, remove entire section
+copy = copy.replace(conditionalMatches[0],'');
+}
+}
+templateString = copy;
+//now any conditionals removed we can do simple substitution
+var key, find, re;
+for (key in data) {
+find = '\\$\\{\\s*' + key + '\\s*\\}';
+re = new RegExp(find, 'g');
+templateString = templateString.replace(re, data[key]);
+}
+return templateString;
+}
+  </script>
+
+</body>
+</html>
