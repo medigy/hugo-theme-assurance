@@ -11,13 +11,8 @@
       <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
       
       <!-- submenu starts -->
-      <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
-        <div class="slds-button-group" role="group">
-          <button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href ="#">All</a></button>
-          <button class="slds-button slds-button_inverse"><a href="#">Products</a></button>
-          <button class="slds-button slds-button_inverse"><a href="#">Solutions</a></button>
-          <button class="slds-button slds-button_inverse"><a href="#">Services</a></button>
-          <button class="slds-button slds-button_inverse"><a href="#">News</a></button>
+      <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c" id="es_tabs">
+        <div class="slds-button-group" role="group" id="es_total">
         </div>
       </div>
       <!-- submenu ends -->  
@@ -143,9 +138,9 @@
       var all_url="?s=" + searchQuery + "&page=1"
 
        if(cat_param==''){
-                  $("#es_total").append("<li class='nav-item'><a href='"+all_url+"'  class='nav-link black-link text-capitalize active'>All (<span id='total_count'></span>)</a></li>");
+                  $("#es_total").append('<button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href ="'+all_url+'">All (<span id="total_count"></span>)</a></button>');
        }else{
-                  $("#es_total").append("<li class='nav-item'><a href='"+all_url+"'  class='nav-link black-link text-capitalize'>All (<span id='total_count'></span>)</a></li>");
+                  $("#es_total").append('<button class="slds-button slds-button_inverse "><a href ="'+all_url+'">All (<span id="total_count"></span>)</a></button>');
 
        }
 //console.log(cat_sum);
@@ -216,11 +211,11 @@ if(aggs_fn[k]['key']!='null')
 {
                       if(cat_param==aggs_fn[k]['key']){
 
+                        
 
-
-           $("#es_total").append("<li class='nav-item'><a href='"+cat_url+"' class='nav-link show black-link text-capitalize active'>"+ cat_name+" ("+aggs_fn[k]['doc_count']+")</a></li>");
+           $("#es_total").append('<button class="slds-button slds-button_inverse  slds-button_text-destructive"><a href ="'+cat_url+'">'+cat_name+' ('+aggs_fn[k]['doc_count']+')</a></button>');
                       }else{
-                                       $("#es_total").append("<li class='nav-item'><a href='"+cat_url+"' class='nav-link show black-link text-capitalize'>"+ cat_name+" ("+aggs_fn[k]['doc_count']+")</a></li>");
+                                       $("#es_total").append('<button class="slds-button slds-button_inverse"><a href ="'+cat_url+'">'+cat_name+' ('+aggs_fn[k]['doc_count']+')</a></button>');
 
                       }
 }
