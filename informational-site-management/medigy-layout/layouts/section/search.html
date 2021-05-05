@@ -23,14 +23,17 @@
       
         <ul class="slds-size_1-of-1 list-card" id="search-results">
         </ul>
-      
-        </div>
+      </div>
+
       <!-- content ends -->
       
       <!-- paginations starts -->
       <div class="custom-pagination-block git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
         
-        {{  partial "pagination" . }}
+        <nav>
+          <span class="slds-badge slds-m-left_x-small slds-m-bottom_x-small sp-es-prev"> <a href="#"  id="es_prev">&lt; Previous Page</a></span>
+          <span class="slds-badge slds-m-left_x-small slds-m-bottom_x-small sp-es-nxt"><a href="#"  id="es_nxt">Next Page &gt;</a></span>
+        </nav>      
         
       </div>
       <!-- paginations ends -->
@@ -48,19 +51,23 @@
    var es_page = param("page");
    if(es_page==1){
         $("#es_prev").hide();
+        $(".sp-es-prev").hide();
    }
   if(searchQuery){
     $("#search-for-breadcrumb").text("'"+searchQuery+"'");
       $("#search-query").val(searchQuery);
       // $("#es-page").val(es_page);
       $("#es_nxt").hide();
+      $(".sp-es-nxt").hide();
       $("#es_prev").hide();
+      $(".sp-es-prev").hide();
       //$('#search-results').html("<p id='ajx_text'>Please wait.</p>");
       $('#search-results').html('<div class="text-center"><div class="spinner-border" role="status" id="ajx_text"><span class="sr-only">Loading...</span></div></div>');
 
       executeSearch(searchQuery);
   }else {
       $("#es_nxt").hide();
+      $(".sp-es-nxt").hide();
       $('#search-results').append("<p>Please enter a word or phrase above</p>");
   }
 
@@ -155,12 +162,15 @@
           if (response.hits.hits.length) {
              populateResults(response);
              $('#ajx_text').hide();
-             $("#es_nxt").show();    
+             $("#es_nxt").show();   
+             $(".sp-es-nxt").show(); 
              if (es_page > 1) {
                   $("#es_prev").show();
+                  $(".sp-es-prev").show();
              }
               if (offset2 >= response.hits.total.value) {
                $("#es_nxt").hide();
+               $(".sp-es-nxt").hide();
               }
               var newurl = "";
               var prevurl = "";
@@ -243,13 +253,17 @@ $("#total_count").html(cat_sum);
           } else {
               $('#search-results').html("No results found");
               $("#es_nxt").hide()
+              $(".sp-es-nxt").hide();
               $("#es_prev").hide();
+              $(".sp-es-prev").hide();
                $("#es_tabs").hide();
           }
   }).fail(function(data){
               $('#search-results').html("Try again later");
               $("#es_nxt").hide()
+              $(".sp-es-nxt").hide();
               $("#es_prev").hide();
+              $(".sp-es-prev").hide();
                $("#es_total").hide();
                 $("#es_tabs").hide();
 });
