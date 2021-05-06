@@ -67,11 +67,11 @@
                 {{ with  .OutputFormats.Get "Calendar" -}}
                 <div class="slds-clearfix slds-m-bottom_x-small">
                   <div class="slds-float_right">
-                    <p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
+                    <a href="{{ .Permalink | safeURL }}" title="Add to calendar"><p><button class="slds-button slds-button_outline-brand"><span class="slds-icon_container">
                       <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small blue-icon-color" aria-hidden="true">
                       <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
                       </svg>
-                      </span> Add to Calendar</button></p>
+                      </span> Add to Calendar</button></p></a>
                   </div>
                 </div>
                 {{- end }}
