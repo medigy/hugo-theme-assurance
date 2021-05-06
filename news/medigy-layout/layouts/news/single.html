@@ -26,12 +26,16 @@
      <div class="slds-col slds-size_1-of-1 slds-m-top_small">
         <div class="news-content-overlap content-inner-section">
         <h2 class="slds-text-heading_medium slds-m-top_x-small"><b>{{ .Params.title }}</b></h2>
+        <p class="slds-text-body_small slds-m-top_x-small">Posted {{ .Date.Format "Jan 2, 2006" }} via <span><a  itemprop = "url" target = "_blank" href="{{ .Params.link.href }}"><span itemprop = "author">{{ .Params.link.brand }}</span></a></span></p>
        <p class="slds-m-bottom_xx-small">{{ .Content }} </p>        
       <hr>
 
       <div class="slds-clearfix">
-        <div class="slds-float_left">
-          <p class="slds-text-body_small">
+        <div class="slds-float_left"> 
+          {{ if eq .Params.datasource "dropmark"}}
+           <p class="slds-text-body_small slds-m-top_x-small"> Continue reading at <span><a  itemprop = "url" target = "_blank" href="{{ .Params.link.href }}"><span itemprop = "author">{{ .Params.link.brand }}</span></a></span></p>         
+          {{ end }}
+          <p class="slds-text-body_small">             
             {{ if (.Params.categories) }}
             {{ range .Params.categories }}
               {{ $textValue := replace . "-hash-" " #"  }}
