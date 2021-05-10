@@ -8,7 +8,7 @@ metaDesc: "A compilation of articles from thought leaders and subject matter exp
 ogUrl: "/communities/risk-and-compliance/contributed-content/"
 ogImage: "communities/medigy-risk-and-compliance/images/contributedcontent.jpg"
 subTitle: "Community of Practice"
-image: "/communities/risk-and-compliance/images/contributedcontent.jpg"
+image: "/communities/medigy-risk-and-compliance/images/contributedcontent.jpg"
 contentcategories: "medigy-risk-and-compliance-contributed-content"
 tabs:
  - name: Latest

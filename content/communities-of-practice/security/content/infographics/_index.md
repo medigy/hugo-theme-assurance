@@ -8,7 +8,7 @@ metaDesc: "A unique collection of hand drawn and curated infographics that focus
 ogUrl: "/communities/security/infographics/"
 ogImage: "communities/medigy-security/images/contributedcontent.jpg"
 subTitle: "COMMUNITY OF PRACTICE"
-image: "/communities/security/images/contributedcontent.jpg"
+image: "/communities/medigy-security/images/contributedcontent.jpg"
 contentcategories: "medigy-security-infographics"
 tabs:
  - name: Latest

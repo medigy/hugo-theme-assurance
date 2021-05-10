@@ -8,7 +8,7 @@ metaDesc: "A compilation of articles from thought leaders and subject matter exp
 ogUrl: "/communities/security/curated-content/"
 ogImage: "communities/medigy-security/images/contributedcontent.jpg"
 subTitle: "Community of Practice"
-image: "/communities/security/images/contributedcontent.jpg"
+image: "/communities/medigy-security/images/contributedcontent.jpg"
 contentcategories: "medigy-security-curated-content"
 tabs:
  - name: Latest

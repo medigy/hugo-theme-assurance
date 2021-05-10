@@ -7,7 +7,7 @@ metaTitle: "Infographics"
 metaDesc: "A unique collection of hand-drawn and curated infographics that focuses on risk and compliance, third-party risk management, mitigation strategies, and much more."
 ogUrl: "/communities/risk-and-compliance/infographics/"
 ogImage: "communities/medigy-risk-and-compliance/images/contributedcontent.jpg"
-image: "/communities/risk-and-compliance/images/contributedcontent.jpg"
+image: "/communities/medigy-risk-and-compliance/images/contributedcontent.jpg"
 subTitle: "Community of Practice"
 contentCategories: "medigy-risk-and-compliance-infographics"
 tabs:
