@@ -29,12 +29,11 @@
       {{ $industryValue := substr $industry  0 9}} 
       {{ if or ( .Params.industry) (and  (ne .Params.industry "Nil") (ne .Params.industry "") (ne $industryValue "undefined"))}}
       <span class="slds-m-right_xx-small">
-        <span class="slds-icon_container">
+        <span class="slds-icon_container slds-m-right_xx-small">
             <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
             <use xlink:href="/icons/utility-sprite/svg/symbols.svg#company"></use>
             </svg>
-          </span>
-        {{ .Params.industry }}
+          </span>{{ .Params.industry }}
       </span>
         {{ end }}
 
@@ -42,12 +41,11 @@
         {{ $companyValue := substr $company  0 9}} 
         {{ if or ( .Params.companySize) (and  (ne .Params.companySize "Nil") (ne .Params.companySize "") (ne $companyValue "undefined"))}}
       <span class="slds-m-right_xx-small">
-        <span class="slds-icon_container">
+        <span class="slds-icon_container slds-m-right_xx-small">
             <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
             <use xlink:href="/icons/utility-sprite/svg/symbols.svg#people"></use>
             </svg>
-          </span>
-        {{ .Params.companySize }}
+          </span>{{ .Params.companySize }}
       </span>
         {{ end }}
         <span class="slds-m-right_xx-small">
