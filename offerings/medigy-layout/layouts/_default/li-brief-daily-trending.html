@@ -59,7 +59,7 @@
                         <a href="#."><span><abbr class="trendValue" title="GitHub popularity increase in the past two weeks">(&lt;1)</abbr></span></a>
                         {{ else }}
                         {{ if ne .Params.displayinlist false   }}
-                        <a href="#."><span><abbr class="trendValue" title="GitHub popularity increase in the past two weeks">(&lt;1)</abbr></span></a>
+                        <a href="#."><span><abbr class="trendValue" title="GitHub popularity increase in the past two weeks">{{ .Params.weight }}</abbr></span></a>
                         {{end}}
                         {{ end }}                
                       </button>
