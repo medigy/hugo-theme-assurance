@@ -60,7 +60,10 @@
             </div>
           </div>
           <div class="slds-m-top_small slds-m-bottom_x-small">
-            <!-- Catch come here -->
+            <div id="recaptchaSignUpLoginPage">
+              
+            </div>
+
           </div>
           <div class="slds-text-align_right">
           <p class="slds-m-top_small slds-m-bottom_x-small"><span>By clicking Agree &amp; Join, you agree to the Medigy<br><a target="_blank" href="https://www.medigy.com/terms-of-services/">Terms of Services </a>and <a target="_blank" href="https://www.medigy.com/privacy-policy/">Privacy Policy </a></span></p>
@@ -252,6 +255,7 @@
   /// Signup mutation starts here
 
   $('#userSignupPageForm').on('submit', function (e) {
+    alert(e.isDefaultPrevented());
     if (e.isDefaultPrevented()) {
       alert('form is not valid');
     } else {
