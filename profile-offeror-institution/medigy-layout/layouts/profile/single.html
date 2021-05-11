@@ -151,17 +151,17 @@
         <!-- submenu starts -->
         <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
           <div class="slds-button-group" role="group">
-            <button class="slds-button slds-button_outline-brand">All ({{ $.Scratch.Get "totalCounter" }} )</button>
-            <button class="slds-button slds-button_inverse">Solutions ({{ $.Scratch.Get "solutionCounter" }})</button>
-            <button class="slds-button slds-button_inverse">Products ({{ $.Scratch.Get "productCounter" }})</button>
-            <button class="slds-button slds-button_inverse">Services ({{ $.Scratch.Get "serviceCounter" }})</button>
+            <button class="slds-button slds-button_outline-brand list-filter" id="all-tab" data-name="all">All ({{ $.Scratch.Get "totalCounter" }} )</button>
+            <button class="slds-button slds-button_inverse list-filter" id="solutions-tab" data-name="solutions">Solutions ({{ $.Scratch.Get "solutionCounter" }})</button>
+            <button class="slds-button slds-button_inverse list-filter" id="products-tab" data-name="products">Products ({{ $.Scratch.Get "productCounter" }})</button>
+            <button class="slds-button slds-button_inverse list-filter" id="services-tab" data-name="services">Services ({{ $.Scratch.Get "serviceCounter" }})</button>
           </div>
         </div>
         <!-- submenu ends -->  
+        <div class="tab-content" id="myTabContent">
+        <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium list-container" id="all" >
     
-        <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
-    
-          <ul class="slds-size_1-of-1 list-card">
+          <ul class="slds-size_1-of-1 list-card"  id="offering-by-institution">
             {{ $.Scratch.Set "offeringValue" 0 }}
                 {{ range first 10 $posts }} 
                         {{ $.Scratch.Add "offeringValue" 1 }}
@@ -173,27 +173,243 @@
                 {{ end }}
         
           </ul>
-        </div>
-        <!-- new/old posts starts > -->
-        <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
-          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
-          <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
-              {{/*  <button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small"><img src="/icons/utility/chevronleft.svg" class="ico-bt-sm-7-round-grey" alt="">Newer Posts</button>  */}}
+          <br>
+          <!-- new/old posts starts > -->
+          <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small all-load">
+            <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+            <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
               {{ if gt $totalPost 10 }}
-              <a href="/tenantid/{{ .Params.id }}/page/2/" class="pagination-older"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Older Post<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
-              {{ end }} 
-              </div>
-          {{/*  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_right"><span class="slds-badge slds-m-bottom_xx-small semi-bold slds-m-top_xx-small">Page 2/183</span></div>  */}}
-        </div> 
+                <a href="/tenantid/{{ .Params.id }}/page/2/" class="pagination-older"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Older Post<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
+                {{ end }} 
+            </div>
+          </div> 
         <!-- </ new/old posts ends -->
+        </div>
         
+        <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium list-container" id="solutions"  style="display: none;">
+    
+          <ul class="slds-size_1-of-1 list-card" id="offering-by-institution-solution">
+            {{ $.Scratch.Set "offeringValue" 0 }}
+                {{ range first 10 $solutionPost }}                
+                  {{ $.Scratch.Add "offeringValue" 1 }}
+                {{ .Render "li" }}
+                {{ end }}               
+                {{ $offeringValue := $.Scratch.Get "offeringValue" }}
+                {{ if eq $offeringValue 0 }}
+                <div class="topic-click-add-suggest"> No offerings assigned to this institution</div>
+                {{ end }}
+        
+          </ul>
+          <br>
+          <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small load-more-page">
+            <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+            <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                {{/*  <button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small"><img src="/icons/utility/chevronleft.svg" class="ico-bt-sm-7-round-grey" alt="">Newer Posts</button>  */}}
+                {{ if gt $solutionPost 10 }}
+                <a href="javascript:void(0)" id ="load-more" data-page="2"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Load more<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
+                {{ end }} 
+                </div>
+            {{/*  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_right"><span class="slds-badge slds-m-bottom_xx-small semi-bold slds-m-top_xx-small">Page 2/183</span></div>  */}}
+          </div>
+
+        </div> 
+        <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium list-container" id="products"  style="display: none;">
+    
+          <ul class="slds-size_1-of-1 list-card" id="offering-by-institution-product">
+            {{ $.Scratch.Set "offeringValue" 0 }}
+            {{ range first 10 $productPost}}                
+                   {{ $.Scratch.Add "offeringValue" 1 }}
+            {{ .Render "li" }}
+            {{ end }}                
+            {{ $offeringValue := $.Scratch.Get "offeringValue" }}
+            {{ if eq $offeringValue 0 }}
+            <div class="topic-click-add-suggest"> No offerings assigned to this institution</div>
+            {{ end }} 
+        
+          </ul>
+          <br>
+          <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small load-more-page">
+            <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+            <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                {{/*  <button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small"><img src="/icons/utility/chevronleft.svg" class="ico-bt-sm-7-round-grey" alt="">Newer Posts</button>  */}}
+                {{ if gt $productPost 10 }}
+                <a href="javascript:void(0)" id ="load-more-product" data-page="2"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Load more<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
+                {{ end }} 
+                </div>
+            {{/*  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_right"><span class="slds-badge slds-m-bottom_xx-small semi-bold slds-m-top_xx-small">Page 2/183</span></div>  */}}
+          </div> 
+        </div>
+      
+        <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium list-container" id="services"  style="display: none;">
+    
+          <ul class="slds-size_1-of-1 list-card" id="offering-by-institution-service">
+            {{ $.Scratch.Set "offeringValue" 0 }}
+                {{ range first 10  $servicePost }} 
+                        {{ $.Scratch.Add "offeringValue" 1 }}
+                {{ .Render "li" }}                
+                {{ end }}
+                {{ $offeringValue := $.Scratch.Get "offeringValue" }}
+                {{ if eq $offeringValue 0 }}
+                <div class="topic-click-add-suggest"> No offerings assigned to this institution</div>
+                {{ end }}
+                
+        
+          </ul>
+          <br>
+          <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small load-more-page">
+            <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+            <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                {{/*  <button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small"><img src="/icons/utility/chevronleft.svg" class="ico-bt-sm-7-round-grey" alt="">Newer Posts</button>  */}}
+                {{ if gt $servicePost 10 }}
+                <a href="javascript:void(0)"  id ="load-more-service" data-page="2"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Load more<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
+                {{ end }} 
+                </div>
+            {{/*  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_right"><span class="slds-badge slds-m-bottom_xx-small semi-bold slds-m-top_xx-small">Page 2/183</span></div>  */}}
+          </div> 
+        </div>
+      </div>
     </article>
     <!-- content-3 ends -->
     
     </div>
     </section>
     
+    
   {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+  <script>
+    $(document).ready(function() {
+      $(".list-filter").click(function () {
+        $(".list-filter").removeClass("slds-button_outline-brand");
+        $(".list-filter").removeClass("slds-button_inverse");
+        $(".list-filter").addClass("slds-button_inverse");
+        $(this).removeClass("slds-button_inverse");
+        $(this).addClass("slds-button_outline-brand");
+        if($(this).data("name") == "all"){
+          $(".list-container").show();
+        }else{
+          $(".list-container").hide();
+          $(".list-container#"+$(this).data("name")).show();
+        }        
+      });
+      $("#load-more").on("click", function(){
+        var page = $(this).attr("data-page");
+        var pageLink = "/tenantid/{{ .Params.id }}/page/"+page+"/";
+         $(this).attr("data-page", parseInt(page) + 1);
+         var type = "Solution";
+         var loadDiv = "#offering-by-institution-solution";
+        callPaginationAjax(pageLink,type,loadDiv);
+      });
 
+      $("#load-more-product").on("click", function(){
+        var page = $(this).attr("data-page");
+        var pageLink = "/tenantid/{{ .Params.id }}/page/"+page+"/";
+         $(this).attr("data-page", parseInt(page) + 1);
+         var type = "Product";
+         var loadDiv = "#offering-by-institution-product";
+        callPaginationAjax(pageLink,type,loadDiv);
+      });
+
+      $("#load-more-service").on("click", function(){
+        var page = $(this).attr("data-page");
+        var pageLink = "/tenantid/{{ .Params.id }}/page/"+page+"/";
+         $(this).attr("data-page", parseInt(page) + 1);
+         var type = "Service";
+         var loadDiv = "#offering-by-institution-service";
+        callPaginationAjax(pageLink,type,loadDiv);
+      });
+
+    });
+    function callPaginationAjax(pageUrl,type,loadDiv) {
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": pageUrl,
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "cache-control": "no-cache"
+          }
+
+        }
+         console.log(settings);
+
+        $.ajax(settings).done(function (response) {
+          $(loadDiv).append(response); 
+          if (type == "Solution"){
+            $('#solutions .Product').hide();
+            $('#solutions .Service').hide();
+            $('#solutions .pagination-older').hide();
+            $('#solutions .pagination-newer').hide();
+            $('#solutions .page-number').hide();
+            $('#solutions .load-more-page1').hide(); 
+
+          }else if (type == "Product"){
+            $('#products .Solution').hide();
+            $('#products .Service').hide();  
+            $('#products .pagination-older').hide();
+            $('#products .pagination-newer').hide(); 
+            $('#products .page-number').hide();
+            $('#products .load-more-page1').hide();       
+
+          }else{
+            $('#services .Solution').hide();
+            $('#services .Product').hide();
+            $('#services .pagination-older').hide();
+            $('#services .pagination-newer').hide(); 
+            $('#services .page-number').hide(); 
+            $('#services .load-more-page1').hide();
+          }
+         
+        }).fail(function (response) { 
+          $(loadDiv).html(response); 
+        });
+      
+    }
+    function callPaginationAjaxAll(pageUrl) {
+
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": pageUrl,
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "cache-control": "no-cache"
+        }
+
+      }
+       console.log(settings);
+
+      $.ajax(settings).done(function (response) {  
+        $("#offering-by-institution").html(response); 
+        $(".all-load").hide();
+      }).fail(function (response) { 
+        $("#offering-by-institution").html(response); 
+      });
+    
+  }
+     /// Pagination throug Ajax starts here
+     $(document).on("click", ".pagination-older", function (e) {
+      e.preventDefault();
+      var paginationUrl = $(this).attr('href');
+      console.log(paginationUrl);
+      var type = "";
+      loadDiv ="#offering-by-institution";
+      callPaginationAjaxAll(paginationUrl);
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+    $(document).on("click", ".pagination-newer", function (e) {
+      e.preventDefault();
+      var paginationUrl = $(this).attr('href');
+      console.log(paginationUrl);
+      var type = "";
+      loadDiv ="#offering-by-institution";
+      callPaginationAjaxAll(paginationUrl);
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+ /// Pagination through Ajax ends here
+  </script>
 </body>
 </html>
