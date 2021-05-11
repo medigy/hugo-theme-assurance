@@ -1,0 +1,25 @@
+<div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
+    
+    <ul class="slds-size_1-of-1 list-card">
+        {{ $paginator := .Paginate (where .Pages.ByDate.Reverse "Params.displayinlist" "!=" false ) }} 
+        {{ range $paginator.Pages}}
+        {{ .Render "li" }}
+    {{ end }} 
+    </ul>
+</div>
+<!-- new/old posts starts > -->
+<div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small load-more-page1">
+    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+    <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
+        {{ if or ($paginator.HasPrev) ($paginator.HasNext) }}
+         {{ if $paginator.HasPrev }}
+           <a class="link-no-underline pagination-newer" href="{{ $paginator.Prev.URL  }}"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small"><img src="/icons/utility/chevronleft.svg" class="ico-bt-sm-7-round-grey" alt="">Newer Posts</button></a>
+          {{ end }}
+          {{ if $paginator.HasNext }}
+          <a class="link-no-underline pagination-older" href="{{ $paginator.Next.URL  }}"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Older Post<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
+          {{ end }}
+        {{ end }}
+    </div>
+    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_right page-number"><span class="slds-badge slds-m-bottom_xx-small semi-bold slds-m-top_xx-small page-number">Page {{.Paginator.PageNumber}}/{{.Paginator.TotalPages}}</span></div>
+</div> 
+  <!-- </ new/old posts ends -->

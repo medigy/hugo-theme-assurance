@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>    
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Innovator" "context" $context )  }}       
+  {{ partial "bread-crumb" . }}
+
+  <section class="">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+    <!-- content-1 starts -->
+    <div class="slds-grid slds-wrap slds-gutters slds-p-top_large slds-p-bottom_small">
+      <div class="slds-col slds-size_1-of-1 slds-small-size_8-of-12 slds-medium-size_8-of-12 slds-large-size_9-of-12 slds-m-bottom_medium">
+        <div class="slds-grid slds-wrap slds-gutters">
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-bottom_small">
+            {{ if (not ( .Params.logo)) | or (eq .Params.logo "") }}
+            <img src="/img/no-image.png" alt="{{ .Params.title }}" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small">
+            {{ else }}
+            <img src="{{.Params.logo }}" alt="{{ .Params.title }}" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small">
+            {{ end }}
+        </div>
+          <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12">
+            <h2 class="slds-text-heading_medium"><b>{{ .Title }}</b><a href="#" class="link-no-underline">
+              <img src="/icons/utility/new_window.svg" class="ico-bt-sm-4" alt="">
+            </a></h2>
+            {{ $company := .Params.companySize }}    
+            {{ $companyValue := substr $company  0 9}} 
+            {{ if or ( .Params.companySize) (and  (ne .Params.companySize "Nil") (ne .Params.companySize "") (ne $companyValue "undefined"))}}
+            <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">
+                <span class="slds-icon_container slds-m-right_xx-small">
+                    <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                    <use xlink:href="/icons/utility-sprite/svg/symbols.svg#people"></use>
+                    </svg>
+                </span>{{ .Params.companySize }}
+           
+            {{ end }}
+            {{ $industry := .Params.industry }}    
+            {{ $industryValue := substr $industry  0 9}} 
+            {{ if or ( .Params.industry) (and  (ne .Params.industry "Nil") (ne .Params.industry "") (ne $industryValue "undefined"))}}
+                <span class="slds-icon_container slds-m-right_xx-small">
+                    <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                    <use xlink:href="/icons/utility-sprite/svg/symbols.svg#company"></use>
+                    </svg>
+                </span>{{ .Params.industry }}
+            </p>
+            {{ end }}
+            <!-- <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><img src="/icons/utility/date_input.svg" class="ico-bt-sm-2-x" alt=""> March 29 to March 31, 2021 (in 3 days)</p> -->
+            {{ $address := .Params.addressHouseBuilding }}    
+            {{ $addressHousevalue := substr $address  0 9}} 
+            {{ if or ( .Params.addressHouseBuilding) (and  (ne .Params.addressHouseBuilding "Nil") (ne .Params.addressHouseBuilding "") (ne $addressHousevalue "undefined"))}}
+               <p class="slds-text-body_medium slds-m-bottom_xx-small">
+                    <span class="slds-m-right_xx-small">
+                        <span class="slds-icon_container">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#checkin"></use>
+                        </svg>
+                    </span>{{ .Params.addressHouseBuilding }}
+               </p>
+            {{ end }}
+           <hr>
+    <div class="slds-button-group" role="group">
+              {{ $institutionID := .Params.id }}
+              {{ $institutionName := .Params.title }}
+              {{ $countInFrontmatter := 0 }}
+              {{ $urlAjax  := $.Site.Params.GraphQLUrl }}
+              {{ $label := "Ease of Doing Business" }}
+              {{ $MetricName := "medigy_qual_exp_institution_easeOfDoingBusiness" }}
+              {{ $metricKeyId := "instituteID" }}
+              {{ $tooltip := "Ease of Doing Business" }}
+              {{ $metricKeyName := "medigy_qual_exp_institution_easeOfDoingBusiness" }}
+              {{ $type := "institution" }}
+              {{ $badgeQueryType := "institutioneaseofdoingbusiness-count" }}
+              {{ partialCached "cadds-common" (dict  "label"  $label  "productId" $institutionID "productName" $institutionName "countInFrontmatter" $countInFrontmatter "MetricName" $MetricName "urlAjax" $urlAjax "metricKeyId" $metricKeyId "metricKeyName" $metricKeyName "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $institutionID $tooltip}}  
+              {{ $institutionID := .Params.id }}
+              {{ $institutionName := .Params.title }}
+              {{ $countInFrontmatter := 0 }}
+              {{ $urlAjax  := $.Site.Params.GraphQLUrl }}
+              {{ $label := "Watch" }}
+              {{ $MetricName := "medigy_qual_exp_institution_watch" }}
+              {{ $metricKeyId := "instituteID" }}
+              {{ $tooltip := "Watch" }}
+              {{ $badgeQueryType := "institutionwatch-count" }}
+              {{ $metricKeyName := "medigy_qual_exp_institution_watch" }}
+              {{ $type := "institution" }}
+              {{ partialCached "cadds-common" (dict  "label"  $label  "productId" $institutionID "productName" $institutionName "countInFrontmatter" $countInFrontmatter "MetricName" $MetricName "urlAjax" $urlAjax "metricKeyId" $metricKeyId "metricKeyName" $metricKeyName "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $institutionID $tooltip}}  
+              {{ $institutionID := .Params.id }}
+              {{ $institutionName := .Params.title }}
+              {{ $countInFrontmatter := 0 }}
+              {{ $urlAjax  := $.Site.Params.GraphQLUrl }}
+              {{ $label := "Star" }}
+              {{ $MetricName := "medigy_qual_exp_institution_star" }}
+              {{ $metricKeyId := "instituteID" }}
+              {{ $tooltip := "Star" }}
+              {{ $metricKeyName := "medigy_qual_exp_institution_star" }}
+              {{ $type := "institution" }}
+              {{ $badgeQueryType := "institutionstar-count" }}
+              {{ partialCached "cadds-common" (dict  "label"  $label  "productId" $institutionID "productName" $institutionName "countInFrontmatter" $countInFrontmatter "MetricName" $MetricName "urlAjax" $urlAjax "metricKeyId" $metricKeyId "metricKeyName" $metricKeyName "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $institutionID $tooltip}}  
+              {{ $institutionID := .Params.id }}
+              {{ $institutionName := .Params.title }}
+              {{ $countInFrontmatter := 0 }}
+              {{ $urlAjax  := $.Site.Params.GraphQLUrl }}
+              {{ $MetricName := "medigy_qual_exp_institution_wish" }}
+              {{ $metricKeyId := "instituteID" }}
+              {{ $tooltip := "On Wishlist" }}
+              {{ $metricKeyName := "medigy_qual_exp_institution_wish" }}
+              {{ $type := "institution" }}
+              {{ $badgeQueryType := "institutionwish-count" }}
+              {{ partialCached "cadds-common" (dict  "label"  $label  "productId" $institutionID "productName" $institutionName "countInFrontmatter" $countInFrontmatter "MetricName" $MetricName "urlAjax" $urlAjax "metricKeyId" $metricKeyId "metricKeyName" $metricKeyName "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $institutionID $tooltip}}  
+             
+    </div>
+    </div>
+          </div>
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+              <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center">
+                <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>Do you know anyone working in this institution?</b></h2>
+                <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Invite them to share their experience</button>
+              </div>
+      </div>
+      </div>
+    <!-- content-1 ends -->
+    
+    <!-- content-2 starts -->
+      <div class="slds-box slds-m-bottom_large inner-section font-size-14">
+        <h3 class="slds-text-heading_medium slds-m-top_x-small slds-m-bottom_small"><b>About Us</b></h3>
+        {{ if (not ( .Params.companydescription)) | or (eq .Params.companydescription "") }}
+           <p> Description about this institution is not provided. </p>
+        {{ else }}                        
+           <p>{{ .Params.companydescription }} </p>                       
+        {{ end }}
+          </div>
+    <!-- content-2 ends -->
+    
+    <!-- content-3 starts -->
+    {{ $id :=  .Params.id }}
+  {{ $posts := (where (where $.Site.RegularPages ".Params.type" "==" "post")  ".Params.tenantid" "==" $id ) }}
+  {{ $productPost := (where (where (where $.Site.RegularPages ".Params.type" "==" "post")  ".Params.tenantid" "==" $id) ".Params.offeringtype" "==" "Product")}}
+  {{ $servicePost := (where (where (where $.Site.RegularPages ".Params.type" "==" "post")  ".Params.tenantid" "==" $id) ".Params.offeringtype" "==" "Service")}}
+  {{ $solutionPost := (where (where (where $.Site.RegularPages ".Params.type" "==" "post")  ".Params.tenantid" "==" $id) ".Params.offeringtype" "==" "Solution")}}
+  
+  {{ $totalPost := len $posts }}
+  {{ $productPosts := len $productPost }}
+  {{ $solutionPosts := len $solutionPost }}
+  {{ $servicePosts := len $servicePost }}
+    
+  {{  $.Scratch.Set "totalCounter" $totalPost}}
+  {{  $.Scratch.Set "productCounter" $productPosts}}
+  {{  $.Scratch.Set "serviceCounter" $servicePosts}}
+  {{  $.Scratch.Set "solutionCounter" $solutionPosts}}
+    <article class="slds-p-bottom_medium">
+        <!-- submenu starts -->
+        <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
+          <div class="slds-button-group" role="group">
+            <button class="slds-button slds-button_outline-brand">All ({{ $.Scratch.Get "totalCounter" }} )</button>
+            <button class="slds-button slds-button_inverse">Solutions ({{ $.Scratch.Get "solutionCounter" }})</button>
+            <button class="slds-button slds-button_inverse">Products ({{ $.Scratch.Get "productCounter" }})</button>
+            <button class="slds-button slds-button_inverse">Services ({{ $.Scratch.Get "serviceCounter" }})</button>
+          </div>
+        </div>
+        <!-- submenu ends -->  
+    
+        <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
+    
+          <ul class="slds-size_1-of-1 list-card">
+            {{ $.Scratch.Set "offeringValue" 0 }}
+                {{ range first 10 $posts }} 
+                        {{ $.Scratch.Add "offeringValue" 1 }}
+                {{ .Render "li" }}                
+                {{ end }}
+                {{ $offeringValue := $.Scratch.Get "offeringValue" }}
+                {{ if eq $offeringValue 0 }}
+                <div class="topic-click-add-suggest"> No offerings assigned to this institution</div>
+                {{ end }}
+        
+          </ul>
+        </div>
+        <!-- new/old posts starts > -->
+        <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+          <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
+              {{/*  <button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small"><img src="/icons/utility/chevronleft.svg" class="ico-bt-sm-7-round-grey" alt="">Newer Posts</button>  */}}
+              {{ if gt $totalPost 10 }}
+              <a href="/tenantid/{{ .Params.id }}/page/2/" class="pagination-older"><button class="slds-button slds-button_neutral slds-p-right_x-small slds-p-left_x-small">Older Post<img src="/icons/utility/chevronright.svg" class="ico-bt-sm-7-round-grey slds-m-left_xx-small" alt=""></button></a>
+              {{ end }} 
+              </div>
+          {{/*  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_right"><span class="slds-badge slds-m-bottom_xx-small semi-bold slds-m-top_xx-small">Page 2/183</span></div>  */}}
+        </div> 
+        <!-- </ new/old posts ends -->
+        
+    </article>
+    <!-- content-3 ends -->
+    
+    </div>
+    </section>
+    
+  {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+
+</body>
+</html>

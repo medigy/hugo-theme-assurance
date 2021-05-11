@@ -1,0 +1,58 @@
+<li class="slds-welcome-mat__tile">
+    <article class="slds-box">
+      <div class="slds-grid slds-wrap slds-gutters">
+          <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+            {{ if isset .Params "featuredimage" }}
+                {{ if ne .Params.featuredimage "Nil" }}
+                <a href="{{ .Permalink }}"><img src="{{.Params.featuredimage }}" alt="{{ .Params.title }}"  onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+                {{ else }}
+                <a href="{{ .Permalink }}"><img src="/img/featured/default.png" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+                {{ end }}
+            {{ else }}
+            <a href="{{ .Permalink }}"><img src="/img/featured/default.png" alt="{{ .Params.title }}"  onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+            {{ end }}
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+              <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></h2>
+              <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><a href="{{ .Permalink }}">{{ .Summary | safeHTML | truncate 200 }}</a></p>
+              <div class="slds-clearfix">
+                <div class="slds-float_left">
+                    <a href="#."><img src="/icons/utility/arrowup.svg" class="ico-bt-sm-4 slds-m-top_xx-small" alt=""></a>
+                </div>
+                <div class="slds-float_right">
+                  <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                    <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+                  </button>
+                  <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                    <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+                  </button>
+                  <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                    <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                  </button>
+                  <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                    <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+                  </button>
+                </div>
+              </div>
+              <p class="slds-text-body_small">Posted <time
+                datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time> : 
+                {{ range $key, $value := .Params.categories }}
+                {{if ne $value "null"}}
+                {{ $valueLink := $value | urlize }}
+                {{ $textValue := replace $value "-hash-" " #"  }}
+                {{ $valueLink := replace $valueLink  "#" "hash-"  }}
+                 <span class="slds-badge slds-m-bottom_xx-small"><a href="/topic/{{ $valueLink }}">{{  $textValue }}</a></span> 
+                {{ end }}
+                {{ end }}
+            </p>
+            {{ if and (isset .Params "updatedon" ) (ne .Params.updatedOn "null") (ne .Params.updatedOn "undefined")}}
+            {{ $timeUpdated :=substr .Params.updatedOn 0 10 }}
+            {{ $time := time (int $timeUpdated) }}
+            {{ $lastUpdatedDate :=  dateFormat "Jan 2, 2006" $time }}
+              <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Last Updated <time datetime="{{ $lastUpdatedDate }}">{{ $lastUpdatedDate }}</time></p>
+            {{ end }}
+              </div>
+          </div>
+    </article>
+  </li>
+    
