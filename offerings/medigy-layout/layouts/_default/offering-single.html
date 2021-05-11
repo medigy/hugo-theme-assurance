@@ -123,15 +123,29 @@
     </div>
     
     <div class="slds-float_right">
-    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-    <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
-    </button>
-    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-    <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
-    </button>
-    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-    <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
-    </button>
+      {{ if ne .Params.facebookUrl "Nil" }}
+      <a href="{{ .Params.facebookUrl }}" target="_blank">
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+          <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+        </button>
+      </a>
+      {{ end }}
+      {{ if ne .Params.twitterUrl "Nil" }}
+      <a href="{{ .Params.twitterUrl }}" target="_blank">
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+          <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+        </button>
+      </a>
+      {{ end }}
+      {{ if ne .Params.linkedinUrl "Nil" }}
+      <a href="{{ .Params.linkedinUrl }}" target="_blank">
+        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+          <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+        </button>
+      </a>
+      {{ end }}
+
+
     </div>
     </div>
     </div>
