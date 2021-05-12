@@ -12,6 +12,36 @@
         <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
             <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Title }}</b></a></h2>
             <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .Summary | safeHTML | truncate 200 }}</p>
+                <!-- upvote, git-group, social > starts -->
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-float_left slds-m-right_x-small slds-m-bottom_xx-small">
+                      <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-pressed="false" title="">
+                        <img src="/icons/utility/arrowup.svg" class="ico-bt-sm-4 slds-m-left_x-small" alt="">
+                      </button>
+                    </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_left">
+           
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-float_right">
+                      <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+                      </button>
+                      <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+                      </button>
+                      <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+                      </button>
+                      <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                        <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
+                      </button>
+                    </div>            
+                  </div>
+                </div>
+                <!-- upvote, git-group, social > ends -->
             
             <p class="slds-text-body_small">Posted {{ .Date.Format "Jan 2, 2006" }}: 
               {{ range $key, $value := .Params.categories }}
