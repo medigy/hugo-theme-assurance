@@ -20,9 +20,15 @@
             {{ end }}
         </div>
           <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12">
-            <h2 class="slds-text-heading_medium"><b>{{ .Title }}</b><a href="#" class="link-no-underline">
-              <img src="/icons/utility/new_window.svg" class="ico-bt-sm-4" alt="">
-            </a></h2>
+            <h2 class="slds-text-heading_medium"><b>{{ .Title }}</b>
+              {{ $website := .Params.website }}    
+                {{ $websiteValue := substr $website  0 9}} 
+                {{ if or ( .Params.website) (and  (ne .Params.website "Nil") (ne .Params.website "") (ne $websiteValue "undefined"))}}
+                  <a href="{{.Params.website }}" target="_blank" class="link-no-underline">
+                    <img src="/icons/utility/new_window.svg" class="ico-bt-sm-4" alt="">
+                  </a>
+              {{ end }}
+           </h2>
             {{ $company := .Params.companySize }}    
             {{ $companyValue := substr $company  0 9}} 
             {{ if or ( .Params.companySize) (and  (ne .Params.companySize "Nil") (ne .Params.companySize "") (ne $companyValue "undefined"))}}
