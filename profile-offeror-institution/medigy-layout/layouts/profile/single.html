@@ -277,19 +277,15 @@
     
   {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
   <script>
-    $(document).ready(function() {
-      $(".list-filter").click(function () {
+    $(document).ready(function() {      
+      $(".list-filter").click(function () {  
         $(".list-filter").removeClass("slds-button_outline-brand");
         $(".list-filter").removeClass("slds-button_inverse");
         $(".list-filter").addClass("slds-button_inverse");
         $(this).removeClass("slds-button_inverse");
         $(this).addClass("slds-button_outline-brand");
-        if($(this).data("name") == "all"){
-          $(".list-container").show();
-        }else{
-          $(".list-container").hide();
-          $(".list-container#"+$(this).data("name")).show();
-        }        
+        $(".list-container").hide();
+        $("#"+$(this).data("name")).show();
       });
       $("#load-more").on("click", function(){
         var page = $(this).attr("data-page");
