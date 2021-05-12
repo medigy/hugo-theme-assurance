@@ -19,7 +19,7 @@
     <h2 class="slds-text-heading_medium"><a href="{{ .Permalink }}"><b>{{ .Params.title }}</b></a></h2>
     <p class="slds-text-body_medium slds-m-top_xx-small">
     <span class="slds-avatar slds-avatar_circle">
-    <img alt="Rating" src="/images/hospital_compare.jpg" title="Rating" width="28">
+      <a title="Rating courtesy of Medicare.gov | Hospital Compare" href="https://www.medicare.gov/hospitalcompare/profile.html#profTab=0&ID={{ $.Scratch.Get "facilityId" }}" target="_blank"><img alt="Rating" src="/images/hospital_compare.jpg" width="28"></a>
     </span> Rating: 
     {{ if ne .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating "Not Available" }}
     {{ $rating := int .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
