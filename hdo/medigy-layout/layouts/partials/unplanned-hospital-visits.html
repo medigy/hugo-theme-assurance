@@ -1,0 +1,78 @@
+<article class="slds-box slds-m-bottom_small">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">        
+        <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+        <span class="icon-space-ico"><img src="/icons/utility/engage.svg" class="ico-bt-sm-2-x" alt=""></span>
+        <span class="icon-space-text"><b>{{.accordianTitle }}</b></span>
+        {{ $category := .category}}
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Example table of Opportunities with vertical borders">
+          <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate">Measure Description</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{{ .facilityName }}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">National Results</div>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ $valueFormat := .valueFormat }}
+            {{ range .unplannedHospitalVisitsObject}} 
+            {{ if eq $category "UnplannedRe-admission" }}
+            {{ if or (eq .measure.id 10 ) }}
+            <tr class="slds-hint-parent">
+                <td scope="row">
+                    <div class="slds-truncate">{{ .measureName }}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{{ .comparedToNational.result }}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{{ if (ne .score "Not Available") }} {{ .score }}{{ $valueFormat }} {{ else }} {{ .score }} {{ end }}</div>
+                </td>         
+            </tr>
+            {{ end }}
+            {{ else }}  
+            {{ if eq $category "UnplannedReadmissionMedicalCondition" }}
+            {{ if or (and (gt .measure.id 0 ) (lt .measure.id 4)) (eq .measure.id 7) (eq .measure.id 8) (eq .measure.id 11) }}
+            <tr class="slds-hint-parent">
+                <td scope="row">
+                    <div class="slds-truncate">{{ .measureName }}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{{ .comparedToNational.result }}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{{ if (ne .score "Not Available") }} {{ .score }}{{ $valueFormat }} {{ else }} {{ .score }} {{ end }}</div>
+                </td>         
+            </tr>
+            {{ end }}
+            {{ else }}  
+            {{ if eq $category "UnplannedReadmissionByProcedure" }}            
+            {{ if or (and (gt .measure.id 3 ) (lt .measure.id 7)) (eq .measure.id 9) }}
+            <tr class="slds-hint-parent">
+                <td scope="row">
+                    <div class="slds-truncate">{{ .measureName }}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{{ .comparedToNational.result }}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{{ if (ne .score "Not Available") }} {{ .score }}{{ $valueFormat }} {{ else }} {{ .score }} {{ end }}</div>
+                </td>         
+            </tr>                          
+          </tbody>
+          {{ end }}
+          {{ end }}
+          {{ end }}
+          {{ end }}
+          {{ end }}
+      </table>
+      </aside>
+      </div>
+    </div>
+</article>

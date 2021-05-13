@@ -243,11 +243,77 @@
         <!-- overview ends -->
     
     
-        {{/*  <div id="tab-default-2" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-2__item">Item Two Content</div>
-        <div id="tab-default-3" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-3__item">Item Three Content</div>  */}}
-        </div>
-      
+      <!-- <div id="tab-default-2" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-2__item">Item Two Content</div> -->
+       <!-- Complications & Deaths start  -->
+      <div id="tab-default-4" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-4__item">Complications & Deaths
+        <article class="slds-box card-bg-light-blue slds-m-bottom_small">
+          {{ range last 1 .Site.Data.complications_and_deaths_lhc_form.items }} 
+            {{ range .items }}
+              {{ range .answers}}
+                {{ .text }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          <br>
+          <span class="slds-avatar slds-avatar_circle" style="position: relative;">          
+            <a title="Rating courtesy of Medicare.gov | Hospital Compare" href="https://www.medicare.gov/hospitalcompare/profile.html#profTab=0&ID={{ $.Scratch.Get "facilityId" }}" target="_blank"><img alt="Rating" src="/images/hospital_compare.jpg"  width="28"/></a>
+            {{ $toolTipContent := (`Description courtesy of Medicare.gov | Hospital Compare`| safeHTML) }}
+            {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          </span>
         </article>
+        
+        {{ $facilityName := .Params.usDhhsCmsHospitalCompareModel.facilityName }}
+        {{ $state := .Params.usDhhsCmsHospitalCompareModel.state.name }}
+        {{ $timelyAndEffectiveCareObject := .Params.usDhhsCmsHospitalCompareModel.timelyAndEffectiveCare }}
+        {{ $complicationAndDeathObject := .Params.usDhhsCmsHospitalCompareModel.complicationsAndDeaths }}
+
+        {{ range first 1 .Site.Data.complications_and_deaths_lhc_form.items }}
+          {{ range .items}} 
+            {{ $accordianTitle :=  .question }}
+            {{ $variableId := .questionCode }}
+            {{ $category := .prefix.category }}
+            {{ $favIcon := .prefix.iconClass }}
+            {{ $valueFormat := .prefix.valueFormat }}
+
+            {{ partialCached "complication-death-compare.html" (dict  "accordianTitle"  $accordianTitle  "variableId" $variableId "facilityName" $facilityName "state" $state "category" $category "complicationAndDeathObject" $complicationAndDeathObject "valueFormat" $valueFormat "favIcon" $favIcon ) $productId $productName $accordianTitle}}
+          {{ end }}
+        {{ end }}
+           
+      </div>
+      <!-- Complications & Deaths end  -->
+       <!-- Unplanned Hospital Visits start  -->
+      <div id="tab-default-2" class="slds-tabs_default__content hdo-tab-content slds-show" role="tabpanel" aria-labelledby="tab-default-2__item">Unplanned Hospital Visits</div>
+        <article class="slds-box card-bg-light-blue slds-m-bottom_small">
+          {{ range last 1 .Site.Data.unplanned_hospital_visits_lhc_form.items }} 
+            {{ range .items }}
+              {{ range .answers}}
+                {{ .text }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          <br>
+          <span class="slds-avatar slds-avatar_circle" style="position: relative;">          
+            <a title="Rating courtesy of Medicare.gov | Hospital Compare" href="https://www.medicare.gov/hospitalcompare/profile.html#profTab=0&ID={{ $.Scratch.Get "facilityId" }}" target="_blank"><img alt="Rating" src="/images/hospital_compare.jpg"  width="28"/></a>
+            {{ $toolTipContent := (`Description courtesy of Medicare.gov | Hospital Compare`| safeHTML) }}
+            {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          </span>
+        </article>
+        {{ $unplannedHospitalVisitsObject := .Params.usDhhsCmsHospitalCompareModel.unplannedHospitalVisits }}
+        {{ range first 1 .Site.Data.unplanned_hospital_visits_lhc_form.items }}
+          {{ range .items}} 
+            {{ $accordianTitle :=  .question }}
+            {{ $variableId := .questionCode }}
+            {{ $category := .prefix.category }}
+            {{ $favIcon := .prefix.iconClass }}
+            {{ $valueFormat := .prefix.valueFormat }}
+            {{ partial "unplanned-hospital-visits.html" (dict  "accordianTitle"  $accordianTitle  "variableId" $variableId "facilityName" $facilityName "state" $state "category" $category "unplannedHospitalVisitsObject" $unplannedHospitalVisitsObject "valueFormat" $valueFormat "favIcon" $favIcon ) $productId $productName $accordianTitle}}
+                                      
+          {{ end }}  
+        {{ end }} 
+      </div>
+      <!-- Unplanned Hospital Visits ends  -->
+      
+    </article>
     <!-- content-2 ends -->
     
     </div>
