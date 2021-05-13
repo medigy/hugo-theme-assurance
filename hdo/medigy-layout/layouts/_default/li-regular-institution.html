@@ -44,18 +44,59 @@
     
     
       <div class="slds-float_right">
-        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-        <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
-        </button>
-        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-        <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
-        </button>
-        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-        <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
-        </button>
-        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-          <img src="/images/email.svg" class="ico-bt-sm-5" alt="">
-        </button>
+        <span style="position: relative;">
+          {{ $permaLink := .Permalink | safeURL}}
+          {{ $safeUrl := $.Site.Params.siteUrl }}
+          {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl .RelPermalink }}
+          {{ $class := "fb-share-push fb-share" }}
+          {{ $dataApp := .Params.id }}
+          {{ $dataSlug := .Permalink }}
+          {{ $dataName := .Title }}
+          {{ $icon := "/images/facebook.svg" }}
+          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
+
+          {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
+          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+        </span>
+        <span style="position: relative;">
+        {{ $permaLink := .Permalink | safeURL}}
+        {{ $safeUrl := $.Site.Params.siteUrl }}
+        {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl .RelPermalink }}
+        {{ $class := "twitter-share-push fb-share" }}
+        {{ $dataApp := .Params.id }}
+        {{ $dataSlug := .Permalink }}
+        {{ $dataName := .Title }}
+        {{ $icon := "/images/twitter.svg" }}
+        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+        {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
+        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+      </span>
+        <span style="position: relative;">
+          {{ $permaLink := .Permalink | safeURL}}
+          {{ $safeUrl := $.Site.Params.siteUrl }}
+          {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl .RelPermalink }}
+          {{ $class := "linkedin-share-push fb-share" }}
+          {{ $dataApp := .Params.id }}
+          {{ $dataSlug := .Permalink }}
+          {{ $dataName := .Title }}
+          {{ $icon := "/images/linkedin.svg" }}
+          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+          {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
+          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          </span>
+        <span style="position: relative;">
+          {{ $icon := "/images/email.svg" }}
+          {{$permaLink := .Permalink | safeURL}}
+          {{ $safeUrl := $.Site.Params.siteUrl }}
+          {{ $href := print "mailto:?subject=Check out the post, '" .Params.title "' in medigy.com!&body=" .Params.title "\n" $safeUrl $permaLink}}
+          {{ $class := "email-share-push"}}
+          {{ $dataApp := .Params.id }}
+          {{ $dataSlug := .Permalink }}
+          {{ $dataName := .Title }}
+          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+          {{ $toolTipContent := (`Email Share`| safeHTML) }}
+          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          </span>
         </div>
     </div>
     
