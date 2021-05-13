@@ -149,7 +149,8 @@
                     {{ $totalStar := 5}}
                     {{ partialCached "star-rating.html" (dict  "rating"  $rating  "totalStar" $totalStar) $productId $productName}}
                      <br>
-                    {{/*  <a id="rateViewClick" class="cursorLink">View rating details</p>  */}}
+                     <p id="rateViewClick" class="cursorLink"><a>View rating details</a></p>  
+                     
                     {{ else }}
                     {{ .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
                   {{ end }}
@@ -157,11 +158,44 @@
                   </dd>
                 </dl>
               </div>
+              <div id="rateDetlArea" style="display: none;">
+                <div class="slds-region_narrow list-col-2">
+                  <dl class="slds-dl_horizontal">
+                    <dt class="slds-dl_horizontal__label"><b>Category</b></dt>
+                    <dd class="slds-dl_horizontal__detail"><b>National Average Comparison</b></dd>
+                  
+                    <dt class="slds-dl_horizontal__label"><b>Mortality</b></dt>
+                    {{ $faIconValue := .Params.usDhhsCmsHospitalCompareModel.mortalityNationalComparison.id }}
+                    <dd class="slds-dl_horizontal__detail"> {{ partial "icon-for-hospital-compare.html" .}} {{ .Params.usDhhsCmsHospitalCompareModel.mortalityNationalComparison.result }}</dd>
+
+                    <dt class="slds-dl_horizontal__label"><b>Safety of Care</b></dt>
+                    {{ $faIconValue := .Params.usDhhsCmsHospitalCompareModel.safetyOfCareNationalComparison.id }}
+                    <dd class="slds-dl_horizontal__detail">{{ partial "icon-for-hospital-compare.html" .}} {{ .Params.usDhhsCmsHospitalCompareModel.safetyOfCareNationalComparison.result }}</dd>
+
+                    <dt class="slds-dl_horizontal__label"><b>Readmission</b></dt>
+                    {{ $faIconValue := .Params.usDhhsCmsHospitalCompareModel.readmissionNationalComparison.id }}
+                    <dd class="slds-dl_horizontal__detail">{{ partial "icon-for-hospital-compare.html" .}} {{ .Params.usDhhsCmsHospitalCompareModel.readmissionNationalComparison.result }}</dd>
+
+                    <dt class="slds-dl_horizontal__label"><b>Patient Experience</b></dt>
+                    {{ $faIconValue := .Params.usDhhsCmsHospitalCompareModel.patientExperienceNationalComparison.id }}
+                    <dd class="slds-dl_horizontal__detail">{{ partial "icon-for-hospital-compare.html" .}} {{ .Params.usDhhsCmsHospitalCompareModel.patientExperienceNationalComparison.result }}</dd>
+                    
+                    <dt class="slds-dl_horizontal__label"><b>Timeliness Of Care</b></dt>
+                    {{ $faIconValue := .Params.usDhhsCmsHospitalCompareModel.timelinessOfCareNationalComparison.id }}
+                    <dd class="slds-dl_horizontal__detail">{{ partial "icon-for-hospital-compare.html" .}} {{ .Params.usDhhsCmsHospitalCompareModel.timelinessOfCareNationalComparison.result }}</dd>
+
+                    <dt class="slds-dl_horizontal__label"><b>Efficient Use Of Medical Imaging</b></dt>
+                    {{ $faIconValue := .Params.usDhhsCmsHospitalCompareModel.efficientUseOfMedicalImagingNationalComparison.id }}
+                    <dd class="slds-dl_horizontal__detail">{{ partial "icon-for-hospital-compare.html" .}} {{ .Params.usDhhsCmsHospitalCompareModel.efficientUseOfMedicalImagingNationalComparison.result }}</dd>
+                   
+                  </dl>
+                </div>
+              </div>
     <hr>
     <h2 class="slds-text-heading_small slds-m-bottom_x-small"><b>General information</b></h2>
     <div class="slds-region_narrow list-col-2">
       <dl class="slds-dl_horizontal">
-        <dt class="slds-dl_horizontal__label">Hospital type <a href="#."><img src="/icons/utility/info_alt.svg" class="ico-bt-sm-5" alt=""></a>:</dt>
+        <dt class="slds-dl_horizontal__label">Hospital type <a href="#."><img src="/icons/utility/info_alt.svg" class="ico-bt-sm-5" alt=""></a> :</dt>
         <dd class="slds-dl_horizontal__detail">
           {{ if (ne .Params.usDhhsCmsHospitalCompareModel.hospitalType.type "Nil") }}
           {{ $label := .Params.usDhhsCmsHospitalCompareModel.hospitalType.type }}
@@ -217,7 +251,8 @@
     <!-- content-2 ends -->
     
     </div>
-    </section>
+    </section>    
+    {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
     <script>
       $(document).ready(function () {
         $('#rateViewClick').on("click", function () {
@@ -234,7 +269,5 @@
         });
       });
     </script>
-    {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
-
 </body>
 </html>
