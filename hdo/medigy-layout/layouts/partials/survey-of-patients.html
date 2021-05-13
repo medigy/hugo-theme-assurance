@@ -1,0 +1,71 @@
+<article class="slds-box slds-m-bottom_small">
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">        
+        <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+        <span class="icon-space-ico"><img src="/icons/utility/engage.svg" class="ico-bt-sm-2-x" alt=""></span>
+        {{ $category := .category}}
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Example table of Opportunities with vertical borders">
+          <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate">Measure Description</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{{ .facilityName }}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{{ .state }} Average</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">National Average</div>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+           {{ $valueFormat := .valueFormat }}
+           {{ range .patientSurveyObject}}              
+           {{ if eq .condition.condition $category }}  
+            <tr class="slds-hint-parent">
+                <td scope="row">
+                    <div class="slds-truncate">{{ .hcahpsAnswerDescription }}</div>
+                </td>
+                {{ if eq .hcahpsAnswerPercent "Not Applicable" }}
+                <td>
+                    <div class="slds-truncate">{{ .hcahpsAnswerPercent }}</div>
+                </td>
+                {{ else }}
+                <td>
+                    <div class="slds-truncate">{{ .hcahpsAnswerPercent }}</div>
+                </td> 
+                {{ end }}      
+                {{ if (eq (.hcahpsNational | len) 0) }}    
+                <td>
+                    <div class="slds-truncate"> Not Available </div>
+                </td>  
+                {{ else }}
+                {{ range .hcahpsNational}} 
+                <td>
+                    <div class="slds-truncate">{{ .hcahpsState.hcahpsAnswerPercent }}</div>
+                </td>    
+                {{ end }} 
+                {{ end }} 
+                {{ if (eq (.hcahpsNational | len) 0) }}   
+                <td>
+                    <div class="slds-truncate"> Not Available </div>
+                </td> 
+                {{ else }}
+                {{ range .hcahpsNational}}
+                <td>
+                    <div class="slds-truncate">{{ .hcahpsAnswerPercent }}</div>
+                </td> 
+                {{ end }}
+                {{ end }}
+            </tr>  
+            {{ end }}
+            {{ end }}                  
+          </tbody>
+      </table>
+      </aside>
+      </div>
+    </div>
+</article>

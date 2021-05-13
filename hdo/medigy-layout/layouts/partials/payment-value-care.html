@@ -1,0 +1,56 @@
+<article class="slds-box slds-m-bottom_small">
+    <div class="slds-grid slds-wrap slds-gutters">
+      <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">
+        <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+        <span class="icon-space-ico"><img src="/icons/utility/engage.svg" class="ico-bt-sm-2-x" alt=""></span>
+        <span class="icon-space-text"><b> {{.accordianTitle }}</b></span>
+        {{ $category := .category}}
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Example table of Opportunities with vertical borders">
+            <thead>
+              <tr class="slds-line-height_reset">
+                  <th class="" scope="col">
+                      <div class="slds-truncate">Measure Description</div>
+                  </th>
+                  <th class="" scope="col">
+                      <div class="slds-truncate">{{ .facilityName }}</div>
+                  </th>
+                  {{ if ne $category "ValueCare" }}
+                  <th class="" scope="col">
+                      <div class="slds-truncate">National Average Payment</div>
+                  </th>
+                 {{ end }}
+              </tr>
+            </thead>
+            <tbody>
+            {{ $valueFormat := .valueFormat }}
+            {{ range .paymentAndValueOfCareHospitalObject}} 
+            {{ if eq $category "Payment" }}
+              <tr class="slds-hint-parent">
+                  <td scope="row">
+                      <div class="slds-truncate">{{ .paymentMeasureName }}</div>
+                  </td>
+                  <td>
+                      <div class="slds-truncate">{{ .paymentCategory.paymentCategory }}</div>
+                  </td>
+                  <td>
+                      <div class="slds-truncate">{{ .payment }}</div>
+                  </td>         
+              </tr>
+              {{ end }}
+              {{ if eq $category "ValueCare" }}
+               <tr class="slds-hint-parent">
+                  <td scope="row">
+                      <div class="slds-truncate">{{ .valueOfCareDisplayName }}</div>
+                  </td>
+                  <td>
+                      <div class="slds-truncate">{{ .valueOfCareCategory.category }}</div>
+                  </td>                          
+              </tr>
+              {{ end }}                                        
+              {{ end }}
+        </table>
+      </aside>
+      </div>
+      </div> 
+
+  </article>
