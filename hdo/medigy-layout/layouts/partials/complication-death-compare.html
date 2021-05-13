@@ -1,10 +1,17 @@
-<article class="slds-box slds-m-bottom_small">
-    <div class="slds-grid slds-wrap slds-gutters">
-        <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">        
-        <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
-        <span class="icon-space-ico"><img src="/icons/utility/engage.svg" class="ico-bt-sm-2-x" alt=""></span>
-        <span class="icon-space-text"><b>{{.accordianTitle }}</b></span>
-        {{ $category := .category}}
+<li class="slds-accordion__list-item">
+    <section class="slds-accordion__section">
+      <div class="slds-accordion__summary">
+        <h2 class="slds-accordion__summary-heading">
+          <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-{{ .variableId }}" aria-expanded="false" title="Accordion summary">
+            <span class="slds-accordion__summary-content">{{ .accordianTitle | safeHTMLAttr }}</span>
+            <svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
+                <use xlink:href="/icons/utility-sprite/svg/symbols.svg#switch"></use>
+            </svg>
+          </button>
+        </h2>
+      </div>
+      <div class="slds-accordion__content" id="referenceId-{{ .variableId }}"> 
+                {{ $category := .category}}
         <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Example table of Opportunities with vertical borders">
           <thead>
             <tr class="slds-line-height_reset">
@@ -76,7 +83,6 @@
           {{ end }}
           {{ end }}
       </table>
-      </aside>
       </div>
-    </div>
-</article>
+    </section>
+</li>
