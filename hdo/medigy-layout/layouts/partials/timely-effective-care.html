@@ -2,7 +2,7 @@
     <section class="slds-accordion__section">
       <div class="slds-accordion__summary">
         <h2 class="slds-accordion__summary-heading">
-          <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-{{ .variableId }}" aria-expanded="false" title="{{ .accordianTitle | safeHTMLAttr }}">
+          <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-{{ .variableId }}" aria-expanded="false" title="{s{ .accordianTitle | safeHTMLAttr }}">
             <span class="slds-accordion__summary-content">{{ .accordianTitle | safeHTMLAttr }}</span>
             <svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
                 <use xlink:href="/icons/utility-sprite/svg/symbols.svg#switch"></use>
@@ -15,16 +15,16 @@
             <thead>
                 <tr class="slds-line-height_reset">
                     <th class="" scope="col">
-                        <div class="slds-truncate" title="Measure Description">Measure Description</div>
+                        <div class="slds-truncate slds-truncate-normal" title="Measure Description">Measure Description</div>
                     </th>
                     <th class="" scope="col">
-                        <div class="slds-truncate" title="{{ .facilityName }}">{{ .facilityName }}</div>
+                        <div class="slds-truncate slds-truncate-normal" title="{{ .facilityName }}">{{ .facilityName }}</div>
                     </th>
                     <th class="" scope="col">
-                        <div class="slds-truncate" title="{{ .state }}">{{ .state }} AVERAGE</div>
+                        <div class="slds-truncate slds-truncate-normal" title="{{ .state }}">{{ .state }} AVERAGE</div>
                     </th>
                     <th class="" scope="col">
-                        <div class="slds-truncate" title="NATIONAL AVERAGE">NATIONAL AVERAGE</div>
+                        <div class="slds-truncate slds-truncate-normal" title="NATIONAL AVERAGE">NATIONAL AVERAGE</div>
                     </th>                   
                 </tr>
             </thead>
@@ -48,50 +48,50 @@
                     </td>
                     {{ if eq .measureDetails.id 1 }}
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             {{ .score }}
                         </div>
                     </td>
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             Not Available
                         </div>
                     </td>
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             Not Available
                         </div>
                     </td>
                     {{ else }}
 
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             {{ if (ne .score "Not Available") }} {{ .score }}{{ $valueFormat }} {{ else }} {{ .score }} {{ end }}
                         </div>
                     </td>
                     {{ range .timelyAndEffectiveCareNational}}
                     {{ if eq .timelyAndEffectiveCareState.measure $hospitalMeasureId }}
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             {{ if and (ne .timelyAndEffectiveCareState.score "Not Available") (ne .timelyAndEffectiveCareState.score "very high")}} {{ .timelyAndEffectiveCareState.score }}{{ $valueFormat }} {{ else }} {{ .timelyAndEffectiveCareState.score }} {{ end }}
                         </div>
                     </td>
                     {{ else }}
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             Not Available
                         </div>
                     </td>                    
                     {{ end }}  
                     {{ if eq .measure.id $hospitalMeasureId }}
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             {{ if and (ne .score "Not Available") (ne .score "very high")}}{{ .score }}{{ $valueFormat }} {{ else }} {{ .score }} {{ end }}
                         </div>
                     </td>
                     {{ else }}
                     <td>
-                        <div class="slds-truncate" >
+                        <div class="slds-truncate slds-truncate-normal" >
                             Not Available
                         </div>
                     </td>                    
