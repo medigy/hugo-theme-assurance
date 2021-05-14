@@ -4,8 +4,10 @@
               <div class="slds-accordion__summary">
                 <h2 class="slds-accordion__summary-heading">
                   <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-{{ .variableId }}" aria-expanded="false" title="{{ .accordianTitle | safeHTMLAttr }}">
-                    <span class="slds-accordion__summary-content">{{ .accordianTitle | safeHTMLAttr }}</span>
-                    <svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
+                    <span class="slds-accordion__summary-content"><svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#new"></use>
+                    </svg>{{ .accordianTitle | safeHTMLAttr }}</span>
+                    <svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left icon-right" aria-hidden="true">
                         <use xlink:href="/icons/utility-sprite/svg/symbols.svg#switch"></use>
                     </svg>
                   </button>
