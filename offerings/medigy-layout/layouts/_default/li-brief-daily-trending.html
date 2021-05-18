@@ -16,10 +16,10 @@
                 <!-- upvote, git-group, social > starts -->
                 <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
                   <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-                    <div class="slds-float_left slds-m-right_x-small slds-m-bottom_xx-small">
-                      <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-pressed="false" title="">
-                        <img src="/icons/utility/arrowup.svg" class="ico-bt-sm-4 slds-m-left_x-small" alt="">
-                      </button>
+                    <div class="slds-float_left slds-m-right_x-small slds-m-bottom_xx-small" style="position: relative;">
+                      {{ partial "upvote.html" . }}
+                      {{ $toolTipContent := (`Vote`| safeHTML) }}
+                      {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
                     </div>
                   </div>
                   <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_left">
