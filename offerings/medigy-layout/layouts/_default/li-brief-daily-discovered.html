@@ -4,9 +4,9 @@
     <div class="slds-grid slds-wrap slds-gutters">
         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
           {{ if isset .Params "featuredimage" }}
-            <a href="{{ .Permalink }}"><img src="{{.Params.featuredimage }}" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" ></a>
+            <a href="{{ .Permalink }}"><img src="{{.Params.featuredimage }}" class="product-thumb" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" width="288" height="146" ></a>
           {{ else }}
-          <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="{{ .Params.alt }}"></a>
+          <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" class="product-thumb" alt="{{ .Params.alt }}" width="288" height="146"></a>
           {{ end }}
         </div>
         <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
