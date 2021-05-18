@@ -282,6 +282,7 @@
     
     
   {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+  {{ partial "script-upvote.html" . }}
   <script>
     $(document).ready(function() {      
       $(".list-filter").click(function () {  
