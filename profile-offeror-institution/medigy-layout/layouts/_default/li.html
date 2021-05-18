@@ -17,7 +17,11 @@
               <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small"><a href="{{ .Permalink }}">{{ .Summary | safeHTML | truncate 200 }}</a></p>
               <div class="slds-clearfix">
                 <div class="slds-float_left">
-                    <a href="#."><img src="/icons/utility/arrowup.svg" class="ico-bt-sm-4 slds-m-top_xx-small" alt=""></a>
+                  <span style="position: relative;">
+                  {{ partial "upvote.html" . }}
+                  {{ $toolTipContent := (`Vote`| safeHTML) }}
+                  {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                </span>
                 </div>
                 <div class="slds-float_right">
                   <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">

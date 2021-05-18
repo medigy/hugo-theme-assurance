@@ -62,13 +62,13 @@
                     <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="{{ .awardUrl }}"><b>{{ .awardTitle }}</b></a></h2>
                     <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .awardDescription | base64Decode }}</p>
                     
-                    
+                    {{ $awardUrl := $.Scratch.Get "awardUrl" }}
                     <div class="slds-clearfix">
                     <div class="slds-float_right">
                       <span style="position: relative;">
-                        {{ $permaLink := .Permalink | safeURL}}
+                        {{ $permaLink := .Permalink | safeURL }}
                         {{ $safeUrl := $.Site.Params.siteUrl }}
-                        {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl .RelPermalink }}
+                        {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl $awardUrl }}
                         {{ $class := "fb-share-push fb-share" }}
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
@@ -82,7 +82,7 @@
                       <span style="position: relative;">
                       {{ $permaLink := .Permalink | safeURL}}
                       {{ $safeUrl := $.Site.Params.siteUrl }}
-                      {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl .RelPermalink }}
+                      {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl $awardUrl }}
                       {{ $class := "twitter-share-push fb-share" }}
                       {{ $dataApp := .Params.id }}
                       {{ $dataSlug := .Permalink }}
@@ -91,11 +91,11 @@
                       {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
                       {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
                       {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
-                    </span>
+                     </span>
                       <span style="position: relative;">
                         {{ $permaLink := .Permalink | safeURL}}
                         {{ $safeUrl := $.Site.Params.siteUrl }}
-                        {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl .RelPermalink }}
+                        {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl $awardUrl }}
                         {{ $class := "linkedin-share-push fb-share" }}
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
@@ -104,12 +104,12 @@
                         {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
                         {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
                         {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
-                        </span>
+                      </span>
                       <span style="position: relative;">
                         {{ $icon := "/images/email.svg" }}
                         {{$permaLink := .Permalink | safeURL}}
                         {{ $safeUrl := $.Site.Params.siteUrl }}
-                        {{ $href := print "mailto:?subject=Check out the post, '" .Params.title "' in medigy.com!&body=" .Params.title "\n" $safeUrl $permaLink}}
+                        {{ $href := print "mailto:?subject=Check out the post, '" .awardTitle "' in medigy.com!&body=" .awardTitle "\n" $safeUrl $awardUrl }}
                         {{ $class := "email-share-push"}}
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
