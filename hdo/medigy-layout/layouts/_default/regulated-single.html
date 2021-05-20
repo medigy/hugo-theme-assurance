@@ -242,7 +242,48 @@
         </div>
         <!-- overview ends -->
         <!-- innovation programs starts -->
-        <div id="tab-default-innovation-programs" class="slds-tabs_default__content hdo-tab-content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">Coming Soon</div>
+        <div id="tab-default-innovation-programs" class="slds-tabs_default__content hdo-tab-content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">
+          <div class="slds-tabs_scoped">
+            <ul class="slds-tabs_scoped__nav" role="tablist">
+              <li class="slds-tabs_scoped__item slds-is-active" title="About Your Innovation Center" role="presentation">
+                <a class="slds-tabs_scoped__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-about-your-innovation" id="tab-about-your-innovation__item"><img src="/icons/utility/date_input.svg" class="ico-bt-sm-2-x" alt=""> About Your Innovation Center</a>
+              </li>
+              <li class="slds-tabs_scoped__item" title="Ease of Doing Business With" role="presentation">
+                <a class="slds-tabs_scoped__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-2" id="tab-scoped-2__item"><img src="/icons/utility/clock.svg" class="ico-bt-sm-2-x" alt=""> Ease of Doing Business With<span class="slds-badge slds-theme_success sm-badge slds-m-left_x-small">3 reviewers</span><span class="slds-badge slds-theme_success sm-badge slds-m-left_x-small">3 ratings</span></a>
+              </li>
+            </ul>
+            <div id="tab-about-your-innovation" class="slds-tabs_scoped__content font-size-medium slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+              <input type="hidden" id="answerStatus" />
+              <input type="hidden" id="answerBillingStatus" />
+              <input type="hidden" id="answerPatientAccessStatus" />
+              <input type="hidden" id="answerDataFrictionStatus" />
+              {{ $InstitutionName := .Title}}
+                {{ range last 1 .Site.Data.about_your_innovation_lhc_form.items }}    
+                  {{ range .items }}
+                      {{ range .answers }}
+                        <div class="{{ .code }}" style="display:none;">
+
+                          <article class="slds-box card-bg-light-blue slds-m-bottom_small">{{ replace  .text "<HDO Name>" $InstitutionName }}</article>
+
+                        </div>
+                      {{ end }}
+                  {{ end }}
+              
+                {{ end }}
+      
+                {{ $.Scratch.Set "instId" .Params.facilityId  }}        
+                {{ $.Scratch.Set "instName" .Title  }}        
+                {{ $.Scratch.Set "claimStatus" .Params.claimStatus  }}        
+                {{ $.Scratch.Set "vendorid" .Params.vendorid  }}
+
+
+                {{ partialCached "about-your-innovation-cadd" . $productId $productName}}
+
+            </div>
+          </div>
+
+
+        </div>
         <!-- innovation programs ends -->
         <!-- timely-effective-care starts -->
         <div id="tab-default-timely-effective-care" class="slds-tabs_default__content hdo-tab-content slds-hide" role="tabpanel" aria-labelledby="tab-default-3__item">
