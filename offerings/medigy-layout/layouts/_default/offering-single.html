@@ -76,7 +76,7 @@
               {{ $tooltip := .prefix.tooltip }}              
               {{ $type := .prefix.type }}
               {{ $badgeQueryType := .prefix.badgeQueryType }}
-              {{ partialCached "cadds-common.html" (dict   "productId" $productId "productName" $productName  "countInFrontmatter" $countInFrontmatter   "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType) $productId}}  
+              {{ partial "cadds-common.html" (dict   "productId" $productId "productName" $productName  "countInFrontmatter" $countInFrontmatter   "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType)}}  
               {{ end }}
           {{ end }}
         {{ end }}
