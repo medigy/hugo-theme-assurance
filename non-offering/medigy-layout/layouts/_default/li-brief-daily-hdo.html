@@ -5,14 +5,14 @@
       {{ if .Params.featuredimg}}
       <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
         {{ if ne .Params.featuredimg "Nil" }}
-          <a href="{{ .Permalink }}"><img src="{{ print "/profile/regulated/institution/us-dhhs-cms/hospital/" .Params.featuredimg }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+          <a href="{{ .Permalink }}"><img src="{{ print "/profile/regulated/institution/us-dhhs-cms/hospital/" .Params.featuredimg }}" alt="{{ .Params.title }}" class="product-thumb" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
         {{ else }}
-        <a href="{{ .Permalink }}"><img src="" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        <a href="{{ .Permalink }}"><img src="" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="product-thumb"></a>
         {{ end }}
         </div>
     {{ else }}
     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-        <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
+        <a href="{{ .Permalink }}"><img src="/images/offering-img-1.png" alt="" class="product-thumb" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></a>
     </div>
     {{ end }}
     <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
