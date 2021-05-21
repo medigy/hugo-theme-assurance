@@ -26,7 +26,7 @@
     <div class="slds-grid slds-wrap slds-gutters">
       {{ if ( .Params.offeringlogo) }}
       <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-        <img src="{{ .Params.offeringlogo }}" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small">
+        <img src="{{ .Params.offeringlogo }}" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small" width="128" height="128">
       </div>
       {{ end }}
       <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
@@ -126,25 +126,24 @@
       {{ if ne .Params.facebookUrl "Nil" }}
       <a href="{{ .Params.facebookUrl }}" target="_blank">
         <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-          <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="">
+          <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="facebook" width="16" height="16">
         </button>
       </a>
       {{ end }}
       {{ if ne .Params.twitterUrl "Nil" }}
       <a href="{{ .Params.twitterUrl }}" target="_blank">
         <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-          <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="">
+          <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="twitter" width="16" height="16">
         </button>
       </a>
       {{ end }}
       {{ if ne .Params.linkedinUrl "Nil" }}
       <a href="{{ .Params.linkedinUrl }}" target="_blank">
         <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
-          <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="">
+          <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="linkedin" width="16" height="16">
         </button>
       </a>
       {{ end }}
-
 
     </div>
     </div>

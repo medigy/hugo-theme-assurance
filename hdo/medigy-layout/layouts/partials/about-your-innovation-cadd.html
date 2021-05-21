@@ -1,0 +1,448 @@
+{{ $instId:= $.Scratch.Get "instId" }}
+{{ $instName:= $.Scratch.Get "instName" }}
+{{ $vendorId:= $.Scratch.Get "vendorid" }}
+{{ $claimStatus:= $.Scratch.Get "claimStatus" }}
+{{ $.Scratch.Add  "i"  0 }}
+{{ range first 1 .Site.Data.about_your_innovation_lhc_form.items }}
+{{ range .items }}
+{{ $.Scratch.Add "i" 1 }}
+{{ $i:= $.Scratch.Get "i" }}
+  {{ if eq .dataType "CNE" }}
+    {{ if (eq (.answers | len) 2) }}
+        {{ $questionCode := .questionCode}}
+        {{ $localQuestionCode := .localQuestionCode}}
+        {{ range .answers | first 1 }}
+        {{ $.Scratch.Set "labelFirstChoice"  .label }}
+        {{ $.Scratch.Set "textFirstChoice"  .text }}
+        {{ end }}
+        {{ range .answers | last 1 }}
+        {{ $.Scratch.Set "labelSecondChoice"  .label }}
+        {{ $.Scratch.Set "textSecondChoice"  .text }}
+        {{ end }}
+        {{ $labelFirstChoice:= $.Scratch.Get "labelFirstChoice" }}
+        {{ $labelSecondChoice:= $.Scratch.Get "labelSecondChoice" }}
+        {{ $textFirstChoice:= $.Scratch.Get "textFirstChoice" }}
+        {{ $textSecondChoice:= $.Scratch.Get "textSecondChoice" }}
+        {{ $id_first:= lower $labelFirstChoice }}
+        {{ $id_second:= lower $labelSecondChoice }} 
+
+          <article class="slds-box slds-m-bottom_small">
+            <div class="slds-grid slds-wrap slds-gutters">
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">
+                <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+                <span class="icon-space-ico"><img src="/icons/utility/engage.svg" class="ico-bt-sm-2-x" alt=""></span>
+                <span class="icon-space-text"><b id="text-{{ .questionCode}}">{{ .question }}</b></span>
+              </aside>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12  icon-{{ .questionCode}}" id="icon-answered-date-{{ .questionCode}}" style="display: none;">
+                <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+                  <span class="icon-space-ico ico-bt-sm-2-x"><img src="/icons/utility/clock.svg" alt=""></span>
+                  <span class="icon-space-text dark-txt" id="question-updated-on-{{ .questionCode}}"></span>
+                </aside>            
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 icon-{{ .questionCode}} edit-{{ .questionCode}}" id="icon-answered-date-{{ .questionCode}}" style="display: none;">
+                <aside class="slds-m-top_xx-small slds-m-bottom_xx-small">
+                <button id="edit-btn-{{ .questionCode}}" class="slds-button slds-button_outline-brand hdo-btn-1 slds-float_right slds-m-bottom_xx-small"><img src="/icons/utility/edit.svg" class="ico-bt-sm-8-round-blue slds-m-right_xx-small" id="question-updated-on-{{ .questionCode}}" alt="">Edit</button>
+              </aside>           
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_7-of-12 slds-large-size_6-of-12" id="btn-{{ .questionCode}}">
+                <aside class="slds-m-top_xx-small slds-m-bottom_xx-small">
+                  <button class="slds-button slds-button_outline-brand  hdo-btn-1 {{ $id_first }}" id="edit-{{$id_first}}-{{ $questionCode}}" data-action="update" data-metric="{{ $localQuestionCode}}" data-title="{{ $instName }}" data-id="{{ $instId }}" data-label="{{$labelFirstChoice}}" data-text="{{$textFirstChoice}}"><img src="/icons/utility/like.svg" class="ico-bt-sm-8-round-blue slds-m-right_xx-small" alt="">{{ $labelFirstChoice}}</button>
+                  <button class="slds-button slds-button_outline-brand  hdo-btn-1 {{ $id_second }}" id="edit-{{$id_second}}-{{ .questionCode}}" data-action="update" data-metric="{{ .localQuestionCode}}" data-title="{{ $instName }}" data-id="{{ $instId }}" data-label="{{$labelSecondChoice}}" data-text="{{$textSecondChoice}}"><img src="/icons/utility/dislike.svg" class="ico-bt-sm-8-round-blue slds-m-right_xx-small" alt="">{{ $labelSecondChoice}}</button>
+                </aside>           
+              </div>                  
+
+            </div>
+
+              <section class="slds-box slds-box_x-small slds-m-bottom_small grey-bg" id="edit-badge-{{ .questionCode}}" style="display: none;">
+                <div class="slds-grid slds-wrap slds-gutters">
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">
+                    <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+                    <span class="icon-space-text">{{ .question}}</span>
+                  </aside>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_7-of-12 slds-large-size_6-of-12">
+                    <aside class="slds-m-top_xx-small slds-m-bottom_xx-small">
+                      <button class="slds-button slds-button_outline-brand button-red-outline hdo-btn-1 {{ $id_first }}" id="edit-{{$id_first}}-{{ $questionCode}}" data-action="update" data-metric="{{ $localQuestionCode}}" data-title="{{ $instName }}" data-id="{{ $instId }}" data-label="{{$labelFirstChoice}}" data-text="{{$textFirstChoice}}"><img src="/icons/utility/like.svg" class="ico-bt-sm-8-round-blue slds-m-right_xx-small" alt="">{{ $labelFirstChoice}}</button>
+                      <button class="slds-button slds-button_outline-brand button-green-outline hdo-btn-1 {{ $id_second }}" id="edit-{{$id_second}}-{{ .questionCode}}" data-action="update" data-metric="{{ .localQuestionCode}}" data-title="{{ $instName }}" data-id="{{ $instId }}" data-label="{{$labelSecondChoice}}" data-text="{{$textSecondChoice}}"><img src="/icons/utility/dislike.svg" class="ico-bt-sm-8-round-blue slds-m-right_xx-small" alt="">{{ $labelSecondChoice}}</button>
+                      <span class="slds-float_right close" id="close-btn-{{ .questionCode}}"><img src="/icons/utility/close.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></span>
+                    </aside>           
+                  </div>
+
+                  
+                  </div>  
+              </section>  
+
+          </article>
+
+          <script>
+            /// Get data on page load starts here ////
+              {{ $codeFirstChoice := print  "codeFirstChoice_" $i }}
+              {{ $codeSecondChoice := print  "codeSecondChoice_" $i }}
+              {{ $text_FirstChoice := print  "textFirstChoice_" $i }}
+              {{ $text_SecondChoice := print  "textSecondChoice_" $i }}         
+              var {{ safeJS  ($codeFirstChoice) }}="{{ $labelFirstChoice}}";
+              var {{ safeJS  ($codeSecondChoice) }}="{{ $labelSecondChoice}}";
+              var {{ safeJS ($text_FirstChoice) }}="{{ $textFirstChoice}}";
+              var {{ safeJS ($text_SecondChoice) }}="{{ $textSecondChoice}}";    
+              var metricName =  "medigy_qual_exp_institution_inno_{{ .localQuestionCode}}"; 
+              var institutionId = "{{ $instId }}";
+              var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "{{ $.Site.Params.GraphQLUrl }}",
+                "method": "POST",
+                "headers": {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                  "Accept": "*/*",
+                  "Cache-Control": "no-cache",
+                  "Connection": "keep-alive"
+                },
+                "data": {
+                  "query": "query{\n  getPromData(metricName:\""+ metricName +"\",metricQuery:\"{institutionId=\\\""+institutionId+"\\\"}[1y]\",groupByParam:[\"userId\",\"institutionId\"]){\n    prometheusData\n    status\n  }\n}"
+                }
+              } 
+              $.ajax(settings).done(function (response) {
+                if(response.data.getPromData.status == "success"){
+                  var JSONData = JSON.parse(response.data.getPromData.prometheusData);
+                  if(JSONData.length > 0){
+                  for(i =0; i< (JSONData.length);i++){
+                    timestamp = JSONData[i]['time'];
+                    updatedDate = new Date(timestamp * 1000);
+                    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                    var currentMonth= months[updatedDate.getMonth()];
+                    var date = updatedDate.getDate();
+                    var year = updatedDate.getFullYear(); 
+                    var answeredDate = currentMonth+" "+date+", "+year;               
+                    if(JSONData[i]['selectedVal'] == {{ safeJS  ($codeFirstChoice) }})
+                    {
+                      $("#text-{{ .questionCode}}").text({{ safeJS ($text_FirstChoice) }});
+                      $("#text-answer-{{ .questionCode}}").text({{ safeJS ($text_FirstChoice) }});
+                      var labelStatus = "Answered on ";
+                      if(JSONData[i]['addUpdateStatus'])
+                        (JSONData[i]['addUpdateStatus']=="update") ? labelStatus= "Updated on " : labelStatus = "Answered on "; 
+                      $("#answer-updated-on-{{ .questionCode}}").text(labelStatus+answeredDate+ " by Senior Executive at "+ {{ $instName}});
+                      $("#question-updated-on-{{ .questionCode}}").text(labelStatus+answeredDate+ " by Senior Executive at "+ {{ $instName}});
+                      $("#edit-{{$id_first}}-{{ $questionCode}}").attr("disabled", true);                       
+                      var tooltipText= {{ safeJS ($text_FirstChoice) }};
+                      var tooltipAnswer=tooltipText.replace("We","");              
+                      $("#agree-{{ .questionCode}}").attr("title","I Endorse that {{ $instName }}"+tooltipAnswer);                      
+                    }
+                    else if(JSONData[i]['selectedVal'] == {{ safeJS  ($codeSecondChoice) }})
+                    {
+                      $("#text-{{ .questionCode}}").text({{ safeJS ($text_SecondChoice) }});                   
+                      $("#text-answer-{{ .questionCode}}").text({{ safeJS ($text_SecondChoice) }});
+                      var labelStatus = "Answered on ";
+                      if(JSONData[i]['addUpdateStatus'])
+                        (JSONData[i]['addUpdateStatus']=="update") ? labelStatus= "Updated on " : labelStatus = "Answered on ";
+                      $("#answer-updated-on-{{ .questionCode}}").text(labelStatus +answeredDate+ " by Senior Executive at "+ {{ $instName}});
+                      $("#question-updated-on-{{ .questionCode}}").text(labelStatus +answeredDate+ " by Senior Executive at "+ {{ $instName}});
+                      $("#edit-{{$id_second}}-{{ $questionCode}}").attr("disabled", true);
+                      var tooltipText={{ safeJS ($text_SecondChoice) }};
+                      var tooltipAnswer=tooltipText.replace("We","");              
+                      $("#agree-{{ .questionCode}}").attr("title","I Endorse that {{ $instName }}"+tooltipAnswer);                     
+                    }              
+                  }       
+                  $('#answerStatus').val(1);
+                  if(getCookie('personid') != null && $('#answerStatus').val() ==1 && {{ $claimStatus}} == true && getCookie('personid') != "{{ $vendorId}}")
+                    $(".answer-{{ .questionCode}}").show();        
+                  else 
+                    $("#btn-{{ .questionCode}}").hide();
+                }
+                else
+                  $('#answerStatus').val(0);
+                var answerStatus = $('#answerStatus').val();
+                var session = {"personId":getCookie('personid'),"sessionId":getCookie('sessionId'),"sessionUser":getCookie('firstname')};
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPublicAnsweredAboutYourInnovation(medigyAuthServicePolicies, answerStatus, session, visible=[".publicAboutYourInnovation-answered"], hidden=[".publicAboutYourInnovation-notAnswer",".publicAboutYourInnovation",".privateAboutYourInnovation-innovator-notAnswered",".privateAboutYourInnovation-claimed-notAnswered",".privateAboutYourInnovation-answered-claimed",".privateAboutYourInnovation-notAnswered-notClaimed",".privateAboutYourInnovation-innovator-answered"]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPrivateNotansweredClaimedInnovatorAboutYourInnovation(medigyAuthServicePolicies, answerStatus, "{{ $vendorId}}", session, visible=[".privateAboutYourInnovation-innovator-notAnswered"], hidden=[".publicAboutYourInnovation-notAnswer",".publicAboutYourInnovation",".publicAboutYourInnovation-answered",".privateAboutYourInnovation-claimed-notAnswered",".privateAboutYourInnovation-answered-claimed",".privateAboutYourInnovation-notAnswered-notClaimed",".privateAboutYourInnovation-innovator-answered"]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPrivateAnsweredInnovatorAboutYourInnovation(medigyAuthServicePolicies, answerStatus, "{{ $vendorId}}","{{ .questionCode}}", session, visible=[".privateAboutYourInnovation-innovator-answered"], hidden=[".publicAboutYourInnovation-notAnswer",".publicAboutYourInnovation",".publicAboutYourInnovation-answered",".privateAboutYourInnovation-innovator-notAnswered",".privateAboutYourInnovation-claimed-notAnswered",".privateAboutYourInnovation-answered-claimed",".privateAboutYourInnovation-notAnswered-notClaimed"]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPrivateNotansweredClaimedNotinnovatorAboutYourInnovation(medigyAuthServicePolicies, answerStatus,"{{ $claimStatus}}", "{{ $vendorId}}", session, visible=[".privateAboutYourInnovation-claimed-notAnswered"], hidden=[".publicAboutYourInnovation-notAnswer",".publicAboutYourInnovation",".publicAboutYourInnovation-answered",".privateAboutYourInnovation-innovator-answered", ".privateAboutYourInnovation-innovator-notAnswered",".privateAboutYourInnovation-answered-claimed",".privateAboutYourInnovation-notAnswered-notClaimed"], disableData=[], addClassData=[]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPrivateAnsweredNotinnovatorAboutYourInnovation(medigyAuthServicePolicies, answerStatus, "{{ $vendorId}}", "{{ .questionCode}}",session, visible=[".privateAboutYourInnovation-answered-claimed"], hidden=[".publicAboutYourInnovation-notAnswer", ".publicAboutYourInnovation",".publicAboutYourInnovation-answered",".privateAboutYourInnovation-innovator-answered",".privateAboutYourInnovation-innovator-notAnswered",".privateAboutYourInnovation-claimed-notAnswered", ".privateAboutYourInnovation-notAnswered-notClaimed", ".innovator-question"]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPrivateNotansweredNotclaimedAboutYourInnovation(medigyAuthServicePolicies, answerStatus,"{{ $claimStatus}}", session, visible=[".privateAboutYourInnovation-notAnswered-notClaimed"], hidden=[".publicAboutYourInnovation-notAnswer",".publicAboutYourInnovation",".publicAboutYourInnovation-answered",".privateAboutYourInnovation-innovator-answered",".privateAboutYourInnovation-innovator-notAnswered",".privateAboutYourInnovation-claimed-notAnswered",".privateAboutYourInnovation-answered-claimed"], disableData=[]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanPublicNotclaimedAboutYourInnovation(medigyAuthServicePolicies, "{{ $claimStatus}}", session, disableData=["#{{$id_first}}-{{ $questionCode}}","#{{$id_second}}-{{ $questionCode}}"], addClassData=["#{{$id_first}}-{{ $questionCode}}","#{{$id_second}}-{{ $questionCode}}"]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanNotansweredClaimedAboutYourInnovation(medigyAuthServicePolicies, answerStatus, "{{ $claimStatus}}", "{{ $vendorId}}", session, disableData=["#{{$id_first}}-{{ $questionCode}}","#{{$id_second}}-{{ $questionCode}}"], addClassData=["#{{$id_first}}-{{ $questionCode}}","#{{$id_second}}-{{ $questionCode}}"]);
+                medigyAuthServiceActions.makeVisibleIfActiveUserCanNotclaimedAboutYourInnovation(medigyAuthServicePolicies, answerStatus, "{{ $claimStatus}}", "{{ $vendorId}}", session, disableData=["#{{$id_first}}-{{ $questionCode}}","#{{$id_second}}-{{ $questionCode}}"], addClassData=["#{{$id_first}}-{{ $questionCode}}","#{{$id_second}}-{{ $questionCode}}"]);
+                
+                setTimeout(function(){
+                  medigyAuthServiceActions.makeVisibleIfQuestionNoneAnswerNoneAboutYourInnovation(".answer-{{ .questionCode}}", ".question-{{ .questionCode}}");
+    
+                }, 2000);
+    
+              }
+              medigyAuthServiceActions.makeVisibleIfNotAnswered("#answerStatus", hidden=["#icon-answered-date-{{ .questionCode}}"]);      
+              });       
+            /// Get data ends here ////
+    
+              $('#edit-btn-{{ .questionCode}}').click(function(){
+                $("#edit-badge-{{ .questionCode}}").show();
+              });
+              $('#close-btn-{{ .questionCode}}').click(function(){
+                $("#edit-badge-{{ .questionCode}}").hide();
+              });
+    
+            /// Yes Push data starts here ////
+              $("#{{$id_first}}-{{ .questionCode }}, #edit-{{$id_first}}-{{ .questionCode }}").on("click", function (e) {   
+                var personid = getCookie('personid');
+                var userEmail = getCookie('userEmail');
+                var product_Name = $(this).attr('data-title');      
+                var btn_label = $(this).attr('data-label');  
+                var answerText = $(this).attr('data-text');
+                var addUpdateStatus = ($(this).attr('data-action')) ? $(this).attr('data-action') : "Add";
+                var updatedPerson = getCookie('firstname')+" "+getCookie('lastname');
+                gtmAddproduct(product_Name,userEmail); 
+                if( personid != '' && personid != null && getCookie('sessionId')!= null && getCookie('sessionId')!= '' ) {         
+                  var timestamp = Date.now();
+                  var institutionId = $(this).attr('data-id');
+                  var source = "hospital-compare-"+institutionId;
+                  var selectedVal = btn_label;
+                  var answerText = answerText;
+                  updatedDate = new Date(timestamp);
+                  var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                  var currentMonth= months[updatedDate.getMonth()];
+                  var date = updatedDate.getDate();
+                  var year = updatedDate.getFullYear(); 
+                  var answeredDate = currentMonth+" "+date+", "+year; 
+                  var metricName ="medigy_qual_exp_institution_inno_"+$(this).attr('data-metric');
+                  var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "{{ $.Site.Params.GraphQLUrl }}",
+                    "method": "POST",
+                    "headers": {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                      "Accept": "*/*",
+                      "Cache-Control": "no-cache",
+                      "Connection": "keep-alive"
+                    },
+                    "data": {
+                      "query": "mutation {\n  addPrometheusData(\n    metricData: [\n    \t{\n        key: \"institutionId\", \n        value: \""+institutionId+"\"\n      }, \n      {\n        key: \"updatedPerson\", \n        value: \""+updatedPerson+"\"\n      }, \n      {\n        key: \"addUpdateStatus\", \n        value: \""+addUpdateStatus+"\"\n      }, \n      {\n        key: \"selectedVal\", \n        value: \""+selectedVal+"\"\n      }, \n      {\n        key: \"updatedDate\", \n        value: \""+updatedDate+"\"\n      }, \n      {\n        key: \"answerText\", \n        value: \""+answerText+"\"\n      }, \n      {\n        key: \"source\", \n        value: \""+source+"\"\n      }, \n      {\n        key: \"createdat\", \n        value: \""+timestamp+"\"\n      }, \n      {\n        key: \"userId\", \n        value: \""+personid+"\"\n      }\n    ], \n    pushGatewayPort: \"\", \n    prometheusJobName: \""+ metricName +"\", \n    metricName: \""+metricName+"\") {\n    status\n    message\n    errorCode\n  }\n}"
+                    }
+                  }
+                 $.ajax(settings).done(function (response) {      
+                 if(response.data.addPrometheusData.status == "SUCCESS")
+                    $("#text-{{ .questionCode}}").text(answerText);
+                    $("#btn-{{ .questionCode}}").hide(); 
+                    $("#question-updated-on-{{ .questionCode}}").text("Updated on "+answeredDate+ " by Senior Executive at "+ {{ $instName}});   
+                    $("#edit-badge-{{ .questionCode}}").hide();
+                    $("#edit-{{$id_first}}-{{ $questionCode}}").attr("disabled", true);
+                    $("#edit-{{$id_second}}-{{ $questionCode}}").attr("disabled", false);
+                  });
+                }
+                else{
+                  if (getCookie('personid') == null)
+                  $('#loginModalCenter').modal('toggle');
+                  else
+                  $('#reLoginModalCenter').modal('toggle');
+                }
+              });
+            /// Yes Push data ends here ////
+          
+            /// No push data starts here
+              $("#{{$id_second}}-{{ .questionCode }}, #edit-{{$id_second}}-{{ .questionCode }}").on("click", function (e) {   
+                var personid = getCookie('personid');
+                var userEmail = getCookie('userEmail');
+                var product_Name = $(this).attr('data-title');      
+                var btn_label = $(this).attr('data-label');  
+                var answerText = $(this).attr('data-text');   
+                var addUpdateStatus = ($(this).attr('data-action')) ? $(this).attr('data-action') : "Add";
+                var updatedPerson = getCookie('firstname')+" "+getCookie('lastname');   
+                gtmAddproduct(product_Name,userEmail); 
+                if( personid != '' && personid != null && getCookie('sessionId')!= null && getCookie('sessionId')!= '' ) {         
+                  var timestamp = Date.now();
+                  var institutionId = $(this).attr('data-id');
+                  var source = "hospital-compare-"+institutionId;
+                  var selectedVal = btn_label;
+                  var answerText = answerText;
+                  updatedDate = new Date(timestamp);
+                  var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                  var currentMonth= months[updatedDate.getMonth()];
+                  var date = updatedDate.getDate();
+                  var year = updatedDate.getFullYear(); 
+                  var answeredDate = currentMonth+" "+date+", "+year;
+                  var metricName ="medigy_qual_exp_institution_inno_"+$(this).attr('data-metric');
+                  var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "{{ $.Site.Params.GraphQLUrl }}",
+                    "method": "POST",
+                    "headers": {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                      "Accept": "*/*",
+                      "Cache-Control": "no-cache",
+                      "Connection": "keep-alive"
+                    },
+                    "data": {
+                      "query": "mutation {\n  addPrometheusData(\n    metricData: [\n    \t{\n        key: \"institutionId\", \n        value: \""+institutionId+"\"\n      }, \n      {\n        key: \"updatedPerson\", \n        value: \""+updatedPerson+"\"\n      }, \n      {\n        key: \"addUpdateStatus\", \n        value: \""+addUpdateStatus+"\"\n      }, \n      {\n        key: \"selectedVal\", \n        value: \""+selectedVal+"\"\n      }, \n      {\n        key: \"answerText\", \n        value: \""+answerText+"\"\n      }, \n      {\n        key: \"source\", \n        value: \""+source+"\"\n      }, \n      {\n        key: \"createdat\", \n        value: \""+timestamp+"\"\n      }, \n      {\n        key: \"userId\", \n        value: \""+personid+"\"\n      }\n    ], \n    pushGatewayPort: \"\", \n    prometheusJobName: \""+ metricName +"\", \n    metricName: \""+metricName+"\") {\n    status\n    message\n    errorCode\n  }\n}"
+                    }
+                  }
+                  $.ajax(settings).done(function (response) {       
+                  if(response.data.addPrometheusData.status == "SUCCESS")
+                    $("#text-{{ .questionCode}}").text(answerText);
+                    $("#btn-{{ .questionCode}}").hide();
+                    $("#question-updated-on-{{ .questionCode}}").text("Updated on "+answeredDate+ " by Senior Executive at "+ {{ $instName}});       
+                    $("#edit-badge-{{ .questionCode}}").hide();
+                    $("#edit-{{$id_first}}-{{ $questionCode}}").attr("disabled", false);
+                    $("#edit-{{$id_second}}-{{ $questionCode}}").attr("disabled", true);
+                  });
+                }
+                else{
+                  if (getCookie('personid') == null)
+                  $('#loginModalCenter').modal('toggle');
+                  else
+                  $('#reLoginModalCenter').modal('toggle');
+                }
+              });
+            /// No push data ends here
+    
+            /// Endorse Button
+            /// Get data on page load starts here ////
+              var metricName =  "medigy_qual_exp_institution_inno_answer_{{ .localQuestionCode}}"; 
+              var institutionId = "{{ $instId }}";
+              var settings = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "{{ $.Site.Params.GraphQLUrl }}",
+                  "method": "POST",
+                  "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "*/*",
+                    "Cache-Control": "no-cache",
+                    "Connection": "keep-alive"
+                  },
+                  "data": {
+                    "query": "query{\n  getPromData(metricName:\""+ metricName +"\",metricQuery:\"{institutionId=\\\""+institutionId+"\\\"}[1y]\",groupByParam:[\"userId\",\"institutionId\"]){\n    prometheusData\n    status\n  }\n}"
+                  }
+              } 
+              $.ajax(settings).done(function (response) {
+                if(response.data.getPromData.status == "success"){
+                  var JSONData = JSON.parse(response.data.getPromData.prometheusData);
+                  var userArray = JSONData.filter(function (el) {
+                    return el.userId == getCookie('personid')
+                  });
+                  if(JSONData.length > 0){
+                    var yescount=0;
+                    var nocount=0;
+                    for(i =0; i< (JSONData.length);i++)
+                    {
+                      if(JSONData[i]['selectedVal'] == "1" || JSONData[i]['selectedVal'] == "01")
+                        yescount++;  
+                      else if (JSONData[i]['selectedVal'] == "0" || JSONData[i]['selectedVal'] == "02")
+                        nocount++;                   
+                    }
+                    $('#{{ .questionCode }}-agree-count').html(yescount);
+                    $('#{{ .questionCode }}-disagree-count').html(nocount);
+                    for(var i=0; i<userArray.length; i++){		
+                      if (userArray[i].userId == getCookie('personid')){
+                        if(JSONData[i]['selectedVal'] == "1" || JSONData[i]['selectedVal'] == "01")
+                          $('#agree-{{ .questionCode}}').prop('disabled', true);
+                        else
+                          $('#disagree-{{ .questionCode}}').prop('disabled', true);
+                      }
+                    }
+                  }
+                }             
+              });
+            /// Get data ends here ////
+    
+            /// Endorse Push data starts here ////
+              $("#agree-{{ .questionCode }}").on("click", function (e) {  
+                $('#agree-{{ .questionCode}}').prop('disabled', true);
+                var personid = getCookie('personid');
+                var userEmail = getCookie('userEmail');
+                var product_Name = $(this).attr('data-title');      
+                gtmAddproduct(product_Name,userEmail); 
+                if( personid != '' && personid != null && getCookie('sessionId')!= null && getCookie('sessionId')!= '' ) {         
+                  var timestamp = Date.now();
+                  var institutionId = $(this).attr('data-id');
+                  var source = "hospital-compare-"+institutionId;
+                  var selectedVal = "1";
+                  var metricName ="medigy_qual_exp_institution_inno_answer_"+$(this).attr('data-metric');
+                  var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "{{ $.Site.Params.GraphQLUrl }}",
+                    "method": "POST",
+                    "headers": {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                      "Accept": "*/*",
+                      "Cache-Control": "no-cache",
+                      "Connection": "keep-alive"
+                    },
+                    "data": {
+                      "query": "mutation {\n  addPrometheusData(\n    metricData: [\n    \t{\n        key: \"institutionId\", \n        value: \""+institutionId+"\"\n      }, \n      {\n        key: \"selectedVal\", \n        value: \""+selectedVal+"\"\n      }, \n      {\n        key: \"source\", \n        value: \""+source+"\"\n      }, \n      {\n        key: \"createdat\", \n        value: \""+timestamp+"\"\n      }, \n      {\n        key: \"userId\", \n        value: \""+personid+"\"\n      }\n    ], \n    pushGatewayPort: \"\", \n    prometheusJobName: \""+ metricName +"\", \n    metricName: \""+metricName+"\") {\n    status\n    message\n    errorCode\n  }\n}"
+                    }
+                  }
+                  $.ajax(settings).done(function (response) {
+                    if(response.data.addPrometheusData.status == "SUCCESS"){
+                      var currentyescount=$('#{{ .questionCode }}-agree-count').html();
+                      currentyescount++;
+                      $('#{{ .questionCode }}-agree-count').html(currentyescount);
+                      var buttonstatus=   $('#disagree-{{ .questionCode}}').is(':disabled');              
+                      if(buttonstatus==true){
+                          var currentnocount=$('#{{ .questionCode }}-disagree-count').html(); 
+                          currentnocount=currentnocount-1;
+                          $('#{{ .questionCode }}-disagree-count').html(currentnocount); 
+                          $('#disagree-{{ .questionCode}}').prop('disabled', false);
+                          $('#agree-{{ .questionCode}}').prop('disabled', true);
+                      }                     
+                    }          
+                  });
+                }
+                else{
+                  if (getCookie('personid') == null)
+                  $('#loginModalCenter').modal('toggle');
+                  else
+                  $('#reLoginModalCenter').modal('toggle');
+                }
+              });
+            /// Endorse Push data ends here ////
+          </script>
+    
+
+    {{ end }}
+    {{ if (gt (.answers | len) 2) }}
+    <form name="form{{ .questionCode }}" id="form{{ .questionCode }}"  class="innovator-question question-{{ .questionCode}} ">
+      <article class="slds-box slds-m-bottom_small">
+        <div class="slds-grid slds-wrap slds-gutters">
+          <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_6-of-12">
+            <aside class="icon-space slds-m-top_xx-small slds-m-bottom_xx-small">
+              <span class="icon-space-ico"><img src="/icons/utility/engage.svg" class="ico-bt-sm-2-x" alt=""></span>
+              <span class="icon-space-text"><b id="text-{{ .questionCode}}">{{ .question }}</b></span>
+            </aside>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_7-of-12 slds-large-size_6-of-12">
+            <aside class="slds-m-top_xx-small slds-m-bottom_xx-small no-access disabled">
+              <fieldset>
+                {{ $questionCode := .questionCode}}
+                {{ range .answers }}               
+
+                  <span class="slds-radio block slds-m-bottom_xx-small edit-radio{{$questionCode}}">
+                    <input type="radio" class="edit-rad-input{{ $questionCode }}" type='radio' name='edit-input{{ $questionCode }}' id='edit-{{ .text }}' value='{{ .code }}' data-action="update" />
+                    <label class="slds-radio__label" for="radio-15">
+                      <span class="slds-radio_faux"></span>
+                      <span class="slds-form-element__label font-size-medium"for='edit-{{ .text }}' > {{ .text }}</span>
+                    </label>
+                  </span>
+
+                {{ end }}
+              </fieldset>
+          </aside>           
+          </div>
+
+
+        </div>
+      </article>
+    </form>
+    {{ end }}
+  {{ end }}
+  {{ if eq .dataType "ST" }}
+
+
+  {{ end }}
+  {{ if eq .dataType "TX" }}
+
+
+  {{ end }} 
+  {{ end }}
+{{ end }}
