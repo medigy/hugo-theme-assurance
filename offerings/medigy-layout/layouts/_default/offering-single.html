@@ -119,26 +119,26 @@
   
   <div class="slds-clearfix">
     <div class="slds-float_left">
-      <p class="slds-m-bottom_xx-small"><a href="{{ .Params.websiteUrl }}" target="_blank">See more</a></p>
+      <p class="slds-m-bottom_xx-small"><a href="{{ .Params.websiteUrl }}" rel="noopener" target="_blank">See more</a></p>
     </div>
     
     <div class="slds-float_right">
       {{ if ne .Params.facebookUrl "Nil" }}
-      <a href="{{ .Params.facebookUrl }}" target="_blank">
+      <a href="{{ .Params.facebookUrl }}" target="_blank" rel="noopener">
         <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
           <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="facebook" width="16" height="16">
         </button>
       </a>
       {{ end }}
       {{ if ne .Params.twitterUrl "Nil" }}
-      <a href="{{ .Params.twitterUrl }}" target="_blank">
+      <a href="{{ .Params.twitterUrl }}" target="_blank" rel="noopener">
         <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
           <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="twitter" width="16" height="16">
         </button>
       </a>
       {{ end }}
       {{ if ne .Params.linkedinUrl "Nil" }}
-      <a href="{{ .Params.linkedinUrl }}" target="_blank">
+      <a href="{{ .Params.linkedinUrl }}" target="_blank" rel="noopener">
         <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
           <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="linkedin" width="16" height="16">
         </button>
