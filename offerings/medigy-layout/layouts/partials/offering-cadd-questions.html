@@ -1,6 +1,8 @@
+{{ $scratch := newScratch }}
 {{ $productId  := $.Scratch.Get "productId" }} 
 {{ $productName  := $.Scratch.Get "productName" }} 
 {{ $tenantId  := $.Scratch.Get "tenantId" }} 
+{{ $.Scratch.Add  "i"  20 }}
 {{ range .Site.Data.offering_cadd_questions_lhc_form.items }}
 {{ $.Scratch.Add "i" 1 }}
 {{ $i:= $.Scratch.Get "i" }}
@@ -10,151 +12,352 @@
   {{ $.Scratch.Set "itemClassValue"  $value }}
   {{ end }}
 {{ end }}
-{{ $itemClassValue:= $.Scratch.Get "itemClassValue" }}
+{{ $itemClassValue:= $.Scratch.Get "itemClassValue" }} 
 {{ if eq $itemClassValue "offering-share-migration-decision" }}
-<li class="slds-accordion__list-item">
-  <section class="slds-accordion__section slds-is-open">
+
+<li class="slds-accordion__list-item cadd-main-tab" id="accordionid{{$i}}">
+  <section class="slds-accordion__section">
     <div class="slds-accordion__summary">
       <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-2{{$i}}" aria-expanded="true" title="Accordion summary">
-          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small" aria-hidden="true">
-            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
-          </svg>
-          <span class="slds-accordion__summary-content">{{.question}}</span>
+        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="{{.question}}">
+          <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}" >
+          <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
         </button>
       </h2>
     </div>
-    <!-- <div class="slds-accordion__content" id="referenceId-2{{$i}}">Unblock Health is a suite of services that finally provides patients and care partners with a way to level the playing field and demand access to the critical information needed to make informed, engaged, and empowered decisions about their care.</div> -->
+    <div class="slds-accordion__content" id="{{.questionCode}}{{$i}}">
+      <aside>
+        <div id="migrationMsg{{.questionCode}}" class="slds-notify slds-notify_alert alert-ligh-blue slds-m-top_xx-small slds-m-bottom_x-small" role="alert" style="display: none;">
+          Text come here
+        </div>
+        <fieldset class="slds-form-element slds-form-element_compound slds-box no-border grey-bg">
+          <div class="slds-form-element__control">
+          <div class="slds-form-element__row slds-wrap">
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+          <div class="slds-form-element">
+          <div class="slds-form-element__control">
+          <input type="text" placeholder="{{ range .items | first 1 }}{{ .question}}{{ end}}" name="nameTextMigration{{.questionCode}}" id="nameTextMigration{{.questionCode}}" class="slds-input"/>
+          </div>
+          </div>
+          </div>
+          <div class="slds-size_1-of-1 slds-medium-size_1-of-12 slds-text-align_center slds-m-top_xx-small slds-m-bottom_xx-small">URL</div>
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+          <div class="slds-form-element">
+          <div class="slds-form-element__control">
+          <input type="text" name="urlTextMigration{{.questionCode}}" id="urlTextMigration{{.questionCode}}" class="slds-input" placeholder="Enter the URL" />
+          <div class="slds-form-element__help errorCustomMessage" id="validurlTextMigration{{.questionCode}}" style="display: none;"></div>
+          </div>
+          </div>
+          </div>
+          <div class="slds-size_1-of-1 slds-medium-size_2-of-12"></div>
+        </div>
+
+        <div class="slds-m-bottom_x-small slds-medium-size_9-of-12">
+        <legend class="slds-form-element__legend slds-form-element__label">{{ range .items | last 1 }}{{ .question}}{{ end}}</legend>
+        <textarea name="descriptionTextMigration{{.questionCode}}" id="descriptionTextMigration{{.questionCode}}" class="slds-textarea"></textarea>
+        </div>
+        <input type="submit" value="Submit" id="btn_{{.questionCode}}" class="slds-button slds-button_brand" data-metric="{{ .localQuestionCode}}" data-name="{{ $productName }}" data-id="{{ $productId }}" style="display:none"> 
+          <!-- <button class="slds-button slds-button_brand">Submit</button> -->
+          </div>
+          </fieldset>
+          <p class="slds-m-top_small" id="collectionDiv{{ .questionCode }}"></p>
+      </aside>
+    </div>
   </section>
 </li>
+
 {{ end }}
 {{ if eq $itemClassValue "offering-share-alternative-decision"}}
-<li class="slds-accordion__list-item">
+<li class="slds-accordion__list-item cadd-main-tab" id="accordionid{{$i}}">
   <section class="slds-accordion__section">
     <div class="slds-accordion__summary">
       <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-2{{$i}}" aria-expanded="false" title="Accordion summary">
-          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small" aria-hidden="true">
-            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
-            </svg>
-          <span class="slds-accordion__summary-content">{{.question}}</span>
+        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="{{.question}}">
+          <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}" >
+          <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
         </button>
       </h2>
     </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-2{{$i}}">Accordion details - B</div>
+    <div class="slds-accordion__content slds-m-top_medium" id="{{.questionCode}}{{$i}}">
+      <aside>
+        <div class="slds-notify slds-notify_alert alert-ligh-blue slds-m-top_xx-small slds-m-bottom_x-small" role="alert" id="decsionMsg{{.questionCode}}" style="display: none;">
+        </div>
+        <fieldset class="slds-form-element slds-form-element_compound slds-m-top_x-small slds-m-bottom_xx-small">
+          <div class="slds-form-element__control">
+          <div class="slds-form-element__row slds-wrap">
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+          <div class="slds-form-element">
+          <div class="slds-form-element__control">
+            <select class="slds-input" name="suggest-offering-list-{{.questionCode}}" id="suggest-offering-list-{{.questionCode}}" title="Please select the best suited alternative for your offering">
+            </select>
+          </div>
+          </div>
+          </div>
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+          <div class="slds-form-element">
+          <div class="slds-form-element__control">
+            <input type="submit" value="Submit" id="submit_btn_{{.questionCode}}" data-name="{{ $productName }}" data-metric="{{ .localQuestionCode }}" data-id="{{ $productId }}" style="display:none">
+          </div>
+          </div>
+          </div>
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12"></div>
+        </div>
+          
+          </div>
+          </fieldset>
+
+        <fieldset class="slds-form-element slds-form-element_compound slds-box no-border grey-bg">
+          <legend class="slds-form-element__legend slds-form-element__label">Add Others</legend>
+          <div class="slds-form-element__control"  id="alternateTitleTextId{{ .questionCode}}" >
+          <div class="slds-form-element__row slds-wrap" >
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+          <div class="slds-form-element">
+          <div class="slds-form-element__control" id="alternateTitleTextId{{ .questionCode}}">
+          <input type="text" name="alternateTitleTextId{{ .questionCode}}" id="alternateTitleTextName{{ .questionCode}}" class="slds-input" placeholder="Enter the Title" />
+          </div>
+          </div>
+          </div>
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+          <div class="slds-form-element">
+          <div class="slds-form-element__control" id="alternateUrlTextName{{ .questionCode}}">
+          <input type="text" name="alternateUrlTextName{{ .questionCode}}" id="alternateUrlTextId{{ .questionCode}}" class="slds-input" placeholder="Enter the URL" />
+          <div  id="validalternateUrlTextName{{ .questionCode}}" class="errorCustomMessage" class="slds-form-element__help">Please enter a valid website link.</div>
+          </div>
+          </div>
+          </div>
+          <div class="slds-size_1-of-1 slds-medium-size_4-of-12"></div>
+        </div>
+        <input type="submit" value="Submit" id="submit_btn_others_{{.questionCode}}"  class="slds-button slds-button_brand" data-name="{{ $productName }}" data-metric="{{ .localQuestionCode }}" data-id="{{ $productId }}" style="display:none"> 
+          <!-- <button class="slds-button slds-button_brand">Submit</button> -->
+          </div>
+          </fieldset>
+          <p class="slds-m-top_small"  id="decsionCollectionDiv{{.questionCode}}" ></p>
+      </aside>
+    </div>
   </section>
 </li>
+
 {{ end }}
-{{ if eq $itemClassValue "pros-cons-offering-name" }}  
- <li class="slds-accordion__list-item">
+{{ if eq $itemClassValue "pros-cons-offering-name" }} 
+<li class="slds-accordion__list-item cadd-main-tab" id="accordionid{{$i}}">
   <section class="slds-accordion__section">
     <div class="slds-accordion__summary">
       <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-2{{$i}}" aria-expanded="false" title="Accordion summary">
-          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small" aria-hidden="true">
-            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
-          </svg>
-          <span class="slds-accordion__summary-content">{{.question}}</span>
+        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="{{.question}}">
+          <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}" >
+          <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
         </button>
       </h2>
     </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-2{{$i}}">Accordion details - C</div>
+    <div  class="slds-accordion__content" id="{{.questionCode}}{{$i}}">
+      <div class="slds-grid slds-gutters slds-wrap word-break">
+        {{ range .items | first 1 }}
+        {{ $.Scratch.Set "firstSubQuestionCode"  .localQuestionCode }}
+        {{ end }}
+        {{ range .items | last 1 }}
+        {{ $.Scratch.Set "secondSubQuestionCode"  .localQuestionCode }}
+        {{ end }}
+        {{ $firstSubQuestionCode:= $.Scratch.Get "firstSubQuestionCode" }}
+        {{ $secondSubQuestionCode:= $.Scratch.Get "secondSubQuestionCode" }}
+        {{ range .items }}    
+
+        <aside class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_small">
+          <h3 class="slds-m-bottom_small" id="subQuestion-{{ .localQuestionCode }}">{{.question}}</h3>
+          <p class="font-size-13" id="{{.localQuestionCode}}CollectionDiv"></p>
+          <div class="slds-notify slds-notify_alert alert-ligh-blue" role="alert" id="{{.localQuestionCode}}Message" style="display: none;">
+          </div>
+          <div class="slds-form-element slds-m-top_small">
+            <label class="slds-form-element__label" for="form-element-01"><b>Add New</b></label>
+            <div class="slds-form-element__control">
+            <input type="text" name="{{.localQuestionCode}}Title" id="{{.localQuestionCode}}Title" placeholder="" class="slds-input" />
+            </div>
+            <button class="slds-button slds-button_brand slds-m-top_x-small" data-btn-identifier="{{.localQuestionCode}}" id="{{.localQuestionCode}}Button" productName="{{ $productName }}" productId="{{ $productId }}">Add New</button>
+            </div>
+        </aside>
+        {{ end }}
+      </div>
+    </div>
   </section>
 </li>
 {{ end }}
 {{ if eq $itemClassValue "questions-asked-about-offering" }}
- <li class="slds-accordion__list-item">
+<li class="slds-accordion__list-item" id="accordionid{{$i}}">
   <section class="slds-accordion__section">
     <div class="slds-accordion__summary">
       <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-2{{$i}}" aria-expanded="false" title="Accordion summary">
-          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small slds-m-right_xx-small" aria-hidden="true">
-            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
-            </svg>
-          <span class="slds-accordion__summary-content">{{.question}}</span>
+        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="{{.question}}">
+          <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}" >
+          <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
         </button>
       </h2>
     </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-2{{$i}}">Accordion details - D</div>
+    <div  class="slds-accordion__content" id="{{.questionCode}}{{$i}}">Accordion details - C</div>
   </section>
-</li> 
+</li>
 {{ end }}
-<!-- <li class="slds-accordion__list-item">
-  <section class="slds-accordion__section">
-    <div class="slds-accordion__summary">
-      <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-23" aria-expanded="false" title="Accordion summary">
-          <img src="icons/utility/chevronright.svg" class="ico-bt-sm-2" alt="" >
-          <span class="slds-accordion__summary-content">What do users think about Unblock Health?</span>
-        </button>
-      </h2>
-    </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-25">Accordion details - C</div>
-  </section>
-</li> -->
-<!-- <li class="slds-accordion__list-item">
-  <section class="slds-accordion__section">
-    <div class="slds-accordion__summary">
-      <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-23" aria-expanded="false" title="Accordion summary">
-          <img src="icons/utility/chevronright.svg" class="ico-bt-sm-2" alt="" >
-          <span class="slds-accordion__summary-content">What questions do users have about Unblock Health?</span>
-        </button>
-      </h2>
-    </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-26">Accordion details - C</div>
-  </section>
-</li> -->
-<!-- <li class="slds-accordion__list-item">
-  <section class="slds-accordion__section">
-    <div class="slds-accordion__summary">
-      <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-23" aria-expanded="false" title="Accordion summary">
-          <img src="icons/utility/chevronright.svg" class="ico-bt-sm-2" alt="" >
-          <span class="slds-accordion__summary-content">Do you have BlueButton feature for Unblock Health?</span>
-        </button>
-      </h2>
-    </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-27">Accordion details - C</div>
-  </section>
-</li> -->
-<!-- <li class="slds-accordion__list-item">
-  <section class="slds-accordion__section">
-    <div class="slds-accordion__summary">
-      <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-23" aria-expanded="false" title="Accordion summary">
-          <img src="icons/utility/chevronright.svg" class="ico-bt-sm-2" alt="" >
-          <span class="slds-accordion__summary-content">Where did you learn about  Unblock Health?</span>
-        </button>
-      </h2>
-    </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-28">Accordion details - C</div>
-  </section>
-</li> -->
-<!-- <li class="slds-accordion__list-item">
-  <section class="slds-accordion__section">
-    <div class="slds-accordion__summary">
-      <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-23" aria-expanded="false" title="Accordion summary">
-          <img src="icons/utility/chevronright.svg" class="ico-bt-sm-2" alt="" >
-          <span class="slds-accordion__summary-content">How many confirmed devices does the offering Unblock Health work on?</span>
-        </button>
-      </h2>
-    </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-29">Accordion details - C</div>
-  </section>
-</li> -->
-<!-- <li class="slds-accordion__list-item">
-  <section class="slds-accordion__section">
-    <div class="slds-accordion__summary">
-      <h2 class="slds-accordion__summary-heading">
-        <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-23" aria-expanded="false" title="Accordion summary">
-          <img src="icons/utility/chevronright.svg" class="ico-bt-sm-2" alt="" >
-          <span class="slds-accordion__summary-content">Terminologies Supported</span>
-        </button>
-      </h2>
-    </div>
-    <div hidden="" class="slds-accordion__content" id="referenceId-30">Accordion details - C</div>
-  </section>
-</li> -->
+{{ if eq $itemClassValue "online-offline-source" }} 
+  {{ $.Scratch.Set "outerQuestionCode"  .questionCode }}
+  {{ $outerQuestionCode:= $.Scratch.Get "outerQuestionCode" }}
+  <li class="slds-accordion__list-item" id="accordionid{{$i}}">
+    <section class="slds-accordion__section">
+      <div class="slds-accordion__summary">
+        <h2 class="slds-accordion__summary-heading">
+          <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="{{.question}}">
+            <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}">
+            <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
+          </button>
+        </h2>
+      </div>
+      <div  class="slds-accordion__content" id="{{.questionCode}}{{$i}}">
+        <aside>
+          <div id="sourceMessage" class="slds-notify slds-notify_alert alert-ligh-blue slds-m-top_xx-small slds-m-bottom_x-small" role="alert" style="display: none;">
+            
+          </div>
+          <fieldset class="slds-form-element slds-form-element_compound slds-box no-border grey-bg">
+            {{range .items}}
+             {{ if eq .dataType "CNE"}}  
+            <div class="slds-form-element__control" id="{{.questionCode}}">
+              <legend class="slds-form-element__legend slds-form-element__label">{{ .question}}</legend>
+              <div class="slds-clearfix"></div>
+              <div class="slds-form-element__row slds-wrap">
+              <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+              <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <select name="{{.questionCode}}Source" id="{{.questionCode}}Source" class="slds-input">
+                  {{ range .answers }}
+                    <option value="{{ .text }}">{{.text}}</option>  
+                  {{ end }}  
+              </select>
+              </div>
+              </div>
+              </div>
+              <div class="slds-size_1-of-1 slds-medium-size_4-of-12 slds-m-bottom_x-small">
+              <div class="slds-form-element">
+              <div class="slds-form-element__control">
+              <input type="text" name="add-{{.questionCode}}" id="add-{{.questionCode}}" class="slds-input text-input-{{$outerQuestionCode}}" placeholder="">
+              </div>
+              </div>
+              </div>
+              <div class="slds-size_1-of-1 slds-medium-size_4-of-12"></div>
+            </div>
+            </div>
+            {{ end}}
+            {{ if eq .dataType "ST"}}
+
+            <div class="slds-form-element__control" id="{{.questionCode}}">
+              <legend class="slds-form-element__legend slds-form-element__label">{{ .question }}</legend>
+              <div class="slds-clearfix"></div>
+              <div class="slds-form-element__row slds-wrap">
+              <div class="slds-size_1-of-1 slds-medium-size_8-of-12 slds-m-bottom_x-small">
+              <div class="slds-form-element">
+              <div class="slds-form-element__control">
+              <input type="text"  name="{{.questionCode}}Source" id="{{.questionCode}}Source"  class="slds-input text-input-{{$outerQuestionCode}}" placeholder="">
+              </div>
+              </div>
+              </div>
+              <div class="slds-size_1-of-1 slds-medium-size_4-of-12"></div>
+             </div>
+            </div>
+            {{ end }}  
+           {{ end }}
+           <input type="submit" value="Submit" class="slds-button slds-button_brand cad-source-btn" id="sourceButton{{$outerQuestionCode}}"  productname="{{$productName}}" productid="{{ $productId }}" style="display:none">
+            <!-- <button  >Submit</button>   -->
+
+            
+            </fieldset>
+
+            <p class="slds-m-top_small" id="decsionMsg{{.questionCode}}"></p>
+
+        </aside>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-m-bottom_small" id="outer_div_{{ .questionCode }}">
+          <div class="slds-grid slds-wrap slds-gutters slds-m-top_small" id="list_terms">
+            <div id="sourceCollectionDiv" class="slds-grid slds-wrap slds-gutters slds-m-top_small"></div>
+
+          </div>
+        </div>  
+      </div>
+    </section>
+  </li>
+{{ end }}
+{{ if eq $itemClassValue "radio-button-choice-type" }}
+  {{ if (eq (.answers | len) 2) }}
+  <li class="slds-accordion__list-item" id="accordionid{{$i}}">
+    <section class="slds-accordion__section">
+      <div class="slds-accordion__summary">
+        <h2 class="slds-accordion__summary-heading">
+          <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="Accordion summary">
+            <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}">
+            <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
+          </button>
+        </h2>
+      </div>
+      <div  class="slds-accordion__content" id="{{.questionCode}}{{$i}}">
+        <fieldset class="slds-form-element slds-has-error">
+          <div class="slds-form-element__control" >
+            
+            <div class="slds-radio_button-group switch-field" data-app="{{$productId}}" data-tenantId='{{$tenantId}}'>
+            {{ range .answers | first 1 }}
+            {{ $.Scratch.Set "radioFirstOption"  .code }}
+            {{ end }}
+            {{ range .answers | last 1 }}
+            {{ $.Scratch.Set "radioSecondOption"  .code }}
+            {{ end }}
+            {{ $radioFirstOption:= $.Scratch.Get "radioFirstOption" }}
+            {{ $radioSecondOption:= $.Scratch.Get "radioSecondOption" }}
+            {{ $metricName:= .localQuestionCode }}
+            {{ range .answers }} 
+              <span class="slds-button slds-radio_button">
+              <input type="radio" id="radio-{{.code}}" name="switch-one-{{ $metricName }}" data-metric="{{ $metricName }}" data-name="{{ $productName }}" data-id="{{ $productId }}" value="{{.code}}" />
+              <label class="slds-radio_button__label" for="radio-{{.code}}" id="radio-{{.code}}-label"><span class="slds-radio_faux">{{.text}}</span>
+              </label>
+              </span>
+           
+          {{ end }} 
+        </div>
+          <!-- <div id="error_01" class="slds-form-element__help">This field is required</div> -->
+          </div>
+        </fieldset>
+      </div>
+    </section>
+  </li>
+  {{ end }}
+  {{ if (gt (.answers | len) 2) }}
+  <li class="slds-accordion__list-item" id="accordionid{{$i}}">
+    <section class="slds-accordion__section">
+      <div class="slds-accordion__summary">
+        <h2 class="slds-accordion__summary-heading">
+          <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="{{.questionCode}}{{$i}}" aria-expanded="false" title="{{.question}}">
+            <img src="/icons/utility/chevronright.svg" class="ico-bt-sm-2" width="5" height="5" alt="{{.question}}" >
+            <span class="slds-accordion__summary-content" id="offeringQuestion{{.questionCode}}">{{.question}}</span>
+          </button>
+        </h2>
+      </div>
+      <div  class="slds-accordion__content" id="{{.questionCode}}{{$i}}">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-m-bottom_small" id="outer_div_{{ .questionCode }}">
+          <div class="slds-grid slds-wrap slds-gutters slds-m-top_small" id="list_terms">
+            {{$questionCode := .questionCode}}
+            {{$localQuestionCode := .localQuestionCode}}
+            {{ range .answers }} 
+  
+            <aside class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-m-bottom_small">
+              <div class="slds-grid slds-wrap slds-gutters cadd-box" >
+                <div class="slds-col slds-size_3-of-12 slds-small-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                  <div class="cadd-box-click upvote-{{ $questionCode }}" id="tag{{ .code }}" data-name="{{ .text }}"  data-metric="{{$localQuestionCode}}" data-id="{{ .code }}">
+                    <span class="block"><img src="/icons/utility/up.svg" class="ico-bt-sm-13" width="7" height="11" alt="Vote"></span>
+                    <span class="block number"  id="count{{ .code }}"></span>
+                  </div>
+                </div>
+                <div class="slds-col slds-size_9-of-12 slds-small-size_8-of-12 slds-medium-size_8-of-12 slds-large-size_9-of-12" id="{{ .code }}">{{ .text }}</div>
+              </div>
+            </aside>
+            {{ end }}
+          </div>
+        </div>
+  
+      </div>
+
+    </section>
+  </li>
+  {{ end }}
+{{ end }}
 {{ end }}

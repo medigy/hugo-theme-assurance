@@ -155,8 +155,8 @@
 <!-- content-2 ends -->
 
 <!-- content-3 starts -->
-  <div class="slds-card slds-m-bottom_large">
-    <ul class="slds-accordion">
+<div class="slds-card slds-m-bottom_large inner-section">
+  <ul class="slds-accordion">
       {{ $.Scratch.Set "productId"  .Params.id }}
       {{ $.Scratch.Set "productName"  .Title }}
       {{ $.Scratch.Set "tenantId"  .Params.tenantId }}
@@ -170,5 +170,20 @@
 
 {{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
 
+<script>
+  $(document).ready(function () {
+  $(".slds-accordion__summary-action").click(function(){
+    if($(this).attr("aria-expanded") == "true"){
+      $(this).parent().parent().parent().removeClass("slds-is-open");
+      $(this).attr("aria-expanded","false")
+    }
+    else{
+      $(this).parent().parent().parent().addClass("slds-is-open");
+      $(this).attr("aria-expanded","true")
+    }
+  });
+});
+</script>
+{{ partial "script-offering-cadd-questions.html" . }}  
 </body>
 </html>
