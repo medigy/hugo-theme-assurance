@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Topics" "context" $context )  }}       
+  
+
+    {{/*  {{ partial "bread-crumb" . }}  */}}
+
+    {{ $parentclsname := .Params.parentclsname }}
+    {{ $trademarkSymbol := .Params.trademarksymbol }}
+    {{ $logoimage := .Params.logoimage }}
+    {{ $externalLink := .Params.externalLink }}                           
+<!-- breadcrumbs starts -->
+<section class="breadcrumbs-wrap">
+  <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+  
+  <nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
+      <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+          <li class="slds-breadcrumb__item">
+              <a href="/">Home</a>
+          </li>
+          <li class="slds-breadcrumb__item">
+            <a href="/topics">Topics</a>
+          </li>
+          <li class="slds-breadcrumb__item slds-p-left_x-small">
+            {{ $parentclsname }}{{ if eq .Params.trademarkSymbol "TM" }}<sup class="sm-sup-4">TM</sup>{{ end}}{{ if eq .Params.trademarkSymbol "SM" }}<sup class="sm-sup-4">SM</sup>{{ else }}{{ if eq .Params.trademarkSymbol "R" }}<sup class="">&reg;</sup>{{ end }}{{ end }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  </section>  
+  <!-- breadcrumbs ends -->
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+ 
+  <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+    <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url(/images/banner.jpg) no-repeat top center;">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+          <div class="slds-media__body">
+            <h1 class="" title="">
+                <span class="slds-text-heading_large white-txt"><b>{{ $parentclsname }}{{ if eq .Params.trademarkSymbol "TM" }}<sup class="sm-sup-3">TM</sup>{{ end}}{{ if eq $trademarkSymbol "SM" }}<sup class="sm-sup-3">SM</sup>{{ else }}{{ if eq $trademarkSymbol "R" }}<sup class="">&reg;</sup>{{ end }}{{ end }}</b>
+                    {{ if .Params.externallink}}
+                    <a href="{{  .Params.externalLink }}" target="_blank">
+                    
+                    <img src="/icons/utility/new_window.svg" class="ico-bt-lg-1-grey slds-m-left_x-small" alt="{{  .Params.externalLink }}">
+                    </a>
+                    {{ end }}
+                </span>
+            </h1>
+          </div>
+        </div>
+      </header>
+      <div class="slds-einstein-header__actions">
+
+        <span class="slds-badge card-bg-light">Topic Communities</span>
+      </div>
+    </div>
+    <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+        {{ .Content | safeHTML }}
+    </div>
+  </article>
+
+<!-- content starts -->
+<div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium topic-section">
+<div class="slds-clearfix slds-m-bottom_x-small">
+        <div class="slds-float_right">
+          <p><button class="slds-button slds-button_outline-brand"><img src="/icons/utility/add.svg" class="ico-bt-sm-3" alt=""> Add Topic</button></p>
+        </div>
+      </div>
+<div class="slds-grid slds-wrap slds-gutters">
+    {{ $collections := $parentclsname }}
+    {{ $dataid := $parentclsname | urlize}}
+    {{ $dataid = replace $dataid "." "-"}}
+
+<!-- topic-listings -->
+<div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+  <article class="slds-card topic-card">
+    <div class="slds-card__body slds-card__body_inner topic-card-body">
+          <h2 class="slds-card__header-title slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                  <div class="slds-checkbox">
+                    <input class="emptyCollection" type="checkbox" name="options" id="checkbox-unique-id-73" value="checkbox-unique-id-73" data-id="{{ $dataid }}_catgClass"/>
+                    <label class="slds-checkbox__label" for="checkbox-unique-id-73">
+                      <span class="slds-checkbox_faux"></span>
+                      <span class="slds-form-element__label" >Show empty topics</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            
+            </h2>
+            <ul class="slds-list_dotted slds-grid slds-wrap slds-gutters">
+
+                {{range $.Site.Data.category}}
+
+                {{ if eq .parentclasslabel $parentclsname }}
+  
+                  {{ if .topicInsightsTotal }} 
+                   {{ $.Scratch.Set "totalCount" .topicInsightsTotal }}
+                  {{ else }}
+                  {{ $.Scratch.Set "totalCount" 0 }}
+                  {{ end }}
+                  {{ $totalCount := int ($.Scratch.Get "totalCount") }}
+                  {{ if .description }}
+                    {{ $.Scratch.Set "description" .description }}
+                    {{ $decription := .description }}
+                  {{ else }}
+                  {{ $.Scratch.Set "description" .subclassdescription }}
+                  {{ end }}
+                  {{ $contentDecoded := (($.Scratch.Get "description") | base64Decode) }} 
+                  {{ $catName := print .parentclasslabel ": " .label }} 
+                  {{ $categoryLink :=  $catName | urlize }}   
+                  {{ $categoryLink := replace $categoryLink  "#" "hash-"  }}                                
+                  {{ $categoryLink := replace $categoryLink  "+" ""  }}
+
+                <li class="slds-item slds-col slds-size_1-of-1 slds-medium-size_4-of-12 {{ if eq $totalCount 0 }} no-offerings {{ $dataid }}_catgClass {{ end }}">
+                    <a title="{{ $contentDecoded }}" href="/topic/{{ $categoryLink }}" onclick="setActiveTab()";>{{ .label }} </a> <span class="slds-badge ms-badge-1">{{ $totalCount }}</span>
+                  </li>
+                  {{ end }}
+
+                  {{ end }}
+                      </ul>
+    </div>
+    </article>
+</div>   
+
+</div>
+<!-- content ends -->
+
+</div>
+</section>
+
+{{ partial "footer" (dict  "activeMenu" "Topics" "context" $context ) }}
+
+
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+      $(".emptyCollection").prop("checked", false);
+      $(".emptyTopics").show(); 
+  
+      $('.emptyCollection').click(function () {
+        var dataId = $(this).attr("data-id");
+          if (this.checked) {
+            $('.'+dataId).show();
+          }
+          else{
+            $('.'+dataId).hide(); 
+          }
+      });
+    });
+    function setActiveTab(){
+      localStorage.setItem('activeTopicsTab',"#followed");
+    }
+  </script>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Topics" "context" $context )  }}       
+  
+
+    {{ partial "bread-crumb" . }}
+
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+    {{ if .Content }}
+  <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+    <div class="slds-grid slds-einstein-header slds-card__header" style="background: url(images/banner.jpg) no-repeat top center;">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+          <div class="slds-media__body">
+            <h1 class="" title="">
+                <span class="slds-text-heading_large white-txt"><b>{{ .Title }} </b></span>
+            </h1>
+          </div>
+        </div>
+        <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+      </header>
+      <div class="slds-einstein-header__actions">
+        <span class="slds-badge card-bg-light">Topic Communities</span>
+      </div>
+    </div>
+    <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+        {{ .Content }}
+    </div>
+  </article>
+  {{ end }}
+<!-- content starts -->
+<div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+
+<div class="slds-grid slds-wrap slds-gutters inner-wrap">
+    {{ $posts := where $.Site.Pages "Params.searchcategory" "=" "topic" }}
+    {{ $categories := slice }}  
+    {{ range $posts }} 
+      {{ $categories = $categories | append .Params.parentclasslabel }}              
+    {{ end }}
+    {{ $collections := $categories | uniq  }}
+<!-- topic-1 -->
+{{range ( $collections) }}  
+{{ $.Scratch.Set "collectionName" . }}
+{{ $collectionName:= $.Scratch.Get "collectionName" }}
+{{ $collectionposts := where $.Site.Pages "Params.maincollection" "=" true }}   
+{{ range $collectionposts }}
+  {{ $collectionName:= $.Scratch.Get "collectionName" }}
+  {{ if eq $collectionName .Params.parentclsname }}              
+      {{ $hrefLink := .Params.hrefLink }}
+      {{ $externalLink := .Params.externalLink }}                           
+      {{ $.Scratch.Set "tagCounter" 0 }}   
+      {{ range $posts }}         
+        {{ if eq $collectionName .Params.parentclasslabel }}              
+            {{ $.Scratch.Add "tagCounter" 1 }}                 
+        {{ end }}                                                     
+      {{ end }}    
+      {{ $totalCount := $.Scratch.Get "tagCounter" }}
+<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+  <article class="slds-card topic-card">
+    <div class="slds-card__body slds-card__body_inner topic-card-body">
+      <div class="slds-grid slds-wrap slds-gutters">
+        {{ if .Params.featuredimage }}
+        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-m-top_small">
+            <a href="{{ $hrefLink }}"><img src="{{ .Params.featuredimage }}" alt="{{ .Params.title }}"></a>
+        </div>
+        {{ end }}
+        <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-m-top_small">
+          <h2 class="slds-card__header-title slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small">
+            <a href="{{ $hrefLink }}" class="" title=""><span>{{ .Params.parentclsname }}{{ if eq .Params.trademarkSymbol "TM" }}<sup class="sm-sup">TM</sup>{{ end}}{{ if eq .Params.trademarkSymbol "SM" }}<sup class="sm-sup">SM</sup>{{ else }}{{ if eq .Params.trademarkSymbol "R" }}<sup class="">&reg;</sup>{{ end }}{{ end }}</span></a>
+            <a href="{{ $hrefLink }}">
+              <img src="/icons/utility/new_window.svg" class="ico-bt-sm-4 slds-m-left_x-small" alt="">
+            </a>
+            </span>
+            </h2>
+          <ul class="">
+            <li class="slds-item">
+                {{ .Summary | safeHTML | truncate 200 }}
+            </li>
+         
+            </ul>
+        </div>
+      </div> 
+      <div class="slds-m-top_small">
+        <span class="slds-badge slds-m-right_x-small slds-m-bottom_x-small slds-text-color_weak">Total Topics: <em class="slds-text-color_error">{{ $totalCount }}</em></span>
+      </div>
+    </div>
+    <footer class="slds-card__footer">
+      <a class="slds-card__footer-action" href="{{ $hrefLink }}">Read More</a>
+      </footer>
+    </article>
+</div>  
+{{ end }}
+{{ end }}
+{{ end }}             
+
+</div>
+<!-- content ends -->
+
+</div>
+</section>
+
+{{ partial "footer" (dict  "activeMenu" "Topics" "context" $context ) }}
+
+</body>
+</html>

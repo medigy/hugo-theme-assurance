@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+  <html lang="en" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  {{ partial "head" . }}
+
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Topics" "context" $context )  }}       
+  
+
+   <!-- breadcrumbs starts -->
+<section class="breadcrumbs-wrap">
+  <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+  
+  <nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
+      <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+          <li class="slds-breadcrumb__item">
+              <a href="/">Home</a>
+          </li>
+          <li class="slds-breadcrumb__item">
+            <a href="/topics">Topics</a>
+          </li>
+          <li class="slds-breadcrumb__item slds-p-left_x-small">
+            {{ replace  .Title  "-hash-" "#"}}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  </section>  
+  <!-- breadcrumbs ends -->
+    
+    <section class="">
+      <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+      
+      <!-- content-1 starts -->
+      <div class="slds-grid slds-wrap slds-gutters slds-p-top_medium slds-p-bottom_medium">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12">
+      
+              <h2 class="slds-text-heading_medium slds-m-bottom_xx-small"><b>{{ replace  .Title  "-hash-" "#"}}</b></h2>
+              {{ $taxonomyTitle := replace  .Title  "-hash-" "#"}}
+              {{ $.Scratch.Set "title" $taxonomyTitle}}
+      
+              <p>
+                {{ range .Site.Data.category }}
+                 {{ with .subclasslabel }}
+                  {{ $.Scratch.Set "label" . }}
+                {{ end }}
+                {{ with .label }}
+                  {{ $.Scratch.Set "label" . }}
+                {{ end }}
+
+                {{ $label := $.Scratch.Get "label" }}
+                {{ $createdTitle := print .parentclasslabel ": " $label}}
+                {{ $createdTitleWithHash := print .parentclasslabel ": " $label}}
+                {{ $title := $.Scratch.Get "title" }}       
+                {{ $newTitle :=  ($title | urlize) }} 
+                {{/* $createdTitle := replace $createdTitle  "#" ""  */}}         
+                {{ if eq .slug $newTitle }}
+                  {{ $.Scratch.Set "createdTitleWithHash" $createdTitleWithHash}}
+                  {{ with .subclassdescription }}
+                  {{ ( . | base64Decode) | safeHTML }}
+                  {{ end }}
+
+                  {{ with .description }}
+                   {{ ( . | base64Decode) | safeHTML   }}
+                  {{ end }}
+                  {{ $.Scratch.Set "parentclasslabel" .parentclasslabel }}               
+                  {{ $.Scratch.Set "urllabel" $label }}               
+                  {{ $.Scratch.Set "classname" .classname }}
+                  {{ if .topicInsightsDetails }}
+                    {{ range .topicInsightsDetails }}
+                      {{ $.Scratch.Set "productCounter" .Product }}
+                      {{ $.Scratch.Set "serviceCounter"  .Service }}
+                      {{ $.Scratch.Set "solutionCounter" .Solution}}
+                      {{ $.Scratch.Set "newsCounter" .News }}
+                      {{ $.Scratch.Set "eventsCounter" .Events }}
+                    {{ end }}
+                  {{ else }}
+                      {{ $.Scratch.Set "productCounter" 0 }}
+                      {{ $.Scratch.Set "serviceCounter" 0 }}
+                      {{ $.Scratch.Set "solutionCounter" 0 }}
+                      {{ $.Scratch.Set "newsCounter" 0 }}
+                      {{ $.Scratch.Set "eventsCounter" 0 }}
+
+                {{ end }}      
+                {{ $.Scratch.Set "totalCount" 0 }}   
+                {{ if .topicInsightsTotal }} 
+                  {{ $.Scratch.Set "totalCount" .topicInsightsTotal }}
+                {{ else }}
+                  {{ $.Scratch.Set "totalCount" 0 }}
+                {{ end }}   
+                
+                {{ $.Scratch.Set "equalentCollections" .equalentCollections}}                   
+  
+                {{ end }}
+              {{ end }}
+
+              </p>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-12 slds-large-size_1-of-12"></div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center">
+                  <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>Know anyone building innovative solutions for Centers for {{ replace .Title "-hash-" "#"}}</b></h2>
+                  <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Invite them to submit their offerings</button>
+                </div>
+            </div>
+        </div>
+      <!-- content-1 ends -->
+      
+      <!-- Topic Community Insights starts -->
+      <div class="git-buttons-row slds-border_bottom slds-border_top slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_medium">
+      <h3 class="slds-text-heading_small slds-m-top_xx-small"><b>Topic Community Insights</b></h3>
+      <div class="slds-m-top_x-small">
+      <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Total: <em class="slds-text-color_error">{{ $.Scratch.Get "totalCount" }}</em></span> 
+      <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Product: <em class="slds-text-color_error">{{ $.Scratch.Get "productCounter" }}</em></span> 
+      <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Solution: <em class="slds-text-color_error">{{ $.Scratch.Get "solutionCounter" }}</em></span> 
+      <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Service: <em class="slds-text-color_error">{{ $.Scratch.Get "serviceCounter" }}</em></span> 
+      <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">News: <em class="slds-text-color_error">{{ $.Scratch.Get "newsCounter" }}</em></span> 
+      <span class="slds-badge slds-m-left_xx-small slds-m-right_xx-small slds-m-bottom_x-small slds-text-color_weak">Events: <em class="slds-text-color_error">{{ $.Scratch.Get "eventsCounter" }}</em></span>
+      </div>
+      </div>
+      <!-- Topic Community Insights ends -->
+      
+      <!-- Related Topic Community starts -->
+      <div class="git-buttons-row slds-border_bottom slds-p-bottom_small slds-m-bottom_medium">
+      <h3 class="slds-text-heading_small"><b>Related Topic Community</b></h3>
+      <div class="slds-m-top_x-small">
+        <ul class="slds-list_dotted slds-grid slds-wrap slds-gutters">
+          {{ $equalentCollections := $.Scratch.Get "equalentCollections" }} 
+          {{ range $equalentCollections }}  
+                {{ $relatedCategory := print .parentclasslabel ": " .label}}   
+                {{ $relatedCategoryLink := $relatedCategory | urlize }} 
+                {{ $relatedCategoryLink := replace $relatedCategoryLink  "#" "hash-"  }}                                      
+  
+          <li class="slds-item slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+              <a href="/topic/{{$relatedCategoryLink}}">{{ $relatedCategory }}</a>
+            </li>
+          {{ end }}
+          {{ $parentclasslabel :=  $.Scratch.Get "parentclasslabel" }}
+          {{ $label :=  $.Scratch.Get "urllabel" }}
+          {{ $classname :=  $.Scratch.Get "classname" }}
+
+      </ul>
+      </div>
+      </div>
+      <!-- Related Topic Community ends -->
+      
+      <!-- content-2 starts -->
+      <article>
+        <h4 class="slds-text-heading_medium slds-m-bottom_xx-small"><b>{{ replace  .Title "-hash-" "#"}}  Topic Insights</b></h4>
+      
+          <!-- submenu starts -->
+          <div class="demo-only slds-m-top_medium slds-text-align_center" style="padding:0.5rem;background:#16325c">
+            <div class="slds-button-group" role="group">
+              <button class="slds-button slds-button_outline-brand topic-tab" data-tab="topic-all">All ({{ $.Scratch.Get "totalCount" }})</button>
+              <button class="slds-button slds-button_inverse topic-tab" data-tab="topic-solutions">Solutions ({{ $.Scratch.Get "solutionCounter" }})</button>
+              <button class="slds-button slds-button_inverse topic-tab" data-tab="topic-products">Products ({{ $.Scratch.Get "productCounter" }})</button>
+              <button class="slds-button slds-button_inverse topic-tab" data-tab="topic-services">Services ({{ $.Scratch.Get "serviceCounter" }})</button>
+              <button class="slds-button slds-button_inverse topic-tab" data-tab="topic-news">News ({{ $.Scratch.Get "newsCounter" }})</button>
+              <button class="slds-button slds-button_inverse topic-tab" data-tab="topic-events">Events ({{ $.Scratch.Get "eventsCounter" }})</button>
+            </div>
+          </div>
+          <!-- submenu ends -->  
+          
+          
+          <!-- content starts -->
+          <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium">
+      
+            <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_small mg-alert-1" role="alert">
+              <h2>Are there any products that should be added for evaluation?
+              <a href="#"> Click here to add/suggest.</a>
+              </h2>
+            </div>
+            <ul class="slds-size_1-of-1 list-card" id="topic-all">
+              {{ $posts := where $.Site.Pages "Section" "in" (slice "offering" "news" "past" "upcoming") }}   
+              {{ $createdTitleWithHash := $.Scratch.Get "createdTitleWithHash" }}
+              {{ $categoryName := $createdTitleWithHash }}
+                {{ range $posts}}
+                  {{ if (in .Params.categories $categoryName) }} 
+                    {{ if (in .Params.sub "brief")}}             
+                      {{ .Render "li-news" }}
+                    {{ else if (in .Params.sub "events")}}             
+                      {{ .Render "li-event" }}
+                    {{ else }}                     
+                      {{ .Render "li-brief-daily-discovered" }}  
+                    {{ end }}                                         
+                  {{ end }}
+                {{ end }}  
+            </ul>    
+            <ul class="slds-size_1-of-1 list-card" id="topic-solutions" style="display: none;">
+              {{ range $posts}}
+              {{ if (in .Params.categories $categoryName) }}
+                {{ if (in .Params.offeringType "Solution")}}   
+                           
+                  {{ .Render "li-brief-daily-discovered" }}
+                {{ end }}                       
+              {{ end }}
+            {{ end }}
+            </ul>    
+            <ul class="slds-size_1-of-1 list-card" id="topic-products" style="display: none;">
+              {{ range $posts}}
+              {{ if (in .Params.categories $categoryName) }}
+                {{ if (in .Params.offeringType "Product")}}             
+                  {{ .Render "li-brief-daily-discovered" }}
+                {{ end }}                       
+              {{ end }}
+          {{ end }}
+              
+            </ul>
+            <ul class="slds-size_1-of-1 list-card" id="topic-services" style="display: none;">
+
+              {{ range $posts}}
+              {{ if (in .Params.categories $categoryName) }}
+                {{ if (in .Params.offeringType "Service")}}             
+                  {{ .Render "li-brief-daily-discovered" }}
+                {{ end }}                       
+              {{ end }}
+            {{ end }}              
+            </ul>
+            <ul class="slds-size_1-of-1 list-card" id="topic-news" style="display: none;">
+
+              {{ range $posts }}
+              {{ if (in .Params.categories $categoryName) }}
+                {{ if (in .Params.sub "brief")}}             
+                  {{ .Render "li-news" }}
+                {{ end }}                       
+              {{ end }}
+          {{ end }}
+    
+            </ul>
+            <ul class="slds-size_1-of-1 list-card" id="topic-events" style="display: none;">
+              {{ range $posts }}
+              {{ if (in .Params.categories $categoryName) }}
+                {{ if (in .Params.sub "events")}}             
+                  {{ .Render "li-event" }}
+                {{ end }}                       
+              {{ end }}
+          {{ end }}
+
+              
+            </ul>
+
+
+
+          </div>
+          
+          
+
+      </article>
+      <!-- content-2 ends -->
+      
+      </div>
+      </section>
+
+      {{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+
+      <script>
+        $(document).ready(function(){
+          $('.topic-tab').on("click",function(){
+           var tabName = "#"+$(this).attr("data-tab");
+           $(".list-card").hide();
+           $(tabName).show();
+          });
+
+        });
+
+      </script>
+
+</body>
+</html>
