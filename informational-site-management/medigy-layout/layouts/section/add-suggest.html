@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>      
+    {{ $context := . }}
+    {{ partial "navbar" (dict "mastHead" "Login" "context" $context )  }}        
+  
+    {{ partial "bread-crumb" . }}
+    {{ range last 1 .Site.Data.on_screen_messages_lhc_form.items }}
+      {{ range .items }}
+       {{ if eq .questionCode "Add_offering_messages"}}
+        {{ range .answers }}  
+          {{ if eq .code "website_of_the_product_message"}}
+              {{ $.Scratch.Set "website_of_the_product_message"  .text }}
+          {{ end }} 
+          {{ if eq .code "invalid_contact_number_of_institution_message"}}
+              {{ $.Scratch.Set "invalid_contact_number_of_institution_message"  .text }}
+          {{ end }}
+          {{ if eq .code "disabled_submit_message"}}
+              {{ $.Scratch.Set "disabled_submit_message"  .text }}
+          {{ end }} 
+          {{ if eq .code "submit_without_recaptcha"}}
+              {{ $.Scratch.Set "submit_without_recaptcha"  .text }}
+          {{ end }}                                        
+        {{ end }}  
+       {{ end }}  
+      {{ end }}
+    {{ end }}
+    {{ $invalid_contact_number_of_institution_message:= $.Scratch.Get "invalid_contact_number_of_institution_message" }} 
+    {{ $website_of_the_product_message:= $.Scratch.Get "website_of_the_product_message" }} 
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- content starts -->
+
+  <article class="add-suggest-box slds-m-bottom_large slds-m-top_medium">
+    <div class="slds-tabs_default">
+      <ul class="slds-tabs_default__nav" role="tablist">
+      <li class="slds-tabs_default__item slds-is-active" title="Item One" role="presentation">
+      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Offerings</a>
+      </li>
+      <li class="slds-tabs_default__item" title="Item Two" role="presentation">
+      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">News & Events</a>
+      </li>
+      <li class="slds-tabs_default__item" title="Item Three" role="presentation">
+      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Awards</a>
+      </li>
+      <li class="slds-tabs_default__item" title="Item Two" role="presentation">
+        <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-2__item">Feeds</a>
+        </li>
+        <li class="slds-tabs_default__item" title="Item Three" role="presentation">
+        <a class="slds-tabs_default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-5" id="tab-default-3__item">Topics</a>
+        </li>
+      </ul>
+      <!-- add offering > -->
+      <div id="tab-default-1" class="slds-tabs_default__content slds-show" id="productProfile" role="tabpanel" aria-labelledby="tab-default-1__item">
+        <div id="productFacetsMessage" class="alert-message" style="display: none;"></div>
+        <div class="slds-m-bottom_large slds-m-top_medium inner-section">
+          <h3 class="slds-text-heading_medium slds-m-top_x-small slds-m-bottom_small"><b>Add Offering</b></h3>
+          <!-- loading box > -->
+          <div class="medigy-loading-box-1 slds-hide" id="loader-div">
+            <div class="mdg-loading">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <br>
+            <div class="mdg-loading-text">Please wait...</div>
+          </div>
+          <!-- </ loading box -->
+          <form name="productFacets" id="productFacets" class="">
+          <div class="slds-form">
+            <input type="hidden" id="responseId">
+            <div class="slds-form-element slds-form-element_horizontal" id="offering-type">
+            <label class="slds-form-element__label" for="horizontal-input-id-01"><b>Type of offering that you are submitting <span class="blue-text-color">(required)</span></b> <img src="/icons/utility/question.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></label>
+            <div class="slds-form-element__control">
+            <span class="slds-radio inline-block">
+            <input type="radio" id="radio-13" value="Product" name="offeringItem">
+            <label class="slds-radio__label radioOfferingItem" for="radio-13">
+            <span class="slds-radio_faux"></span>
+            <span class="slds-form-element__label">Product</span>
+            </label>
+            </span>
+            <span class="slds-radio inline-block">
+            <input type="radio" id="radio-14" value="Solution" name="offeringItem">
+            <label class="slds-radio__label radioOfferingItem" for="radio-14">
+            <span class="slds-radio_faux"></span>
+            <span class="slds-form-element__label">Solution</span>
+            </label>
+            </span>
+            <span class="slds-radio inline-block">
+            <input type="radio" id="radio-15" value="Service" name="offeringItem">
+            <label class="slds-radio__label  radioOfferingItem" for="radio-15">
+            <span class="slds-radio_faux"></span>
+            <span class="slds-form-element__label">Service</span>
+            </label>
+            </span>
+            </div>
+            </div>
+            <div class="slds-clearfix"></div>
+            <fieldset class="custom-fieldset op-3" id="basic-info">
+            <legend class="">Basic INFORMATION ABOUT YOUR  <span class="capital-case replace-it">Offering</span></legend>
+            <section id="basicOffering">
+            <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-01"><b><span class="replace-it">Offering</span> name <span class="blue-text-color">(required)</span></b></label>
+            <div class="slds-form-element__control">
+            <input type="text" name="addProductName" id="addProductName" placeholder="Enter name" class="slds-input">
+            </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-02"><b>Website of the <span class="replace-it">offering</span> <span class="blue-text-color">(required)</span></b></label>
+            <div class="slds-form-element__control">
+            <input type="text" name="link" id="link" placeholder="Enter link" class="slds-input">
+            <span class="slds-form-element__help validLink" style="display: none;">{{ $website_of_the_product_message }}</span>
+            </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-03"><b>Describe the key benefits and unique value proposition of the <span class="capital-case replace-it">Offering</span> <span class="blue-text-color">(required)</span></b> <img src="/icons/utility/question.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></label>
+            <div class="slds-form-element__control">
+            <textarea name="description" id="description" placeholder="Enter Description" class="slds-textarea textarea-height"></textarea>
+            <div class="maxChar slds-form-element__help">
+              <span id="remainDescrChar" class="remainDescrChar error-utf-msg" style="display:none">500</span><span class="remainDescrChar" style="display:none"> characters remaining</span>
+            </div>
+            </div>
+            </div>
+
+            <div class="slds-clearfix"></div>
+           </section>
+          </fieldset>
+          <div id="moreAboutOffering" style="display: none;">
+            <fieldset class="custom-fieldset">
+              <legend class="">Tell US MORE ABOUT YOUR <span class="capital-case replace-it">Offering</span> </legend>
+              <section>
+              <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-31"><b>Select the topics that best describe the <span class="capital-case replace-it">Offering</span></b> <img src="/icons/utility/question.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></label>
+              <div class="slds-form-element__control">
+              <select name="category" id="category" multiple placeholder="" class="slds-input">
+              </select>
+              </div>
+              <input type="hidden" id="relatedCategories">
+              </div>
+              <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-32"><b>A one liner describing the <span class="capital-case replace-it">Offering</span></b></label>
+              <div class="slds-form-element__control">
+              <textarea name="shortDescription" id="shortDescription" placeholder="Enter Short Description" class="slds-textarea"></textarea>
+              <div class="maxChar slds-form-element__help">
+                <span id="remainShortDescChar" class="remainShortDescChar error-utf-msg" style="display:none">140</span><span class="remainShortDescChar" style="display:none"> characters remaining</span>
+              </div>
+              <span class="slds-float_right green-text-color font-size-medium"><a href="/add-suggest"><b>Suggest Topics</b></a></span>
+              </div>
+              </div>
+
+              <div class="slds-form-element slds-form-element_horizontal" id="opensourcelicenseCheck">
+                <label class="slds-form-element__label" for="horizontal-input-id-33"><b>Is this <span class="capital-case replace-it">Offering</span> Opensource?</b></label>
+                <div class="slds-form-element__control">
+                <span class="slds-radio inline-block">
+                <input class=" radioCheckOpensourcelicense" type="radio" id="radio-34" value="true" name="checkOpensourcelicense">
+                <label class="slds-radio__label" for="radio-34">
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">Yes</span>
+                </label>
+                </span>
+                <span class="slds-radio inline-block">
+                <input class=" radioCheckOpensourcelicense" type="radio" id="radio-35" value="false" name="checkOpensourcelicense">
+                <label class="slds-radio__label" for="radio-35">
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">No</span>
+                </label>
+                </span>
+                </div>
+              </div>
+              <div class="slds-form-element slds-form-element_horizontal" style="display: none;" id="opensourceDiv">
+                <label class="slds-form-element__label" for="horizontal-input-id-31"><b>Open Source license of the <span class="capital-case replace-it">Offering</span></b> <img src="/icons/utility/question.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></label>
+                <div class="slds-form-element__control">
+                <select id="openSourceLicense" name="openSourceLicense[]" placeholder="" class="slds-input">
+                </select>
+                </div>
+              </div>
+
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="horizontal-input-id-34"><b>GIT repository link of the <span class="capital-case replace-it">Offering</span></b></label>
+                  <div class="slds-form-element__control">
+                  <input type="text" id="githubUrl" name="githubUrl" placeholder="Enter Github URL" class="slds-input">
+                  <div class="slds-form-element__help validLinkGit" style="display: none;" id="form-error-01">Please enter a valid website link</div>
+                  </div>
+                </div>
+
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="horizontal-input-id-35"><b>Please upload a featured image for your <span class="capital-case replace-it">Offering</span></b> <img src="/icons/utility/question.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></label>
+                  <div class="slds-form-element__control">
+                  <input id="media" name="media" type="file" class="slds-input" placeholder="">
+                  <input type="hidden" id="featured_img"/>
+                  <div class="font-size-11">(Photos should be smaller than 1 MB and saved as JPG, PNG or GIF files)</div>
+                  <input type="hidden" name="file_details" id="file_details" />
+                  </div>
+                </div>
+
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="horizontal-input-id-36"><b>Please upload a logo image for your <span class="capital-case replace-it">Offering</span></b> <img src="/icons/utility/question.svg" class="ico-bt-sm-7-round-grey pointer" alt=""></label>
+                  <div class="slds-form-element__control">
+                  <input id="logo_media" name="logo_media" type="file" class="slds-input" placeholder="">
+                  <input type="hidden" id="logo_img"/>
+                  <div class="font-size-11">(Photos should be smaller than 1 MB and saved as JPG, PNG or GIF files)</div>
+                  <input type="hidden" name="file_details" id="file_details" />
+                  </div>
+                </div>
+
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="horizontal-input-id-37"><b>Health IT Standards Supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                  <div class="slds-form-element__control">
+                    <div class="slds-grid slds-gutters slds-wrap">
+
+                      <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                        <div class="slds-checkbox">
+                          <input type="checkbox" id="checkbox-unique-id-37" name="hitStandards" value="FHIR" />
+                          <label class="slds-checkbox__label" for="checkbox-unique-id-37">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">FHIR</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                        <div class="slds-checkbox">
+                          <input type="checkbox" id="checkbox-unique-id-38" name="hitStandards" value="HL7" />
+                          <label class="slds-checkbox__label" for="checkbox-unique-id-38">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">HL7</span>
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                        <div class="slds-checkbox">
+                          <input type="checkbox" id="checkbox-unique-id-39" name="hitStandards" value="CDA" />
+                          <label class="slds-checkbox__label" for="checkbox-unique-id-39">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">CDA</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                        <div class="slds-checkbox">
+                          <input type="checkbox" id="checkbox-unique-id-40" name="hitStandards" value="CCOW" />
+                          <label class="slds-checkbox__label" for="checkbox-unique-id-40">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">CCOW</span>
+                          </label>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div id="fhirDiv" style="display: none;">
+                  <div class="slds-form-element slds-form-element_horizontal">
+                    <hr class="mg-hr-m-2">
+                    <label class="slds-form-element__label" for="horizontal-input-id-37"><b>FHIR versions supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                    <div class="slds-form-element__control">
+                      <div class="slds-grid slds-gutters slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-41" name="fhirVersion" id="fhirVersion1" value="DSTU 1 (Official version)" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-41">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">DSTU 1 (Official version)</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-42" name="fhirVersion" id="fhirVersion2" value="DSTU 2 (Official version)" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-42">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">DSTU 2 (Official version)</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-43"name="fhirVersion" id="fhirVersion3" value="FHIR Release 3" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-43">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">FHIR Release 3</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-44" name="fhirVersion" id="fhirVersion4" value="FHIR Release 4 (Normative)" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-44">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">FHIR Release 4 (Normative)</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-form-element slds-form-element_horizontal">
+                    <label class="slds-form-element__label" for="horizontal-input-id-37"><b>FHIR Resources supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                    <div class="slds-form-element__control">
+                      <div class="slds-grid slds-gutters slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-45" name="fhriResourceSupport" value="Patient" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-45">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Patient</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-46" name="fhriResourceSupport" value="Diagnostic Report" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-46">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Diagnostic Report</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-47" name="fhriResourceSupport" value="Observations" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-47">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Observations</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-73" name="fhriResourceSupport" value="Allergy Intolerance" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-73">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Allergy Intolerance</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="hl7Div" style="display: none;">
+                  <div class="slds-form-element slds-form-element_horizontal">
+                    <hr class="mg-hr-m-2">
+                    <label class="slds-form-element__label" for="horizontal-input-id-37"><b>HL7 Versions Supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                    <div class="slds-form-element__control">
+                      <div class="slds-grid slds-gutters slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-48" name="hl7version" value="HL7 v2" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-48">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">HL7 v2</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-49" name="hl7version" value="HL7 v3"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-49">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">HL7 v3</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-50" name="hl7version" value="Clinical Document Architecture (CDA)" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-50">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Clinical Document Architecture (CDA)</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-51" name="hl7version" value="Continuity of Care Document (CCD)" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-51">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Continuity of Care Document (CCD)</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-form-element slds-form-element_horizontal">
+                    <label class="slds-form-element__label" for="horizontal-input-id-37"><b>HL7 Message Types Supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                    <div class="slds-form-element__control">
+                      <div class="slds-grid slds-gutters slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-52" name="hl7version" value="ACK" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-52">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">ACK</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-53" name="hl7version" value="ADT"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-53">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">ADT</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-54" name="hl7version" value="BAR" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-54">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">BAR</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-55" name="hl7version" value="DFT" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-55">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">DFT</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-56" name="hl7version" value="MDM" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-56">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">MDM</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-57" name="hl7version" value="MFN" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-57">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">MFN</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-58" name="hl7version" value="ORM" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-58">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">ORM</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-59" name="hl7version" value="ORU" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-59">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">ORU</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-60" name="hl7version" value="QRY" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-60">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">QRY</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-61" name="hl7version" value="RAS" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-61">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">RAS</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-62" name="hl7version" value="RDE" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-62">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">RDE</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-63" name="hl7version" value="SIU" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-63">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">SIU</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="cdaDiv" style="display: none;">
+                  <div class="slds-form-element slds-form-element_horizontal">
+                    <hr class="mg-hr-m-2">
+                    <label class="slds-form-element__label" for="horizontal-input-id-37"><b>CDA Versions Supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                    <div class="slds-form-element__control">
+                      <div class="slds-grid slds-gutters slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-64" name="cdaversion" value="Release 1" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-64">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Release 1</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-65" name="cdaversion" value="Release 2"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-65">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">Release 2</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <div id="ccowDiv" style="display: none;"> 
+                  <div class="slds-form-element slds-form-element_horizontal">
+                    <hr class="mg-hr-m-2">
+                    <label class="slds-form-element__label" for="horizontal-input-id-37"><b>CCOW Versions Supported by the <span class="capital-case replace-it">Offering</span></b></label>
+                    <div class="slds-form-element__control">
+                      <div class="slds-grid slds-gutters slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-66" name="ccowversion" value="1.0" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-66">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.0</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-67" name="ccowversion" value="1.1"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-67">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.1</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-68" name="ccowversion" value="1.2"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-68">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.2</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-69" name="ccowversion" value="1.3"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-69">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.3</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-70" name="ccowversion" value="1.4"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-70">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.4</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-71" name="ccowversion" value="1.5"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-71">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.5</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_5-of-12">
+                          <div class="slds-checkbox">
+                            <input type="checkbox" id="checkbox-unique-id-72" name="ccowversion" value="1.6"/>
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-72">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label">1.6</span>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="slds-clearfix"></div>
+            </section>
+            </fieldset>
+          </div>
+              
+          <fieldset class="custom-fieldset">
+            <legend class="">INSTITUTION PROVIDING THE <span class="capital-case replace-it">Offering</span> </legend>
+          <section id="ownerDiv">
+            <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-04"><b>Are you the owner or owner's representative<br> of this <span class="capital-case replace-it">Offering</span> ? <span class="blue-text-color">(required)</span></b></label>
+            <div class="slds-form-element__control">
+            <span class="slds-radio inline-block">
+            <input type="radio" id="radio-16" value="true" name="checkOwner">
+            <label class="slds-radio__label" for="radio-16">
+            <span class="slds-radio_faux"></span>
+            <span class="slds-form-element__label">Yes</span>
+            </label>
+            </span>
+            <span class="slds-radio inline-block">
+            <input type="radio" id="radio-17" value="false" name="checkOwner">
+            <label class="slds-radio__label" for="radio-17">
+            <span class="slds-radio_faux"></span>
+            <span class="slds-form-element__label">No</span>
+            </label>
+            </span>
+            </div>
+            </div>
+          <div class="slds-clearfix"></div>
+          </section>
+          
+          <section id="tenantDetailDiv" style="display: none;">
+            <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-04"><b>Please select your institution</b></label>
+            <div class="slds-form-element__control">
+            <select class="slds-input" id="tenantId" name="tenantId">
+            
+            </select>
+            </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-01"></label>
+              <div class="slds-form-element__control font-size-medium">
+              <b>Didn't find your Institution? <span class="blue-text-color vendorInfoClick"><a href="#.">Add your Institution</a></span></b>
+              </div>
+            </div>
+
+          <div class="slds-clearfix"></div>
+          </section>
+          <input type="hidden" name="addInstitutionStatus" id="addInstitutionStatus">
+          <section class="vendorInfo" style="display: none;">
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-05"><b>Name of the institution providing this <span class="capital-case replace-it">Offering</span> <span class="blue-text-color"><a href="#.">(required)</a></span></b></label>
+              <div class="slds-form-element__control">
+              <input type="text" id="organization" name="organization" placeholder="Enter institution name" class="slds-input">
+              </div>
+            </div>
+  
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-06"><b>Name of the contact person</b></label>
+              <div class="slds-form-element__control">
+              <input type="text" id="vendorName" name="vendorName" placeholder="Enter contact person name" class="slds-input">
+              </div>
+            </div>
+  
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-07"><b>Email address of institution <span class="blue-text-color"><a href="#.">(required)</a></span></b></label>
+              <div class="slds-form-element__control">
+              <input type="text" name="contact" id="contact" placeholder="Primary email address of institution" class="slds-input">
+              </div>
+            </div>
+  
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-08"><b>Contact number of institution <span class="blue-text-color"><a href="#.">(required)</a></span></b></label>
+              <div class="slds-form-element__control">
+              <input type="text" name="contactNumber" id="contactNumber" placeholder="Primary phone number of institution" class="slds-input">
+              <span id="errmsg" class="error-utf-msg" style="display:none">{{ $invalid_contact_number_of_institution_message }}</span>
+              </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-08"><b>Website of institution</b></label>
+              <div class="slds-form-element__control">
+              <input type="text" name="institutionWebsite" id="institutionWebsite" placeholder="Website of institution" class="slds-input">
+              </div>
+            </div>
+  
+            <div class="slds-clearfix"></div>
+          </section>
+
+          </fieldset>
+
+          <div class="slds-form-element slds-form-element_horizontal" style="display:none">
+            <label class="slds-form-element__label" for="createdOn"><b>Created On</b></label>
+            <div class="slds-form-element__control">
+            <input type="text" id="createdOn" name="createdOn" class="slds-input">
+            </div>
+          </div>
+
+          <div id="socialPresence"  style="display: none;">
+          <fieldset class="custom-fieldset">
+          <legend class="">SOCIAL PRESENCE OF THE <span class="capital-case replace-it">Offering</span> </legend>
+          <section id="socialPresence">
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-21"><b>Facebook page of the <span class="capital-case replace-it">Offering</span> / Institution</b></label>
+            <div class="slds-form-element__control">
+            <input type="text" id="facebook" name="facebook" placeholder="Facebook page" class="slds-input">
+            <span class="slds-form-element__help validLinkFacebook" style="display: none;">{{ $website_of_the_product_message }}</span>
+            </div>
+          </div>
+
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-22"><b>Twitter page of the <span class="capital-case replace-it">Offering</span> / Institution</b></label>
+            <div class="slds-form-element__control">
+            <input type="text" id="twitter" name="twitter" placeholder="Twitter page" class="slds-input">
+            <span class="slds-form-element__help validLinkTwitter" style="display: none;">{{ $website_of_the_product_message }}</span>
+            </div>
+          </div>
+
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-23"><b>LinkedIn page of the <span class="capital-case replace-it">Offering</span> / Institution</b></label>
+            <div class="slds-form-element__control">
+            <input type="text" id="linkedin" name="linkedin" placeholder="LinkedIn page" class="slds-input">
+            <span class="slds-form-element__help validLinkLinkedin" style="display: none;">{{ $website_of_the_product_message }}</span>
+            </div>
+          </div>
+
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-24"><b>Instagram page of the <span class="capital-case replace-it">Offering</span> / Institution</b></label>
+            <div class="slds-form-element__control">
+            <input type="text" id="instagram" name="instagram" placeholder="Instagram page" class="slds-input">
+            <span class="slds-form-element__help validLinkInstagram" style="display: none;">{{ $website_of_the_product_message }}</span>
+            </div>
+          </div>
+
+          <div class="slds-clearfix"></div>
+          </section>
+
+          </fieldset>
+          </div>
+            <!-- sumbit button group > -->
+            <div class="slds-form-element slds-form-element_horizontal">
+              <label class="slds-form-element__label" for="horizontal-input-id-02"></label>
+              <div class="slds-form-element__control">
+                <button class="slds-button slds-button_brand button-medium caps" name="addProduct" id="addProduct">Submit</button>
+                <button class="slds-button slds-button_outline-brand button-medium caps">Cancel</button>
+              </div>
+              </div>
+            <!-- </ sumbit button group -->  
+          </div>
+        </form>
+        </div>
+
+      </div>
+      <!-- </ add offering -->
+
+      <!-- News & Events Curation > -->
+      <!-- <div id="tab-default-2" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-2__item">
+        <div class="slds-m-bottom_large slds-m-top_medium inner-section">
+          <h3 class="slds-text-heading_medium slds-m-top_x-small slds-m-bottom_small"><b>News & Events Curation</b></h3>
+          <div class="slds-form">  
+            <div class="slds-grid slds-gutters slds-wrap">
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="slds-form-element__control slds-m-bottom_small">
+                  <input type="text" id="horizontal-input-id-57" placeholder="Enter Your Url*" class="slds-input">
+                  </div>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                <button class="slds-button slds-button_brand button-grey button-medium caps slds-m-bottom_small">Curate</button>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div> -->
+      <!-- </ News & Events Curation -->
+
+      <!-- <div id="tab-default-3" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-3__item">Item Three Content</div>
+      <div id="tab-default-4" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-4__item">Item Four Content</div>
+      <div id="tab-default-5" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-5__item">Item Five Content</div> -->
+    </div>
+  </article>
+<!-- content ends -->
+
+</div>
+</section>
+
+<!-- footer starts -->
+
+<script type="text/javascript" src="/js/validations/validate.js"></script>
+{{ partial "footer" (dict  "activeMenu" "News" "context" $context ) }}
+<link rel="stylesheet" href="/css/select2.min.css" />
+<script type="text/javascript" src="/js/select2.min.js"></script>
+<!-- footer ends -->
+<script>
+  $(document).ready(function () {
+    //offering type 
+    $('#offering-type input:radio').change(function () {
+    $('#basic-info').css("opacity", "1");
+
+    $("#contactNumber").keypress(function (e) {
+      //if the letter is not digit then display error and don't type anything
+      if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").show();
+        return false;
+      }
+      else {
+        $("#errmsg").hide();
+      }
+    });
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    $('#createdOn').val(today);
+
+  });
+  $('input[name="offeringItem"]').click(function () {
+    var offeringItem = $("input[name='offeringItem']:checked").val(); //$('#offeringItem').val();
+    if (offeringItem == '')
+      offeringItem = 'Offering';
+    $('span.replace-it').html(offeringItem);
+    var titleCategoryValue = 'Please select the best suited topics for your ' + offeringItem;
+    $('#category').attr('title', titleCategoryValue);
+    var descriptionTitle = 'What problem does your ' + offeringItem + ' solve? What does your customer gain from using your ' + offeringItem + '? What separates your ' + offeringItem + ' from others on the market? Your brief description needs to answer these questions in a way that is easy to read.'
+    $('#descriptionTooltip').attr('title', descriptionTitle);
+  });
+
+  $(".radioCheckOpensourcelicense").change(function () {
+    console.log("yes",$("input[name='checkOpensourcelicense']:checked").val());
+    if ($("input[name='checkOpensourcelicense']:checked").val() == 'true')
+      $('#opensourceDiv').show();
+    else
+      $('#opensourceDiv').hide();
+  });
+  $("input[name='checkOwner']").click(function (e) {
+    $('#socialPresence').show();
+    var currValue = $(this).val();
+    if (currValue == 'true') {
+    $('#tenantDetailDiv').show();
+    $('.vendorInfo').hide();
+    }else{
+      $('#tenantDetailDiv').hide();
+      $('.vendorInfo').show();
+    }
+    
+  });
+  // add institution
+  $('.vendorInfoClick').on("click", function (e) {  
+    $('#tenantDetailDiv').hide();
+    $('.vendorInfo').show();        
+  });
+  // url validation
+  $('#link').on('input', function (e) {
+    if ( $('#link').val()!="") {
+       if (is_url($('#link').val()) && $('#link').val()!="") {
+      $('.validLink').hide();
+      }
+      else {
+        $('.validLink').show();
+      }
+    }
+  });
+  $('#githubUrl').on('input', function (e) {
+    if (is_url($('#githubUrl').val()) && $('#githubUrl').val()!='') {        
+      $('.validLinkGit').hide();       
+    }
+    else {       
+      $('.validLinkGit').show();       
+    }
+  });
+  $('#facebook').on('input', function (e) {
+    if (is_url($('#facebook').val()) && $('#facebook').val()!='') {        
+      $('.validLinkFacebook').hide();       
+    }
+    else {       
+      $('.validLinkFacebook').show();       
+    }
+  });
+  $('#twitter').on('input', function (e) {
+    if (is_url($('#twitter').val()) && $('#twitter').val()!='') {        
+      $('.validLinkTwitter').hide();       
+    }
+    else {       
+      $('.validLinkTwitter').show();       
+    }
+  });
+  $('#linkedin').on('input', function (e) {
+    if (is_url($('#linkedin').val()) && $('#linkedin').val()!='') {        
+      $('.validLinkLinkedin').hide();       
+    }
+    else {       
+      $('.validLinkLinkedin').show();       
+    }
+  });
+  $('#instagram').on('input', function (e) {
+    if (is_url($('#instagram').val()) && $('#instagram').val()!='') {        
+      $('.validLinkInstagram').hide();       
+    }
+    else {       
+      $('.validLinkInstagram').show();       
+    }
+  });
+  $('#category').select2();
+
+  // fhir
+  $("input[name='hitStandards']").click(function () {
+    var hitStandardsArray = [];//$("input[name='hitStandards']").val();
+    $.each($("input[name='hitStandards']:checked"), function () {
+      hitStandardsArray.push($(this).val());
+    });
+    var hitStandardsCount = hitStandardsArray.length;
+    $('#fhirDiv').hide();
+    $('#hl7Div').hide();
+    $('#cdaDiv').hide();
+    $('#ccowDiv').hide();
+    for (i = 0; i < hitStandardsCount; i++) {
+      if (hitStandardsArray[i] == 'FHIR')
+        $('#fhirDiv').show();
+      if (hitStandardsArray[i] == 'HL7')
+        $('#hl7Div').show();
+      if (hitStandardsArray[i] == 'CDA')
+        $('#cdaDiv').show();
+      if (hitStandardsArray[i] == 'CCOW')
+        $('#ccowDiv').show();
+    }
+  });
+
+  var sentence = '';
+  $('#description').click(function () {
+    $('#moreAboutOffering').show();
+   
+  });
+  var maxDescriptionchars = 500;
+    $('#description').keyup(function () {
+        $('.remainDescrChar').show();
+        var tlength = $(this).val().length;
+        $(this).val($(this).val().substring(0, maxDescriptionchars));
+        var tlength = $(this).val().length;
+        remain = maxDescriptionchars - parseInt(tlength);
+        $('#remainDescrChar').text(remain);
+    });
+    var maxShortDescriptionchars = 140;
+    $('#shortDescription').keyup(function () {
+        $('.remainShortDescChar').show();        
+        var tlength = $(this).val().length;
+        $(this).val($(this).val().substring(0, maxShortDescriptionchars));
+        var tlength = $(this).val().length;
+        remain = maxShortDescriptionchars - parseInt(tlength);
+        $('#remainShortDescChar').text(remain);
+    });
+
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "{{ $.Site.Params.OWLApiUrl }}?query={getClassHierarchy%28rootClassName:%22Collection%22,searchParam:%22%22%29{parentclassname%20parentclasslabel%20%20classname%20%20%20%20label%20%20%20%20%20subclassname%20%20%20%20%20subclasslabel}}",
+    "method": "GET",
+    "headers": {
+      "Accept": "*/*",
+      "Cache-Control": "no-cache",
+      "Host": "{{ $.Site.Params.OWLApiUrl }}",
+      "accept-encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "cache-control": "no-cache"
+    }
+  }
+  $.ajax(settings).done(function (response) {
+    let myArray = response.data.getClassHierarchy;
+    var catOption = '';
+    for (let i = 0; i < myArray.length; i++) {
+      if (myArray[i].subclassname) {
+        var label = myArray[i].parentclasslabel + ": " + myArray[i].subclasslabel;
+        var key = myArray[i].subclassname;
+      }
+      else if (myArray[i].classname) {
+        var label = myArray[i].parentclasslabel + ": " + myArray[i].label;
+        var key = myArray[i].classname;
+      }
+      else {
+        var label = myArray[i].parentclasslabel;
+        var key = '';//myArray[i].parentclassname;
+      }
+      catOption += '<option value="' + label + "$," + key + '">' + label + '</option>';
+    }
+    $('#category').html(catOption);   
+  });
+  var tagArray = '';
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "{{ $.Site.Params.OWLApiUrl }}?query={getClassHierarchy%28rootClassName:%22License%22,searchParam:%22%22%29{parentclassname%20parentclasslabel%20%20classname%20%20%20%20label%20%20%20%20%20subclassname%20%20%20%20%20subclasslabel}}",
+    "method": "GET",
+    "headers": {
+      "Accept": "*/*",
+      "Cache-Control": "no-cache",
+      "Host": "{{ $.Site.Params.OWLApiUrl }}",
+      "accept-encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "cache-control": "no-cache"
+    }
+  }
+  $.ajax(settings).done(function (response) {
+    let myArray = response.data.getClassHierarchy;
+    var catLicenseOption = '<option value="">Select license</option>';
+    for (let i = 0; i < myArray.length; i++) {
+      if (myArray[i].label != null)
+        catLicenseOption += '<option value="' + myArray[i].parentclasslabel + ': ' + myArray[i].label + '$,' + myArray[i].classname + '">' + myArray[i].parentclasslabel + ': ' + myArray[i].label + '</option>';
+      else if (myArray[i].parentclasslabel != null)
+        catLicenseOption += '<option value="' + myArray[i].parentclasslabel + '$,' + myArray[i].parentclassname + '">' + myArray[i].parentclasslabel + '</option>';
+    }
+    $('#openSourceLicense').html(catLicenseOption);
+  });
+
+  // get institution 
+  var sessionId = getCookie('sessionId');
+  if (sessionId != null) {
+    //console.log("query{\n  getMyTenants(authorization:{\n    sessionID:\""+sessionId+"\"\n  }){\n    tenantId\n    name\n    displayName\n  }\n}");
+    //console.log("query{\n  getMyTenants(authorization:{\n    sessionID:\"" + sessionId + "\"\n  }){\n    id\n    name\n    description\n created_at\n  }\n}");
+    var serviceData = { "url": "{{ $.Site.Params.GraphQLUrl }}", "method": "GET", "query": "query{\n  getMyTenants(authorization:{\n    sessionID:\"" + sessionId + "\"\n  }){\n    id\n    name\n    description\n  displayName\n created_at\n }\n}" };
+      ajaxPageServiceCall.serviceCall(serviceData).then(response => {
+
+      var options = '';
+      var selectStatus = 0;
+     // console.log(response);
+      for (var i = 0; i < response.data.getMyTenants.length; i++) {
+
+        var opt = '';
+      //  if (response.data.getMyTenants[i].tenantId != 'cb39d53a-1ef0-11e9-9d28-bb451ba91f54' && response.data.getMyTenants[i].tenantId != 'e8d7b61e-4f8b-11e9-b5be-c51857ed28a4' && response.data.getMyTenants[i].tenantId != 'e7dfc497-707f-11e9-8c9d-33682264df93' && response.data.getMyTenants[i].tenantId != null) {
+          if (getCookie('tenantId') !== null && getCookie('tenantId') == response.data.getMyTenants[i].id) {
+            var opt = 'selected="selected"';
+            selectStatus = 1;
+
+          } 
+          
+          //$('#tenantDetails').val() == getCookie('tenantId')
+          /*
+          else if(response.data.getMyTenants[i].tenantId == '7822da54-c0ba-11e8-85c1-6301a0c839d6')
+              var opt = 'selected="selected"';
+            */
+          options += '<option value ="' + response.data.getMyTenants[i].id + '" ' + opt + '>' + response.data.getMyTenants[i].displayName + '</option>';
+       // }
+      }
+      if (options != '') {
+       // $('#tenantDetails').html(options);
+        $('#tenantIdForClaim').html(options);
+        $('#tenantId').html(options);
+        return false;
+      }
+      else{
+         options += '<option value ="" > You are not a member of any institution, Please add your Institution </option>';
+          //$('#tenantDetails').html(options);
+          $('#tenantIdForClaim').html(options);
+          $('#tenantId').html(options);
+          return false;
+      }
+    })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  // Collect all tenant of an user ends here  
+
+  // form submit 
+
+  $('#productFacets').on('submit', function (e) {   
+    if (e.isDefaultPrevented()) {
+      alert('form is not valid');
+    }
+    else {
+      // everything looks good!
+      e.preventDefault();
+      var personid = getCookie('personid');
+      if (personid != null) {
+          $('#addProductName').removeClass('utf-valid-red');
+          $('#description').removeClass('utf-valid-red');
+          $('#shortDescription').removeClass('utf-valid-red');
+          var fieldname ="";
+          var nameStatus = containsNonLatinCodepoints($("#addProductName").val());
+          var descrStatus = containsNonLatinCodepoints($("#description").val());
+          var shortDescrStatus = containsNonLatinCodepoints($("#shortDescription").val());
+          if (nameStatus == false){
+            fieldname ="Offering name";
+            $('#addProductName').addClass('utf-valid-red');
+          }else if (descrStatus == false){
+            fieldname ="description";
+            $('#description').addClass('utf-valid-red');
+          }else if(shortDescrStatus == false){
+            fieldname ="one liner description";
+            $('#shortDescription').addClass('utf-valid-red');
+          }
+          if(fieldname !=""){
+            $('#productFacetsMessage').html("");
+            $('#productFacetsMessage').removeClass('alert-ligh-blue');
+           // $('#productFacetsMessage').removeClass('alert-primary');
+            $('#productFacetsMessage').html("We found few invalid characters in the " + fieldname + ". If you copy pasted the text directly from the offering website, chances are that few characters may not be in proper Unicode character format and so you will need to copy the text to a plain text or markdown editor, format it properly and then copy paste to the text box. If you use Grammarly, that would be even better to ensure that the description is correct in all aspects.");
+            $('#productFacetsMessage').addClass('slds-alert_error');
+            $('#productFacetsMessage').show();
+            //$('#addProductName').focus();
+            $('#offering-type').focus();
+          }
+          else{
+            $('#productFacetsMessage').html("");
+            $('#productFacetsMessage').removeClass('alert-ligh-blue');
+            $('#productFacetsMessage').removeClass('slds-alert_error');
+           // $('#productFacetsMessage').addClass('alert-primary');
+            var offeringType = $("input[name='offeringItem']:checked").val().toUpperCase();//$('#offeringItem').val().toUpperCase();
+            var offeringTypeMessage = $("input[name='offeringItem']:checked").val();//$('#offeringItem').val();
+            var productName = $('#addProductName').val();
+            productName = productName.replace(/"/g, "'");
+            productName = $.trim(productName);
+            if ($("input[name='checkOwner']:checked").val() != true)
+             var msg_var = 'The ';
+            else
+             var msg_var = 'Your ';
+
+              {{ range last 1 .Site.Data.on_screen_messages_lhc_form.items }}                              
+               {{ range .items }}
+                {{ if eq .questionCode "Add_offering_messages"}}
+                 {{ range .answers }}  
+                   {{ if eq .code "waiting_for_submits_the_offering"}}
+                       var waiting_for_submits_the_offering = {{ .text }}
+                   {{ end }}
+                   {{ if eq .code "service_offering_success_message"}}
+                       var submits_the_product_in_add_offering = {{ .text }}
+                   {{ end }}                                          
+                 {{ end }}  
+                {{ end }}
+               {{ end }}
+              {{ end }} 
+              var replaceText = waiting_for_submits_the_offering.substr(waiting_for_submits_the_offering.indexOf(" ") + 1);
+          
+              var displ_msg = msg_var + offeringTypeMessage + " <b><i>" + productName + "</i></b> "+replaceText;
+              $('#productFacetsMessage').html(displ_msg);
+              $('#productFacetsMessage').show();
+              $('#addProduct').attr("disabled", "disabled");
+              $('#productProfile').removeClass('slds-show');
+              var checkOwner = $("input[name='checkOwner']:checked").val();//$('#checkOwner').val();
+              if($('#category').val()!= null){
+              var categoryArray = $('#category').val();
+              var catCount = categoryArray.length;
+              var category = '';
+                for (i = 0; i < catCount; i++) {
+                  var splittedCategory = categoryArray[i].split('$,');
+                  category += '\n { name:"' + splittedCategory[0] + '", key:"' + splittedCategory[1] + '"},\n ';
+                }
+              }
+              else{
+                  category = '\n { name:"", key:""},\n ';
+              } 
+              var shortDescription = $('#shortDescription').val();
+              shortDescription = shortDescription.replace(/%/g, "percentage");
+              shortDescription = base64EncodeUnicode(shortDescription);
+              var featureProduct = $('#featureProduct').val();
+              var createdOn = $('#createdOn').val() + 'T00:00:00+00:00';
+              var link = $('#link').val();
+              link = link.replace(/"/g, "'");
+              var licenseArray = $('#openSourceLicense').val();
+              if (licenseArray != null && licenseArray.length >0  ){
+                var splittedLicense = licenseArray.split('$,');
+                var license = '{ key:"' + splittedLicense[1] + '", name:"' + splittedLicense[0] + '"}';
+              }else{
+                    var license = '{ key:"", name:""}';
+              } 
+              var githubUrl = $('#githubUrl').val();
+              githubUrl = githubUrl.replace(/"/g, "'");
+              var description = $('#description').val();
+              description = description.replace(/%/g, "percentage");
+              description = base64EncodeUnicode(description);
+              var organization = $('#organization').val();
+              organization = organization.replace(/"/g, "'");
+              if ($("input[name='checkOwner']:checked").val() != true){
+                var contact = $('#contact').val().trim();
+              contact = contact.replace(/"/g, "'");
+              }
+              else  
+                var contact = "";
+               // var permalink = $('#permalink').val();
+               // permalink = permalink.replace(/"/g, "'");
+                var mediaUrl = ''; //$('#mediaUrl').val();
+                var media = ''; //$('#media').val();
+                var facebook = '';
+                var twitter = '';
+                var linkedin = '';
+                var instagram = '';        
+                var facebook = $('#facebook').val();
+                facebook = facebook.replace(/"/g, "'");
+                var twitter = $('#twitter').val();
+                twitter = twitter.replace(/"/g, "'");
+                var linkedin = $('#linkedin').val();
+                linkedin = linkedin.replace(/"/g, "'");
+                var instagram = $('#instagram').val();
+                instagram = instagram.replace(/"/g, "'");
+                var sessionId = getCookie('sessionId');
+                var hitStandards = '';
+                $.each($("input[name='hitStandards']:checked"), function () {
+                  hitStandards += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                var fhirVersion = '';
+                $.each($("input[name='fhirVersion']:checked"), function () {
+                  fhirVersion += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                var fhriResourceSupport = '';
+                $.each($("input[name='fhriResourceSupport']:checked"), function () {
+                  fhriResourceSupport += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                var hl7message = '';
+                $.each($("input[name='hl7message']:checked"), function () {
+                  hl7message += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                var hl7version = '';
+                $.each($("input[name='hl7version']:checked"), function () {
+                  hl7version += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                //var cdaversionArray = $('#cdaversion').val();
+                var cdaversion = '';
+                $.each($("input[name='cdaversion']:checked"), function () {
+                  cdaversion += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                var ccowversion = '';
+                $.each($("input[name='ccowversion']:checked"), function () {
+                  ccowversion += '\n { name:"' + $(this).val() + '"}\n ';
+                });
+                var vendorName = $('#vendorName').val();
+                var vendorContact = $('#contactNumber').val();
+                var vendorEmail = $('#contact').val();
+
+                
+                var offeringOrganizationContact = $('#contactNumber').val();
+                var offeringOrganizationEmail = $('#contact').val();
+
+                var ownerchck = $("input[name='checkOwner']:checked").val();   
+                var institutionWebsite = $('#institutionWebsite').val();   
+                if(institutionWebsite == null)
+                  institutionWebsite = link;
+                  if ( ownerchck == "true"){ // Yes Onwer
+                    if(vendorEmail ==""){
+                      var tenantId = $('#tenantId').val();
+                      var offeringTenantDetails = '\n   offeringOwnerTenant:\"' + tenantId + '\"\n';
+                    }
+                    else{
+                        var offeringTenantDetails = '\n   offeringTenantDetails:{\n      companyName:\"' + organization + '\"\n      workEmail:\"' + contact + '\"\n      ownerType:\"\"\n      companyType:\"\"\n      website:\"' + institutionWebsite + '\"\n      workPhone:\"' + vendorContact + '\"\n    }\n'       
+                    }           
+                  }
+                  else {
+                      // var tenantId = $('#tenantId').val();
+                      // if(tenantId == ""){
+                          var tenantId = 42;
+                      // }                       
+                        var offeringTenantDetails = '\n   offeringOwnerTenant:\"' + tenantId + '\"\n';
+                  }
+                  // recaptcha verifications.
+                  var userEmail = getCookie('userEmail');
+                  var firstName = getCookie('firstname');
+                  var personid = getCookie('personid');
+                  var file_details = $("#file_details").val();
+                  //var recognitionCount = $('#RecognitionCount').val();
+                 // var recognition = 'offeringRecognitionsAndAwards:[';
+                 /// for (i = 0; i < recognitionCount; i++) {
+                 //   recognition += '{'
+                 // }         
+                 // var response = grecaptcha.getResponse(recaptchaCommon);
+                  //console.log(response);
+                  ///if (response.length == 0) {
+                   // $('.captcha-message-common').show();
+                   // $('#productFacetsMessage').removeClass('alert-success');
+                   // $('#productFacetsMessage').removeClass('alert-primary');
+                   // $('#productFacetsMessage').html("Please verify the captcha.");
+                   // $('#productFacetsMessage').addClass('alert-danger');
+                   // $('#addProduct').prop("disabled", false);
+                   // $('#productProfile').addClass('active');
+                   // $('#loader-div').removeClass('active');
+                   // return false;
+                  //}
+                 // else {
+                   // $('.captcha-message-common').hide();
+                   // $('#addProduct').prop('disabled', true);
+                  //}
+
+                  var relatedCategory = $('#relatedCategories').val();
+                  if (relatedCategory == null) {
+                    var catSelectedValues = $("#category").val();
+                    if (catSelectedValues.length > 0) {
+                      var keyValue = '';
+                      for (let i = 0; i < catSelectedValues.length; i++) {
+                        var splittedOption = catSelectedValues[i].split('$,');
+                        keyValue += '"' + splittedOption[1] + '",';
+                        sentence = keyValue.replace(/(.+),$/, '$1');
+                      }              
+                      console.log("{\"operationName\":\"getEqualentCollections\",\"variables\":{\"collectionName\":[" + sentence + "]},\"query\":\"query getEqualentCollections($collectionName: [String]!) {\\n  equalentCollections(collectionName: $collectionName) {\\n    classname\\n    label\\n    parentclassname\\n    parentclasslabel\\n  }\\n}\\n\"}");
+                      var tagArrayRelatedCategory = '';
+                      var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "{{ $.Site.Params.OWLApiUrl }}",
+                        "method": "POST",
+                        "headers": {
+                          "Content-Type": "application/json",
+                          "Accept": "*//*",
+                          "Cache-Control": "no-cache",
+                          "Host": "{{ $.Site.Params.OWLApiUrl }}",
+                          "accept-encoding": "gzip, deflate",
+                          "Connection": "keep-alive",
+                          "cache-control": "no-cache"
+                        },
+                        "processData": false,
+                        "data": "{\"operationName\":\"getEqualentCollections\",\"variables\":{\"collectionName\":[" + sentence + "]},\"query\":\"query getEqualentCollections($collectionName: [String]!) {\\n  equalentCollections(collectionName: $collectionName) {\\n    classname\\n    label\\n    parentclassname\\n    parentclasslabel\\n  }\\n}\\n\"}"
+                      }
+                      $.ajax(settings).done(function (response) {
+                        console.log(response);
+                        let myArray = response.data.equalentCollections;
+                        for (let i = 0; i < myArray.length; i++) {
+                          tagArrayRelatedCategory += '\n { name:"' + myArray[i].parentclasslabel + ': ' + myArray[i].label + '", key:"' + myArray[i].classname + '"},\n ';
+                        }
+                        tagArrayRelatedCategory = tagArrayRelatedCategory.replace(/(.+),$/, '$1');
+                        relatedCategory = tagArrayRelatedCategory;
+                      });
+                    }
+                    else {
+                      //alert("Please select the item");
+                    }
+                  }
+                  var offeringCommunity = "";
+                  var offeringProjectName = ""; 
+                  var communityUrlArray = getUrlVars();
+                  if("community" in communityUrlArray)
+                  {
+                      if(getUrlVars()['community'] != null)
+                      {
+                        var communityOfferingArray = $('#communityOffering').val().split(':');
+                        offeringCommunity = communityOfferingArray[0];
+                        offeringProjectName = communityOfferingArray[1];
+                      }
+                  }
+                  console.log("mutation{\n  addOffering(offering:{" + offeringTenantDetails + "   offeringType:" + offeringType + "\n    offeringName:\"" + productName + "\"\n    offeringCommunity:\"" + offeringCommunity + "\"\n    offeringProjectName:\"" + offeringProjectName + "\"\n    offeringCreatedOn:\"" + createdOn + "\" \n    offeringOwnerCheck: " + checkOwner + "\n    offeringDescription:\"" + description + "\"\n    offeringShortDescription:\"" + shortDescription + "\"\n    offeringOrganization:\"" + organization + "\"\n  offeringOrganizationEmail:\"" + offeringOrganizationEmail + "\"\n offeringOrganizationContact:\"" + offeringOrganizationContact + "\"\n   offeringVendorEmail:\"" + vendorEmail + "\"\n  offeringVendorName:\"" + vendorName + "\"\n   offeringVendorContact:\"" + vendorContact + "\"\n offeringWebsite:\"" + link + "\"\n    offeringLicense:" + license + "\n    offeringGitRepoLink:\"" + githubUrl + "\"\n    offeringHealthItStandards:[ \n " + hitStandards + "\n    ]\n    offeringFhirVersions:[\n      " + fhirVersion + "\n]\n    offeringFhirSupportedResources:[\n" + fhriResourceSupport + "\n    ]\n     offeringHl7Versions:[\n" + hl7version + "\n    ]\n   offeringHl7SupportedMessages:[\n" + hl7message + "\n    ]\n       offeringCdaVersions:[\n" + cdaversion + "\n    ]\n       offeringCcowVersions:[\n" + ccowversion + "\n    ]\n    offeringCategories:[\n" + category + "\n    ]\n  offeringRelatedCategories:[\n" + relatedCategory + "\n    ]\n   offeringFacebookPage:\"" + facebook + "\"\n    offeringTwitterPage:\"" + twitter + "\"\n    offeringLinkedInPage:\"" + linkedin + "\"\n    offeringInstagramPage:\"" + instagram + "\"\n   },authorization:{\n    sessionID:\"" + sessionId + "\"\n  },sourceOfInvitation:{\n    name:\"Medigy: Website Invite\"\n    key:\"medigy\"\n  }\n){\n    status\n    message\n    errorCode\n  }\n}");
+                 
+                  var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://devl.dss.next.medigy.com/graphql",
+                    "method": "POST",
+                    "headers": {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                      "cache-control": "no-cache"
+                    },
+                    "data": {
+                      "query": "mutation{\n  addOffering(offering:{" + offeringTenantDetails + "   offeringType:" + offeringType + "\n    offeringName:\"" + productName + "\"\n    offeringCommunity:\"" + offeringCommunity + "\"\n    offeringProjectName:\"" + offeringProjectName + "\"\n    offeringCreatedOn:\"" + createdOn + "\" \n    offeringOwnerCheck: " + checkOwner + "\n    offeringDescription:\"" + description + "\"\n    offeringShortDescription:\"" + shortDescription + "\"\n    offeringOrganization:\"" + organization + "\"\n  offeringOrganizationEmail:\"" + offeringOrganizationEmail + "\"\n offeringOrganizationContact:\"" + offeringOrganizationContact + "\"\n   offeringVendorEmail:\"" + vendorEmail + "\"\n  offeringVendorName:\"" + vendorName + "\"\n   offeringVendorContact:\"" + vendorContact + "\"\n offeringWebsite:\"" + link + "\"\n    offeringLicense:" + license + "\n    offeringGitRepoLink:\"" + githubUrl + "\"\n    offeringHealthItStandards:[ \n " + hitStandards + "\n    ]\n    offeringFhirVersions:[\n      " + fhirVersion + "\n]\n    offeringFhirSupportedResources:[\n" + fhriResourceSupport + "\n    ]\n     offeringHl7Versions:[\n" + hl7version + "\n    ]\n   offeringHl7SupportedMessages:[\n" + hl7message + "\n    ]\n       offeringCdaVersions:[\n" + cdaversion + "\n    ]\n       offeringCcowVersions:[\n" + ccowversion + "\n    ]\n    offeringCategories:[\n" + category + "\n    ]\n  offeringRelatedCategories:[\n" + relatedCategory + "\n    ]\n   offeringFacebookPage:\"" + facebook + "\"\n    offeringTwitterPage:\"" + twitter + "\"\n    offeringLinkedInPage:\"" + linkedin + "\"\n    offeringInstagramPage:\"" + instagram + "\"\n   },authorization:{\n    sessionID:\"" + sessionId + "\"\n  },sourceOfInvitation:{\n    name:\"Medigy: Website Invite\"\n    key:\"medigy\"\n  }\n){\n    status\n    message\n    errorCode\n  }\n}"
+                    }
+                  }
+                  var status = "Failed";
+                  $.ajax(settings).done(function (response) {
+                    alert("ajax");
+                    console.log(response);            
+                    $("#responseId").val(response.data.addOffering.message);
+                   
+                   // $("#productFacets").append("<input type='hidden' id='responseId' value='"+response.data.addOffering.message+"'>");
+                    if (response.data.addOffering.status == "SUCCESS") {
+                     var media_exist= $('#media').prop('files')[0];    
+                     var logo_exist= $('#logo_media').prop('files')[0];  
+                     var addofferingName = $('#addProductName').val();       
+                     addofferingName = addofferingName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
+                     addofferingName = addofferingName.toLowerCase();  
+                     var projectdataId = $("#responseId").val();  
+                     var imgName='';
+                     if(typeof (media_exist) != "undefined"){ 
+                       if(projectdataId){
+                          imgName= projectdataId+'.png';  
+                          var content = $("#featured_img").val();
+                          mediaUpload(imgName,content).then(function(featuredResult){
+                            console.log("success featured image")
+                             if(typeof (logo_exist) != "undefined"){ 
+                            imgName= projectdataId+'-logo.png';
+                            var content = $("#logo_img").val();
+                            mediaUpload(imgName,content).then(function(logoResult){
+                              console.log("success logo image");
+                            })
+                             }
+                          })
+                       }else{
+                          imgName= addofferingName+'.png';  
+                          var content = $("#featured_img").val();
+                          mediaUpload(imgName,content).then(function(featuredResult){
+                            console.log("success featured image")
+                             if(typeof (logo_exist) != "undefined"){ 
+                            imgName= addofferingName+'-logo.png';
+                            var content = $("#logo_img").val();
+                            mediaUpload(imgName,content).then(function(logoResult){
+                              console.log("success logo image");
+                            })
+                             }
+                          })
+                      }
+                     } 
+                      else{
+                          if(typeof (logo_exist) != "undefined"){
+                            if(projectdataId){
+                              imgName= projectdataId+'-logo.png';
+                              var content = $("#logo_img").val();
+                              mediaUpload(imgName,content).then(function(logoResult){
+                                  console.log("success logo image");
+                              })
+                            } else{
+                               imgName= addofferingName+'-logo.png';
+                               var content = $("#logo_img").val();
+                              mediaUpload(imgName,content).then(function(logoResult){
+                                  console.log("success logo image");
+                              })
+                            }                   
+                            }
+                      }
+                      //$("#productFacets")[0].reset();
+                      $('#productFacetsMessage').html("");
+                      $('#productFacetsMessage').removeClass('slds-alert_error');
+                      //$('#productFacetsMessage').removeClass('alert-primary');            
+                      
+                      //submits_the_product_in_add_offering
+                      text = submits_the_product_in_add_offering.replace("<loaderMsgPrefix>", msg_var + offeringTypeMessage + " <b><i>" + productName + "</i></b/>");
+                      text = text.replace("<offering_name>", "<b><i>" + productName + "</i></b>");
+                      text = text.replace("<mail_id>", "<b><i>" + userEmail + "</i></b>");
+                      text = text.replace("<admin-email>", "<b><a href='mailto:admin@medigy.com?subject=[Netspective Medigy] Question about \"" + productName + "\" SID  \"<submissionid>\"' target='blank'>e-mail</a></b>");
+                      text = text.replace("<admin-phone>", "<b>+1 202 660-1351</b>");
+                      text = text.replace("<submission-id>", "<b>" + response.data.addOffering.message + "</b>");
+                      text = text.replace("<submissionid>", response.data.addOffering.message );
+                      text = text.replace("<line-break>", "<br /><br />");
+                      //text = submits_the_product_in_add_offering.replace("<offeringNameType>", " <b><i> + productName + "</i></b>");
+                      var displ_succ_msg = msg_var + offeringTypeMessage + " <b><i>" + productName + "</i></b/> has being submitted.<br /><br /> Our expert panel will review <b><i>" + productName + "</i></b> and notify you at <b><i>" + userEmail + "</i></b> when it's been published on the site. If you have questions in the meantime, please contact us via <b><a href='mailto:admin@medigy.com?subject=[Netspective Medigy] Question about \"" + productName + "\" SID  target='blank'>e-mail</a></b> or <b>+1 202 660-1351</b>. You can use Submission ID <b>n</b> as reference.";
+                      //$('#productFacetsMessage').html("Your Offering is successfully saved. Our expert panel will review and publish your Offering and notify you when available on our site. Thank you..");
+                      $('#category').select2();
+                      $('#productFacetsMessage').html(text);
+                      $('#productFacetsMessage').addClass('alert-ligh-blue');
+                      $('#addProduct').prop("disabled", false);
+                      $('#productProfile').addClass('slds-show');
+                      $('#loader-div').removeClass('slds-show');
+                      $("#category").val('').trigger('change');  // Deselect "select2" plugin for categories
+                      $('.select2').css("width", "100%"); // reset the select2 width 100%
+                      //grecaptcha.reset(recaptchaCommon); // to reset the reCaptcha
+                      $('#offering-type').focus();
+                      status = "Success";
+                      $("#productFacets")[0].reset();
+                      $("#basicOffering").css("opacity", " 0.2");
+                      $("#ownerDiv").css("opacity", " 0.2");
+                      $("#moreAboutOffering").css("display", "none");
+                      $("#socialPresence").css("display", "none");
+                      $(".vendorInfo").css("display", "none");
+                      $("#tenantDetailDiv").css("display", "none");
+                      //$('.captcha-message-common').hide();
+                      $('#addProduct').prop('disabled', true);
+                    }
+                    else {
+                      $('#productFacetsMessage').html("");
+                      $('#productFacetsMessage').removeClass('alert-ligh-blue');
+                     // $('#productFacetsMessage').removeClass('alert-primary');
+                      $('#productFacetsMessage').html("This Offering is not created. " + response.data.addOffering.message);
+                      $('#productFacetsMessage').addClass('slds-alert_error');
+                      $('#addProduct').prop("disabled", false);
+                      $('#productProfile').addClass('slds-show');
+                      $('#loader-div').removeClass('slds-show');
+                      $('#offering-type').focus();
+                      status = "Failure:{" + response.data.addOffering.message + "}";
+                    }
+                    var userName = getCookie('userEmail');
+                    if (response.data.addOffering.message == "Could not authenticate the session. Please try again.") {
+                      $('#productFacetsMessage').html("Unfortunately your session has expired and the offering could not be created. We require you to log in again and submit the offering.");
+                      delete_cookie('firstname');
+                      delete_cookie('personid');
+                      $('#userlogout').hide();
+                      $('#userlogin').show();
+                      $("#sessionname").html('');
+                      $("#sessionname").hide();
+                      $(".addoffer-col").removeClass("loggedinoffer");
+                      //callLogin();
+                        window.location.href = "/login";
+                    }
+                    $('#productFacetsMessage').show();
+                    //gtmAddOffering(status, userName, productName);
+                  });
+                    
+
+          }
+        
+      }
+    }
+  }); 
+
+
+  $("#media").change(function() {
+    var reader = new FileReader();
+    reader.readAsDataURL(this.files[0]);
+    reader.onload = function(e) {    
+      var content =e.target.result;         
+      const base64 = content.split('base64,').pop();
+      $("#featured_img").val(base64) ;   
+    }
+  });
+  $("#logo_media").change(function() {
+    var reader = new FileReader();
+    reader.readAsDataURL(this.files[0]);
+    reader.onload = function(e) {
+     var content =e.target.result;         
+     const base64 = content.split('base64,').pop();
+     $("#logo_img").val(base64) ;   
+    }
+  });
+  //media upload
+  // function mediaUpload(imgtype){
+  const convertToBase64= function (path) {
+    return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(path);
+        reader.onload = function(e) {
+          resolve(e.target.result)      
+        }
+    });
+  }
+    
+  const mediaUpload= function (imgName,content) {
+    alert(content);
+    return new Promise((resolve, reject) => {        
+      gitlab_url = {{ $.Site.Params.gitlabUrl }} 
+      const base64= content;    
+      // const base64 = content.split('base64,').pop();
+      var sessionId = getCookie('sessionId');
+      var projectdataId = $("#responseId").val();
+      const filePath = 'uploads/' + imgName;        
+      
+      const uploadApi =gitlab_url +'/projects/' +projectdataId +'/repository/files/' +encodeURIComponent(filePath)+'?ref=draft&access_token='+sessionId;
+      getDataFromGit(uploadApi).then(function(imageResponse){
+        $("#productFacets")[0].reset();        
+        let method = 'create';
+        const userEmail = getCookie('userEmail');
+        const userFullName = getCookie('firstname');
+       
+        if (typeof imageResponse.message !== 'string') {
+          method = 'update';
+        }
+        const postData = {
+        id: projectdataId,
+        branch: 'draft',
+        author_email: userEmail,
+        author_name: userFullName,
+        file_name: imgName,
+        commit_message: 'attachment added',
+        actions: [
+        {
+        action: method,
+        file_path: filePath,
+        content: base64,
+        encoding: 'base64',
+        },
+        ],
+        };
+        const commitUrl =gitlab_url +'/projects/' +projectdataId +'/repository/commits';
+        postToGit(postData, commitUrl, 'POST').then((res) => {           
+        resolve(res);
+        });
+      });
+    });
+ }
+     
+  const getDataFromGit= function (apiUrl) {
+     return new Promise((resolve, reject) => {
+        fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => res.json())
+      .then((response) => {
+      resolve(response);
+      })
+      .catch((error) => {
+        resolve(null);
+      });
+    });
+  }
+ const postToGit= (postData, url, method) => {
+  return new Promise((resolve, reject) => {
+    const aceessToken = getCookie('sessionId');
+    fetch(url, {
+      method: method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + aceessToken,
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        resolve(null);
+      });
+  });
+  }
+
+
+});
+$(window).bind("load", function (e) {
+  $('.select2').css("width", "100%");
+   setTimeout(function() { 
+      if(getUrlVars()['collection'] != null){
+        $('#moreAboutOffering').show();
+        var selectedTopic = decodeURI(getUrlVars()['collection'])+": " + decodeURI(getUrlVars()['label']) + "$," + getUrlVars()['className'];
+        var arrOptions = [];   
+        arrOptions.push(selectedTopic);        
+        $('#category').val(arrOptions);    
+        $('#category').select2();   
+        $('#basicOffering').css("opacity", "1");        
+      }
+  }, 2000);
+});
+function base64EncodeUnicode(str) {
+  utf8Bytes = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+    return String.fromCharCode('0x' + p1);
+  });
+  return btoa(utf8Bytes);
+}
+</script>
+</body>
+</html>
