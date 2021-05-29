@@ -19,9 +19,9 @@
 
   <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
     {{ if .Params.featuredimage.href  }}
-     <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="{{ print .Params.basePath .Params.featuredimage.href }}" alt="{{ .Params.title }}" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
+     <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="{{ print .Params.basePath .Params.featuredimage.href }}" alt="{{ .Params.title }}" width="1000" height="400" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
     {{ else }}
-     <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/images/offering-img-1.png" alt="{{ .Params.title }}" class="post-figure" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
+     <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small"><img src="/images/offering-img-1.png" alt="{{ .Params.title }}" class="post-figure" width="1000" height="400" onerror="this.onerror=null; this.src='/images/offering-img-1.png'"></div>
     {{ end }}
      <div class="slds-col slds-size_1-of-1 slds-m-top_small">
         <div class="news-content-overlap content-inner-section">
