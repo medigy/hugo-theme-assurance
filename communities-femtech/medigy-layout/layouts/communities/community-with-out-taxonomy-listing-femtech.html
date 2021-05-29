@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head" . }}
+<body>
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "FemTech CoP" "context" $context )  }}       
+  {{ partial "bread-crumb" . }}   
+<section class="">
+  <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+  
+    <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+      <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url(/communities/medigy-femtech/images/banner.jpg) no-repeat top center;">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+            <div class="slds-media__body">
+              <h1 class="" title="">
+                  <span class="slds-text-heading_large white-txt"><b>{{ .Params.title }}</b></span>
+              </h1>
+            </div>
+          </div>
+        </header>
+        {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+        {{ $badgenClass:= "join-femtech-btn" }}
+        {{ $badgenId:= "femtech-join-btn"}}
+        {{ $communityId:= 593 }}
+        {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5"}}
+        {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+        {{ $communityName:= .Params.title }}
+        {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}   
+        
+      </div>
+      <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+        <p>{{ .Params.Description }}</p>
+      </div>
+    </article>  
+    
+  <!-- content starts -->
+  <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+  
+    <div class="slds-grid slds-wrap slds-gutters inner-wrap slds-m-top_small slds-m-bottom_small">
+      <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_small">
+        
+               {{ $contentPath := print "communities/" (.Title | lower) "/" }}
+               {{ $.Scratch.Set "contentPath"  $contentPath }}
+               {{ partial  "community-with-out-taxonomy-bundle" (dict "headText" "Contributed Content" "href" ( print "/" ($.Scratch.Get "contentPath") "contributed-content" ) "contentcategories" "medigy-femtech-contributed-content" "featuredImage" "/communities/medigy-femtech/images/featuredimage/contributed-content.jpg" "descptText" "This section helps you access original contributed articles by our eminent guest authors. The insights and opinionated posts help educate the community members with recent trends in the digital health space and help them get actionable advice about the various innovations that empower women to enhance their wellbeing." "context" .  ) . $  }}                               
+               {{ partial  "community-with-out-taxonomy-bundle" (dict "headText" "Infographics" "href" ( print "/" ($.Scratch.Get "contentPath") "infographics" ) "contentcategories" "medigy-femtech-infographics" "featuredImage" "/communities/medigy-femtech/images/featuredimage/infographics.jpg" "descptText" "This section within the momtech community serves as a visual treat and represents a collection of imagery to understand complex topics revolving around the use of health technology for new born, children and for new moms-to-be to enrich their physical and mental wellbeing." "context" .  ) . $  }}              
+               {{ partial  "community-with-out-taxonomy-bundle" (dict "headText" "Curated Content" "href" ( print "/" ($.Scratch.Get "contentPath") "curated-content" ) "contentcategories" "medigy-femtech-curated-content" "featuredImage" "/communities/medigy-femtech/images/featuredimage/curated-content.jpg" "descptText" "This section within the momtech community will give you access to a wide range of knowledge base including videos, podcasts and inspiring stories about women who are creating an embarking journey in the digital health space as entrepreneurs and contributing towards healthcare technology that empower women and kids across the world. Employment opportunities for women seeking to dive in the digital health space is also another feature of this section."  "context" .  ) . $  }}              
+               {{ partial  "community-with-out-taxonomy-bundle" (dict "headText" "Curated Offering" "href" ( print "/" ($.Scratch.Get "contentPath") "curated-offering" ) "contentcategories" "medigy-femtech-curated-offering" "featuredImage" "/communities/medigy-femtech/images/featuredimage/curated-offering.jpg" "descptText" "The section enlists a collection of various software’s, apps and tools available for new moms to-be, new born and children, that are peer reviewed."  "context" .  ) . $  }}              
+               {{ partial  "community-with-out-taxonomy-bundle" (dict "headText" "Curated Recognition" "href" ( print "/" ($.Scratch.Get "contentPath") "curated-recognition" ) "contentcategories" "medigy-femtech-curated-recognition" "featuredImage" "/communities/medigy-femtech/images/featuredimage/curated-recognition.jpg" "descptText" "This section celebrates the achievements of women entrepreneurs in the health tech space."  "context" .  ) . $  }}              
+               {{ partial  "community-with-out-taxonomy-bundle" (dict "headText" "Curated Event" "href" ( print "/" ($.Scratch.Get "contentPath") "curated-event" ) "contentcategories" "medigy-femtech-curated-event" "featuredImage" "/communities/medigy-femtech/images/featuredimage/curated-event.jpg" "descptText" "Events around women tech, pregnancy, child birth and topics around ObGyn, paediatrics and neonatal care and many more that take place across the globe are all sought out on this platform."  "context" .  ) . $  }}              
+    </div>
+  </div>
+  
+  <!-- content ends -->
+  
+  </div>
+  </section>
+
+{{ partial "footer" (dict  "activeMenu" "Communities" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

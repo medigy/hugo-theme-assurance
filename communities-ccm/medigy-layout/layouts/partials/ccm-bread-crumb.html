@@ -1,0 +1,24 @@
+
+    
+
+<section class="breadcrumbs-wrap">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+        <nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
+        <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+       
+            {{ $siteData := $.context.Site.Data.communities }}     
+            {{ range $siteData }}
+            {{ range $elem_index, $breadcrumb := .innerBreadcrumb  }}         
+                 <li class="slds-breadcrumb__item">
+                    <a href="{{ $breadcrumb.breadcrumbLink }}">{{ $breadcrumb.breadcrumbLabel }}</a>
+                 </li>                                                           
+            {{ end }}
+            {{ end }} 
+            <li class="slds-breadcrumb__item">
+                <a href="{{ .topicUrl }}">{{ replace .topicTitle "Medigy: " ""}}</a>
+             </li> 
+             <li class="slds-breadcrumb__item slds-p-left_x-small">{{ .type }}</li>
+        </ol>
+    </nav>     
+    </div>
+    </section>

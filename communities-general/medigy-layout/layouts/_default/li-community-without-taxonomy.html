@@ -1,0 +1,275 @@
+    <!-- community-1 -->
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+      <article class="slds-card community-card article-community-card">
+        {{ if ne .Params.type "communities/medigy-risk-and-compliance" }}
+          <div class="slds-card__body slds-card__body_inner community-card-body min-height-auto">
+            {{ if ne (strings.HasSuffix .Params.contentcategories "actionablecontent") }}
+            {{if  ne (strings.HasSuffix .Params.contentcategories "infographics") false }}
+            <div class="slds-grid slds-wrap slds-gutters">
+             
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small">
+                <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small community-title-truncate">
+                  <a href="{{ .Permalink }}" class="black-link" title=""><span class="slds-show"><b>{{ .Params.title }}</b></span></a>
+                  </h2>
+                  <div class="slds-show slds-m-bottom_xx-small slds-m-top_x-small">
+                    <span class="slds-m-right_x-small">
+                    <span class="slds-icon_container">
+                      <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                      <use xlink:href="/icons/utility-sprite/svg/symbols.svg#user"></use>
+                      </svg>
+                      {{ if ne .Params.type "communities/medigy-security" }}
+                        </span><dfn class="slds-m-left_xx-small">{{ range .Params.author }} {{ . }} {{ end }}</dfn>
+                      {{ else }}
+                        </span><dfn class="slds-m-left_xx-small">{{  if .Params.author }} {{ .Params.author }} {{ end }}</dfn>
+                      {{ end }}
+                    </span>
+                    <span class="slds-m-right_x-small">
+                      <span class="slds-icon_container">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                        </svg>
+                        </span><dfn class="slds-m-left_xx-small">{{ .Date.Format "Monday, Jan 2, 2006" }}</dfn>
+                      </span>
+                    </div>                    
+                <ul class="">
+                  {{if  ne (strings.HasSuffix .Params.contentcategories "infographics") true }}
+                    <li class="slds-item">
+                      <a href="{{.Permalink}}" class="black-link" title="">{{ .Params.description | safeHTML | truncate 200}}</a>
+                    </li>
+                {{ end }}
+                </ul>
+              </div>
+              {{ if .Params.featuredImage.href }}
+              {{ $fpath:=  .File.Dir }}
+              {{ $fileDir := replace $fpath "\\" "/"}}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                  <img class="img-thumb-3" src="/{{ $fileDir }}{{ .Params.featuredImage.href  }}"></a>
+                </div>
+              {{ else if  .Params.featuredImage }}
+              {{ $fpath:=  .File.Dir }}
+              {{ $fileDir := replace $fpath "\\" "/"}}
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-3" src="/{{ $fileDir }}{{ .Params.featuredImage }}"></a>
+                  </div>
+              {{ else }}
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                  <img class="img-thumb-3" src="/communities/medigy-femtech/images/featured-default.png"></a>
+              </div>
+              {{ end }}
+            </div>
+            {{ else }}
+              <div class="slds-grid slds-wrap slds-gutters">
+                {{ if .Params.featuredImage.href }}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredImage.href  }}"></a>
+                  </div>
+                {{ else if  .Params.featuredImage }}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                      <img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredImage }}"></a>
+                    </div>
+                {{ else }}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-1" src="/communities/medigy-femtech/images/featured-default.png"></a>
+                </div>
+                {{ end }}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-order_1 slds-small-order_2 slds-m-top_x-small">
+                  <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small community-title-truncate">
+                    <a href="{{ .Permalink }}" class="black-link" title=""><span class="slds-show"><b>{{ .Params.title }}</b></span></a>
+                    </h2>
+                    <div class="slds-show slds-m-bottom_xx-small slds-m-top_x-small">
+                      <span class="slds-m-right_x-small">
+                      <span class="slds-icon_container">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#user"></use>
+                        </svg>
+                      {{ if ne .Params.type "communities/medigy-security" }}
+                        </span><dfn class="slds-m-left_xx-small">{{ range .Params.author }} {{ . }} {{ end }}</dfn>
+                      {{ else }}
+                        </span><dfn class="slds-m-left_xx-small">{{  if .Params.author }} {{ .Params.author }} {{ end }}</dfn>
+                      {{ end }}
+                      </span>
+                      <span class="slds-m-right_x-small">
+                        <span class="slds-icon_container">
+                          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                          </svg>
+                          </span><dfn class="slds-m-left_xx-small">{{ .Date.Format "Monday, Jan 2, 2006" }}</dfn>
+                        </span>
+                      </div>
+                      {{/*  <span>{{ if .Params.author }} {{ .Params.author  }} {{ end }}</span>  */}}
+                  <ul class="">
+                    {{if  ne (strings.HasSuffix .Params.contentcategories "infographics") true }}
+                      <li class="slds-item">
+                        <a href="{{.Permalink}}" class="black-link" title="">{{ .Params.description | safeHTML | truncate 200 }}</a>
+                      </li>
+                  {{ end }}
+                  </ul>
+                </div>
+              </div> 
+            {{ end }}  
+            {{ end }}        
+          </div>
+        {{ else }}
+            <div class="slds-card__body slds-card__body_inner community-card-body min-height-auto">
+              
+          {{if  ne (strings.HasSuffix .Params.contentcategories "infographics") false }}
+          <div class="slds-grid slds-wrap slds-gutters">
+          
+            <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small">
+              <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small community-title-truncate">
+                <a href="{{ .Permalink }}" class="black-link" title=""><span class="slds-show"><b>{{ .Params.title }}</b></span></a>
+                </h2>
+                <div class="slds-show slds-m-bottom_xx-small slds-m-top_x-small">
+                  <span class="slds-m-right_x-small">
+                  <span class="slds-icon_container">
+                    <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                    <use xlink:href="/icons/utility-sprite/svg/symbols.svg#user"></use>
+                    </svg>
+                      </span><dfn class="slds-m-left_xx-small">{{  if .Params.author }} {{ .Params.author }} {{ end }}</dfn>
+                    
+                  </span>
+                  <span class="slds-m-right_x-small">
+                    <span class="slds-icon_container">
+                      <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                      <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                      </svg>
+                      </span><dfn class="slds-m-left_xx-small">{{ .Date.Format "Monday, Jan 2, 2006" }}</dfn>
+                    </span>
+                  </div>                    
+              <ul class="">
+                {{if  ne (strings.HasSuffix .Params.contentcategories "infographics") true }}
+                  <li class="slds-item">
+                    <a href="{{.Permalink}}" class="black-link" title="">{{ .Params.description | safeHTML | truncate 200}}</a>
+                  </li>
+              {{ end }}
+              </ul>
+            </div>
+            {{ if .Params.featuredImage.href }}
+            {{ $fpath:=  .File.Dir }}
+            {{ $fileDir := replace $fpath "\\" "/"}}
+              <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                <img class="img-thumb-3" src="/{{ $fileDir }}{{ .Params.featuredImage.href  }}"></a>
+              </div>
+            {{ else if  .Params.featuredImage }}
+            {{ $fpath:=  .File.Dir }}
+            {{ $fileDir := replace $fpath "\\" "/"}}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                  <img class="img-thumb-3" src="/{{ $fileDir }}{{ .Params.featuredImage }}"></a>
+                </div>
+            {{ else }}
+            <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                <img class="img-thumb-3" src="/communities/medigy-femtech/images/featured-default.png"></a>
+            </div>
+            {{ end }}
+          </div>
+          {{ else }}
+              {{ if ne (strings.HasSuffix .Params.contentcategories "actionablecontent") }}
+              {{if  eq .Params.contentcategories "medigy-risk-and-compliance-curated-news" }}
+              <div class="slds-grid slds-wrap slds-gutters">
+                {{ if .Params.featuredimage }}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredimage  }}"></a>
+                  </div>
+                {{ else if  .Params.featuredimage }}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                      <img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredimage }}"></a>
+                    </div>
+                {{ else }}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-1" src="/communities/medigy-femtech/images/featured-default.png"></a>
+                </div>
+                {{ end }}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-order_1 slds-small-order_2 slds-m-top_x-small">
+                  <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small community-title-truncate">
+                    <a href="{{ .Permalink }}" class="black-link" title=""><span class="slds-show"><b>{{ .Params.title }}</b></span></a>
+                    </h2>
+                    <div class="slds-show slds-m-bottom_xx-small slds-m-top_x-small">
+                      <span class="slds-m-right_x-small">
+                      <span class="slds-icon_container">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#user"></use>
+                        </svg>
+                        </span><dfn class="slds-m-left_xx-small">{{ if .Params.author }} {{ .Params.author  }} {{ end }}</dfn>
+                      </span>
+                      <span class="slds-m-right_x-small">
+                        <span class="slds-icon_container">
+                          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                          </svg>
+                          </span><dfn class="slds-m-left_xx-small">{{ .Date.Format "Monday, Jan 2, 2006" }}</dfn>
+                        </span>
+                      </div>
+                  <ul class="">
+                    {{if  ne (strings.HasSuffix .Params.contentcategories "infographics") true }}
+                      <li class="slds-item">
+                        <a href="{{.Permalink}}" class="black-link" title="">{{ .Params.description | safeHTML | truncate 200 }}</a>
+                      </li>
+                  {{ end }}
+                  </ul>
+                </div>
+              </div>
+              {{ else }}
+              <div class="slds-grid slds-wrap slds-gutters">
+                {{ if .Params.featuredimage.href }}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                  <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredimage.href  }}"></a>
+                  </div>
+                {{ else if  .Params.featuredimage }}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                      <img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredimage }}"></a>
+                    </div>
+                {{ else }}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{ .Permalink }}">
+                    <img class="img-thumb-1" src="/communities/medigy-femtech/images/featured-default.png"></a>
+                </div>
+                {{ end }}
+                <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-order_1 slds-small-order_2 slds-m-top_x-small">
+                  <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small community-title-truncate">
+                    <a href="{{ .Permalink }}" class="black-link" title=""><span class="slds-show"><b>{{ .Params.title }}</b></span></a>
+                    </h2>
+                    <div class="slds-show slds-m-bottom_xx-small slds-m-top_x-small">
+                      <span class="slds-m-right_x-small">
+                      <span class="slds-icon_container">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#user"></use>
+                        </svg>
+                        </span><dfn class="slds-m-left_xx-small">{{ if .Params.author }} {{ .Params.author  }} {{ end }}</dfn>
+                      </span>
+                      <span class="slds-m-right_x-small">
+                        <span class="slds-icon_container">
+                          <svg class="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
+                          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#event"></use>
+                          </svg>
+                          </span><dfn class="slds-m-left_xx-small">{{ .Date.Format "Monday, Jan 2, 2006" }}</dfn>
+                        </span>
+                      </div>
+                      {{/*  <span>{{ if .Params.author }} {{ .Params.author  }} {{ end }}</span>  */}}
+                  <ul class="">
+                    {{if ne (strings.HasSuffix .Params.contentcategories "infographics") true }}
+                      <li class="slds-item">
+                        <a href="{{.Permalink}}" class="black-link" title="">{{ .Params.description | safeHTML | truncate 200 }}</a>
+                      </li>
+                  {{ end }}
+                  </ul>
+                </div>
+              </div> 
+              {{ end }}  
+              {{ end }}        
+            </div>
+          {{ end }}
+       {{ end }}
+        </article>
+    </div>
+    

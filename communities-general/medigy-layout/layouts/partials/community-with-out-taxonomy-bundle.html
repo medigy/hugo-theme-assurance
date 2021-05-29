@@ -1,0 +1,101 @@
+ <!-- community-1 -->
+      <article class="slds-card slds-m-bottom_medium">
+        <h2 class="slds-text-heading_medium slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small slds-text-align_center">
+          <a href="{{ .href | urlize}}" class="black-link" title=""><span class="slds-m-top_x-small slds-m-left_small slds-m-right_x-small slds-show"><b>{{ .headText }}</b></span></a>
+          </h2>
+        <div class="slds-card__body slds-card__body_inner">
+          <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-m-top_xx-small slds-m-bottom_x-small">
+              <a href="{{ .href | urlize }}" class="black-link"><img src="{{ .featuredImage }}" width="391" height="200" alt="{{ .headText }}">
+              <span class="slds-show slds-text-heading_small slds-m-top_x-small"><b>{{ .descptText | safeHTML | truncate 130 }}</b></span>
+            </a>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-m-top_xx-small">
+              <div class="slds-grid slds-wrap slds-gutters">
+            {{ range first 6 (where .context.Site.RegularPages ".Params.contentcategories" "==" .contentcategories ) }}	
+              <aside class="thumb-card-border slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-large-size_6-of-12">
+              {{ if ne .Params.type "communities/medigy-risk-and-compliance" }}
+                {{ if ne (strings.HasSuffix .Params.contentcategories "actionablecontent") }}
+                <div class="slds-grid slds-wrap slds-gutters">
+                  {{ if .Params.featuredimage.href }}
+                    {{ $fpath:=  .File.Dir }}
+                    {{ $fileDir := replace $fpath "\\" "/"}}
+                    <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                      <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{$fileDir}}{{ .Params.featuredimage.href  }}" onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'" alt="{{ .Title }}" width="45" height="50"></a>
+                    </div>
+                  {{ else if  .Params.featuredimage }}
+                    {{ $fpath:=  .File.Dir }}
+                    {{ $fileDir := replace $fpath "\\" "/"}}
+                    <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                      <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{$fileDir}}{{ .Params.featuredimage }}"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'" alt="{{ .Title }}" width="45" height="50"></a>
+                    </div>
+                  {{ else }}
+                  <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                    <a href="{{.Permalink}}"><img class="img-thumb-2" src="/communities/medigy-femtech/images/featured-default.png"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'" alt="{{ .Title }}" width="45" height="50"></a>
+                  </div>
+                  {{ end }}
+                  <div class="slds-col slds-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-m-top_xx-small">
+                    <span class="slds-show"><a href="{{.Permalink}}" class="dark-link">{{ .Title }}</a></span>                   
+                </div>
+               {{ else }}
+                <div class="slds-col slds-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-m-top_xx-small">
+                      <span class="slds-show"><a href="{{.Permalink}}" class="dark-link">{{ .Title }}</a></span>
+                      {{/*  <span class="slds-show"><a href="https://jamanetwork.com/channels/health-forum/fullarticle/2765238" target="_blank">jamanetwork.com</a></span>  */}}
+                  </div>
+                {{ end }}
+                </div>
+              {{ else }}
+                {{ if ne (strings.HasSuffix .Params.contentcategories "actionablecontent") }}
+                <div class="slds-grid slds-wrap slds-gutters">
+                  {{if  eq .Params.contentcategories "medigy-risk-and-compliance-curated-news" }}
+                    {{ if .Params.featuredimage }}
+                      {{ $fpath:=  .File.Dir }}
+                      {{ $fileDir := replace $fpath "\\" "/"}}
+                      <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                        <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{$fileDir}}{{ .Params.featuredimage  }}"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'"></a>
+                      </div>
+                    {{ else if  .Params.featuredimage }}
+                      {{ $fpath:=  .File.Dir }}
+                      {{ $fileDir := replace $fpath "\\" "/"}}
+                      <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                        <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{$fileDir}}{{ .Params.featuredimage }}"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'"></a>
+                      </div>
+                    {{ else }}
+                    <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                      <a href="{{.Permalink}}"><img class="img-thumb-2" src="/communities/medigy-femtech/images/featured-default.png"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'"></a>
+                    </div>
+                    {{ end }}
+                  {{ else }}
+                      {{ if  .Params.featuredimage.href }}
+                        {{ $fpath:=  .File.Dir }}
+                        {{ $fileDir := replace $fpath "\\" "/"}}
+                        <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                          <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{$fileDir}}{{ .Params.featuredimage.href }}"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'"></a>
+                        </div>
+                      {{ else }}
+                        <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                          <a href="{{.Permalink}}"><img class="img-thumb-2" src="/communities/medigy-femtech/images/featured-default.png"onerror="this.onerror=null; this.src='/communities/medigy-femtech/images/featured-default.png'"></a>
+                        </div>
+                      {{ end }}
+                    {{ end }}
+                  <div class="slds-col slds-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-m-top_xx-small">
+                    <span class="slds-show"><a href="{{.Permalink}}" class="dark-link">{{ .Title }}</a></span>                   
+                </div>
+              {{ else }}
+                <div class="slds-col slds-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-m-top_xx-small">
+                      <span class="slds-show"><a href="{{.Permalink}}" class="dark-link">{{ .Title }}</a></span>
+                      {{/*  <span class="slds-show"><a href="https://jamanetwork.com/channels/health-forum/fullarticle/2765238" target="_blank">jamanetwork.com</a></span>  */}}
+                  </div>
+                {{ end }}
+              {{ end }}
+              </aside>
+            {{ end }}
+            </div>
+            </div>
+         </div>
+          
+        </div>
+        <footer class="slds-card__footer">
+          <a class="slds-card__footer-action" href="{{ .href | urlize }}">Read More</a>
+          </footer>
+      </article>

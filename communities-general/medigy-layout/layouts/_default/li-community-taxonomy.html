@@ -1,0 +1,48 @@
+  <!-- community-1 -->
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+    {{ $owlType := "Medigy Communities"}}
+    <article class="slds-card community-card">
+      <div class="slds-card__body slds-card__body_inner community-card-body">
+        
+        <div class="slds-grid slds-wrap slds-gutters">
+          {{ if .Params.featuredimage.href }}
+          {{ $fpath:=  .File.Dir }}
+          {{ $fileDir := replace $fpath "\\" "/" }}
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredImage.href  }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82" ></a></div>
+          {{ else if  .Params.featuredimage }}
+          {{ $fpath:=  .File.Dir }}
+          {{ $fileDir := replace $fpath "\\" "/" }}
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredimage }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82"></a></div>            
+          {{ else }}
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-1" src="{{ print ( $.Scratch.Get "default-image" )  }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82" ></a></div>            
+          {{ end }}
+          <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-order_1 slds-small-order_2 slds-m-top_x-small">
+            <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small">
+              <a href="{{.Permalink}}" class="black-link" title=""><span class="slds-show"><b>{{ .Params.title  | safeHTML | truncate 80 }}</b></span></a>
+              </h2>
+              {{ if ne .Params.contentcategories "ccm-actionablecontent" }}
+              <span class="slds-show slds-m-bottom_xx-small">{{ if .Params.link.brand }}<a href="{{ .Params.link.href }}" target="_blank" class="dark-link"><dfn>{{ .Params.link.brand }}</dfn></a>{{ end }}</span>
+          {{if  ne .Params.contentcategories "medigy-femtech-infographics" }}
+            <ul class="">
+              <li class="slds-item">
+                <a href="{{.Permalink}}" class="black-link" title="">{{ .Params.description }}</a></li>
+            </ul>
+          {{ end }}
+          </div>
+        </div> 
+        {{ end }}
+        <div class="slds-m-top_small">
+          <article class="slds-card">
+                  <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small">
+                  Related Offerings
+                  </h2>
+                  {{ $context := . }}
+                  {{ $tagCount := "true" }}
+                  {{ $id := .Params.id  }}
+                  {{ partial "related-offerings-listing" (dict  "communityTopics"  .Params.communityTopics   "context"  $context "tagCount" $tagCount "id" $id)  }} 
+                
+            </article>
+        </div>
+      </div>
+      </article>
+  </div>  

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head" . }}
+<body>
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "Pandemic Community CoP" "context" $context )  }}       
+  {{ partial "bread-crumb" . }}
+    
+<section class="">
+  <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+  
+    <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+      <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url(/communities/pandemic/images/banner.jpg) no-repeat top center;">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+            <div class="slds-media__body">
+              <h1 class="" title="">
+                  <span class="slds-text-heading_large white-txt"><b>{{ .Params.title }}</b></span>
+              </h1>
+            </div>
+          </div>
+        </header>
+        {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+        {{ $badgenClass:= "join-pandemic-btn" }}
+        {{ $badgenId:= "pandemic-join-btn"}}
+        {{ $communityId:= 596 }}
+        {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5"}}
+        {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+        {{ $communityName:= .Params.title }}
+        {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}   
+  
+      </div>
+      <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+        <p>{{ .Params.Description }}</p>
+      </div>
+    </article>  
+    
+  <!-- content starts -->
+  <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+  
+    <div class="slds-grid slds-wrap slds-gutters inner-wrap slds-m-top_small slds-m-bottom_small">
+      <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_small">
+       
+               {{ $contentPath := print "communities/" (.Title | lower) "/" }}
+               {{ $.Scratch.Set "contentPath"  $contentPath }}
+
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Curated News"  "href" "/communities/covid-19-pandemic/curated-news/" "contentcategories" "medigy-pandemic-curated-news" "featuredImage" "/communities/pandemic/images/featuredimage/curated-news.jpg" "descptText" "A well researched and compiled collection of curated articles that contain information about COVID-19 such as guidelines from CDC," "context" .  ) . $  }}              
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Vaccines/Drugs in the Pipeline"  "href" "/communities/covid-19-pandemic/vaccine-drugs-in-the-pipeline/" "contentcategories" "medigy-pandemic-vaccine-drugs-in-the-pipeline" "featuredImage" "/communities/pandemic/images/featuredimage/vaccine-drugs-in-the-pipeline.jpg" "descptText" "This section of the community focuses on news about the potential vaccinesa and other medications for COVID-19 that are" "context" .  ) . $  }}                               
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Recent Updates and Reports"  "href" "/communities/covid-19-pandemic/recent-updates-reports/" "contentcategories" "medigy-pandemic-recent-updates-and-reports" "featuredImage" "/communities/pandemic/images/featuredimage/recent-updates.jpg" "descptText" "The Recent Updates and Reports section puts together reports, fact sheet and other similar data so that visitors can view summaries"  "context" .  ) . $  }}              
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Infographics"  "href" "/communities/covid-19-pandemic/infographics/" "contentcategories" "medigy-pandemic-infographics" "featuredImage" "/communities/pandemic/images/featuredimage/infographics.jpg" "descptText" "The infographic section of the Pandemic community intends to present complex information around COVID-19" "context" .  ) . $  }}              
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Offerings"  "href" "/communities/covid-19-pandemic/curated-offering/" "contentcategories" "medigy-pandemic-curated-offering" "featuredImage" "/communities/pandemic/images/featuredimage/offerings.jpg" "descptText" "With people dying by tens of thousands, there isn't time to review all the products, solutions, and services that help out with COVID-19." "context" .  ) . $  }} 
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Curated Videos"  "href" "/communities/covid-19-pandemic/curated-video/" "contentcategories" "medigy-pandemic-curated-video" "featuredImage" "/communities/pandemic/images/featuredimage/videos.jpg" "descptText" "This section consists of hand-picked select videos. These storyteller videos make information about the COVID-19 Pandemic" "context" .  ) . $  }}              			
+                 
+              </div>
+            </div>
+            
+            <!-- content ends -->
+            
+            </div>
+            </section>
+
+{{ partial "footer" (dict  "activeMenu" "Communities" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

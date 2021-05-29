@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head" . }}
+<body>
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "Security CoP" "context" $context )  }}       
+  {{ partial "bread-crumb" . }} 
+  <section class="">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+    
+      <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+        <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url(/communities/medigy-security/images/banner.jpg) no-repeat top center;">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+              <div class="slds-media__body">
+                <h1 class="" title="">
+                    <span class="slds-text-heading_large white-txt"><b>{{ .Params.title }}</b></span>
+                </h1>
+              </div>
+            </div>
+          </header>
+          {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+          {{ $badgenClass:= "join-femtech-btn" }}
+          {{ $badgenId:= "femtech-join-btn"}}
+          {{ $communityId:= 593 }}
+          {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5"}}
+          {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+          {{ $communityName:= .Params.title }}
+          {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}   
+          
+        </div>
+        <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+          <p>{{ .Params.Description }}</p>
+        </div>
+      </article>  
+      
+    <!-- content starts -->
+    <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+    
+      <div class="slds-grid slds-wrap slds-gutters inner-wrap slds-m-top_small slds-m-bottom_small">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_small">
+          
+
+               {{ $contentPath := print "communities/" (.Title | lower) "/" }}
+               {{ $.Scratch.Set "contentPath"  $contentPath }}
+     
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Actionable Content" "href"   ( print "/" ($.Scratch.Get "contentPath") "actionable-content" )   "contentcategories" "medigy-security-actionablecontent" "featuredImage" "/communities/medigy-security/images/featuredimage/actionable-content.png" "descptText" "An up to date collection of curated content such as vulnerability updates, patches and fixes that are actionable. Readers need not scour the web looking for latest patches and fixes, but can come here for the latest updates."  "context" . "$" $ ) . $  }}              
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Contributed Content" "href" ( print "/" ($.Scratch.Get "contentPath") "contributed-content///" ) "contentcategories" "medigy-security-contributed-content" "featuredImage" "/communities/medigy-security/images/featuredimage/contributed-content.png" "descptText" "A compilation of articles from thought leaders and subject matter experts in the cybersecurity space who are part of our community. The articles contain their thoughts, views and knowledge that they have accrued over the years." "context" . "$" $ ) . $  }}                               
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Curated Content" "href" ( print "/" ($.Scratch.Get "contentPath") "curated-content//" ) "contentcategories" "medigy-security-curated-content" "featuredImage" "/communities/medigy-security/images/featuredimage/curated-content.png" "descptText" "A compilation of articles from thought leaders and subject matter experts in the cybersecurity space who are part of our community. The articles contain thoughts, views and knowledge that they have accrued over the years."  "context" .   ) . $  }}              
+                {{ partial "community-with-out-taxonomy-bundle" (dict "headText" "Infographics" "href" ( print "/" ($.Scratch.Get "contentPath") "infographics//" ) "contentcategories" "medigy-security-infographics" "featuredImage" "/communities/medigy-security/images/featuredimage/infographics.png" "descptText" "A unique collection of hand drawn and curated infographics that focuses on cybersecurity, encryption, ransomware, insider threats and much more." "context" .  ) . $  }}              
+       
+     
+      </div>
+    </div>
+    <!-- content ends -->
+    
+    </div>
+    </section>
+
+{{ partial "footer" (dict  "activeMenu" "Communities" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

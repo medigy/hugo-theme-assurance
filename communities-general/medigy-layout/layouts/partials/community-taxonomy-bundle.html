@@ -1,0 +1,71 @@
+{{ $topicCollections := print "Medigy: " .headText }}
+{{ $textLower := ($topicCollections | lower) }}
+{{ $communityUrlCreated := .communityUrlCreated }}
+ 
+   
+    <!-- community-1 -->
+        <article class="slds-card slds-m-bottom_medium">
+          <h2 class="slds-text-heading_medium slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small slds-text-align_center">
+            <a href="{{ $communityUrlCreated }}" class="black-link" title=""><span class="slds-m-top_x-small slds-m-left_small slds-m-right_x-small slds-show"><b>{{ .headText }}</b></span></a>
+            </h2>
+          <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-wrap slds-gutters">
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 slds-m-top_xx-small slds-m-bottom_x-small">
+                <a href="{{ $communityUrlCreated }}" class="black-link"><img src="{{ .featuredImage }}" onerror="this.onerror=null; this.src='{{ $.context.Scratch.Get "default-image" }}'"  width="401" height="259" loading="lazy" alt="{{ .headText }}">
+                <span class="slds-show slds-text-heading_small slds-m-top_x-small"><b>{{ .descptText | safeHTML | truncate 130 }}</b></span>
+              </a>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-m-top_xx-small">
+              {{ $scratch := newScratch }}	
+              {{ $href := .href }} 
+              {{ $staticPath := .staticPath }}
+              {{ $scratch.Set "tagCounter" 0 }}									
+              {{ range  (where .context.Site.RegularPages.ByDate.Reverse ".Params.owltype" "==" .owlType ) }}
+              {{ if and ( in .Params.communityTopics $topicCollections ) ( lt ( $scratch.Get "tagCounter" ) 3 ) }}
+              {{ $scratch.Add "tagCounter" 1 }}
+                <aside class="mg-bottom-border">
+                  {{ if ne  .Params.contentcategories "actionablecontent" }}
+									{{ $urlPath := print (.Site.BaseURL) "/" (.Params.openProjectWorkPackageType | urlize) "/" }}													
+													
+                  <div class="slds-grid slds-wrap slds-gutters">
+                    {{ if .Params.featuredimage.href }}
+										{{ $fpath:=  .File.Dir}}
+										{{ $fileDir := replace $fpath "\\" "/" }}
+                      <div class="slds-col slds-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                        <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{ $fileDir }}{{ .Params.featuredimage.href }}" width="56" height="50" alt="{{.Title  | safeHTML | truncate 60 }}"></a>
+                      </div>
+                    {{ else if  .Params.featuredimage }}
+											{{ $fpath:=  .File.Dir}}
+											{{ $fileDir := replace $fpath "\\" "/" }}
+                      <div class="slds-col slds-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small">
+                        <a href="{{.Permalink}}"><img class="img-thumb-2" src="/{{ $fileDir }}{{ .Params.featuredimage.href }}" width="56" height="50" alt="{{.Title  | safeHTML | truncate 60 }}"></a>
+                      </div>
+                      {{ else }}
+                      <div class="slds-col slds-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-m-top_xx-small"></div>
+												<a href="{{.Permalink}}" ><img class="img-thumb-2" src="{{ $.context.Scratch.Get "default-image" }}"  width="56" height="50" alt="{{.Title  | safeHTML | truncate 60 }}" ></a>
+                      </div>
+                       {{ end }}
+                       <div class="slds-col slds-size_8-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-m-top_xx-small">
+                        <span class="slds-show"><a href="{{.Permalink}}" class="dark-link">{{.Title  | safeHTML | truncate 60 }}</a></span>
+                        <span class="slds-show">{{ if .Params.link.brand }}  <a href="{{ .Params.link.href }}" target ="_blank" >{{ .Params.link.brand }}</a>{{ end }}</span>
+                    </div>
+                    {{ else }}
+                    <div class="slds-col slds-size_8-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-m-top_xx-small">
+                        <span class="slds-show"><a href="{{.Permalink}}" class="dark-link">{{.Title  | safeHTML | truncate 60 }}</a></span>
+                        <span class="slds-show">{{ if .Params.link.brand }}  <a href="{{ .Params.link.href }}" target ="_blank" >{{ .Params.link.brand }}</a>{{ end }}</span>
+                    </div>
+                    {{ end }}
+                  </div>                 
+                </aside> 
+                {{ end }}
+              {{ end }}
+
+              </div>
+           </div>
+            
+          </div>
+          <footer class="slds-card__footer">
+            <a class="slds-card__footer-action" href="{{ $communityUrlCreated }}">Read More</a>
+            </footer>
+        </article>
+  

@@ -1,0 +1,43 @@
+<!-- breadcrumbs starts -->
+<section class="breadcrumbs-wrap">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+    
+    <nav role="navigation" aria-label="Breadcrumbs" class="slds-p-vertical_x-small">
+        <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+
+            <li class="slds-breadcrumb__item">
+                <a href="/">Home</a>
+            </li> 
+            <li class="slds-breadcrumb__item">
+                <a href="/communities">Communities</a>
+            </li> 
+            <li class="slds-breadcrumb__item">
+                <a href="{{ .communityLink }}">{{.communityName }}</a>
+            </li>
+            <li class="slds-breadcrumb__item slds-p-left_x-small">
+                {{.taxonomyTitle }}
+            </li>
+
+        
+            {{ $length := (len (split .Permalink  "/")) }}
+            {{ range $elem_index, $breadcrumb := (split .Permalink  "/") }}
+            {{ if gt (len . ) 0 }}
+            {{ if ne $elem_index (sub $length 2) }}
+            <li class="slds-breadcrumb__item">
+                <a href="/{{ . }}">{{ humanize (replace . "posts" "blog")}}</a>
+            </li>
+            {{ else }}
+            <li class="slds-breadcrumb__item slds-p-left_x-small">
+                {{ $breadcrumb }}
+            </li>
+            {{ end}} 
+            {{ end }}
+            {{ end }}
+        </ol>
+
+
+      </nav>
+     
+    </div>
+    </section>  
+    <!-- breadcrumbs ends -->

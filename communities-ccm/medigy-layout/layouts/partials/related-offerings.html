@@ -1,0 +1,39 @@
+{{ $topicCollections := print "Medigy: " .headText }}
+ {{ $topicText := .headText }}
+ {{ $cont := . }}
+
+<div class="slds-card__body slds-card__body_inner">
+    <div class="slds-grid slds-wrap slds-gutters">
+    
+    {{ $href := .href }} 
+    {{ $staticPath := .staticPath }}
+    {{ $.context.Scratch.Set "tagCounter" 0 }}
+    {{ $basePath := $.Site.Params.siteUrl }}
+      <section class="slds-col">
+        {{ with .context.Site.Data.related_offerings  }}
+        {{ range first 10 (sort .Offerings "createdOn" "asc")  }}
+        
+          {{ $.context.Scratch.Add "tagCounter" 1 }}	
+      
+      
+          {{ range .aliases }}
+          {{ $.context.Scratch.Set "section_path" . }}
+          {{ end }}
+          {{ $section_path :=  $.context.Scratch.Get "section_path" }}
+
+        <aside class="mg-bottom-border">
+          <a href="{{ $basePath }}{{ $section_path }}" class="dark-link"><div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_4-of-12 slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_3-of-12 slds-m-top_xx-small">
+              <img src="{{ .featuredImage }}" class="img-thumb-2" width="74" height="50" alt="{{ .title }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'">
+            </div>
+            <div class="slds-col slds-size_8-of-12 slds-small-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_9-of-12 slds-m-top_xx-small">
+                <span class="slds-show">{{ .title }}</span>
+            </div>
+          </div></a>
+        </aside> 
+        {{ end }}
+    {{ end }}
+      </section>
+   </div>
+    
+  </div>

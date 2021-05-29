@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "CCM CoP" "context" $context )  }}       
+  
+      
+    {{ $communityName := "Chronic Care Management"}}
+    {{ $communityLink := "/communities/chronic-care-management"}}
+    {{ $taxonomyTitle := .Title }}
+    {{ partial "bread-crumb-community-taxonomy" ( dict "communityName" $communityName "communityLink" $communityLink "taxonomyTitle" $taxonomyTitle) }}
+    {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+    {{ $badgenClass:= "join-ccmcop-btn" }}
+    {{ $badgenId:= "ccmcop-join-btn"}}
+    {{ $communityId:= 845 }}
+    {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5" }}
+    {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+    {{ $communityName:= "Chronic Care Management" }}
+   
+    <section class="">
+      <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+        {{ $.Scratch.Set "default-image"           (print .Site.BaseURL "/communities/medigy-chronic-care-management-ccm/images/default.jpg") }}
+        {{ $bannerImage := "/communities/medigy-chronic-care-management-ccm/images/contributedcontent.jpg"  }}
+        {{ $bannerTitle := "CCM CoP"}}
+        {{ $bannersubTitle := "Community of Practice" }}
+        {{ $title := .Title }}
+        {{ $sitData := $.Site.Data.communities }}
+        {{ range $sitData }}
+        
+        {{ range .topicDetails }}
+        
+        {{ $topicTitle := print "Medigy: " .topicTitle }}  
+        
+        {{ if eq $title $topicTitle }}
+        {{ $.Scratch.Set "topicSubDescription" .topicSubDescription }}
+        {{ $.Scratch.Set "topicDescription" .topicDescription }}
+         
+        
+        {{ end }}
+        {{ end }}
+        {{ $bannerDescription:=  $.Scratch.Get "topicDescription" }}
+        {{ $bannerSubDescription:=  $.Scratch.Get "topicSubDescription" }}
+        
+        {{ $mainbannerDescription := .description | base64Decode}}
+        {{ $graphqlUrl:= $.Site.Params.GraphQLUrl }}
+        {{ $title :=  (replace $title "-hash-" "#") }}
+        <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+          <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url({{ $bannerImage }}) no-repeat top center;">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+              <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+                <div class="slds-media__body">
+                  <h1 class="" title="">
+                      <span class="slds-text-heading_large white-txt"><b>{{ replace $title "Medigy: " "" }}</b></span>
+                  </h1>
+                </div>
+              </div>
+            </header>
+            <div class="slds-einstein-header__actions">
+              <span class="slds-badge slds-badge_lightest slds-text-heading_small">
+                  <b>{{ $bannerTitle }}</b> <span class="slds-p-left_xx-small slds-p-right_xx-small">|</span>
+                  <span class="slds-text-heading_small">{{ $bannersubTitle }}</span>
+              </span>
+            </div>
+          </div>
+          <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+            <p>{{ $bannerDescription }}</p>
+            <div class="slds-clearfix">              
+              {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}   
+
+            </div>
+          </div>
+        </article>  
+        {{ end }}
+       
+      <!-- content starts -->
+      <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+      
+        <div class="slds-grid slds-wrap slds-gutters inner-wrap">
+
+  
+    {{ $owlType := "Medigy Communities"}}
+    {{ $title := .Title }}						
+    {{ range  (where $.Site.RegularPages ".Params.owltype" "==" $owlType ) }}
+      {{ if in .Params.communityTopics $title }}
+      {{ $eventDate := .Params.date }}	
+        {{ .Render "li-community-taxonomy" }}
+      {{ end }}
+
+    {{ end }}
+
+</div>
+ 
+<!-- content ends -->
+
+</div>
+</section>
+
+{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

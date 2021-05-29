@@ -1,0 +1,111 @@
+{{ partial "communities-ccm-themeConfig.html" . }}
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head" . }}
+<body>
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "CCM CoP" "context" $context )  }}       
+  {{ partial "bread-crumb" . }}
+
+
+  <section class="">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+      {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+      {{ $badgenClass:= "join-ccmcop-btn" }}
+      {{ $badgenId:= "ccmcop-join-btn"}}
+      {{ $communityId:= 845 }}
+      {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5"}}
+      {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+      {{ $sitData := $.Site.Data.communities }}
+
+      {{ range $sitData }}
+      <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+        <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url({{ .bannerImage }}) no-repeat top center;">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+              <div class="slds-media__body">
+                <h1 class="" title="">
+                    <span class="slds-text-heading_large white-txt"><b>{{ .communityName }}</b></span>
+                </h1>
+              </div>
+            </div>
+          </header>
+          <span>
+          
+          {{ $communityName:= .communityName }}
+          {{ $.Scratch.Set "communityName"  $communityName }}
+          {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}     
+          </span>
+          <!-- <div class="slds-einstein-header__actions">
+            <span class="slds-badge card-bg-light">Community of Practice | Join</span>
+          </div> -->
+        </div>
+        <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+          <p>{{ .description | base64Decode}}</p>
+        </div>
+      </article> 
+      {{ end }}
+ <!-- content starts -->
+ <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+  
+  <div class="slds-grid slds-wrap slds-gutters inner-wrap slds-m-top_small slds-m-bottom_small">
+    <div class="slds-col slds-size_1-of-1 slds-small-size_8-of-12 slds-large-size_8-of-12 slds-m-bottom_small">
+   
+ 
+    {{ range  $.Site.Data.community_landing.community_landing.communityDetails }}
+        {{ if eq .communityTitle "Chronic Care Management" }}
+            {{ $dirFile := path.Split .communityFeaturedImage }}
+            {{ $.Scratch.Set "dirFile" $dirFile.Dir }}
+        {{ end }}
+    {{ end }}
+    {{ $dirFile:=  $.Scratch.Get "dirFile" }}
+    {{ $staticPath := $.Scratch.Get "staticPath" }}
+        {{ $context := . }}
+        {{ $siteData := $.Site.Data.communities }}
+       {{ $bundle := $.Scratch.Get "bundle" }}
+        {{ $owlType := "Medigy Communities"}}
+        {{ range $siteData }}
+            {{ range sort .topicDetails "representationOrder" "asc" }}
+              {{ $topicTitle := print "Medigy: " .topicTitle }}
+              {{ $topicCollections := print .topicTitle }}
+              {{ $textLower := ($topicCollections | lower) }}
+              {{ $communityUrlCreated := print $dirFile "medigy-" ($textLower | urlize) }}
+              {{ partial "community-taxonomy-bundle" (dict "communityUrlCreated" $communityUrlCreated "staticPath" $staticPath "headText" .topicTitle "owlType" $owlType "featuredImage" (print ($.Scratch.Get "basePath" ) .topicFeaturedImage ) "descptText" .topicDescription  "context"  $context )  }}              
+
+            {{ end }}
+
+        {{ end }}
+
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-small-size_4-of-12 slds-large-size_4-of-12">
+        <!-- Related Offerings -->
+        <article class="slds-card slds-m-bottom_medium">
+          <h2 class="slds-text-heading_medium slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small slds-text-align_center">
+            <span class="slds-m-top_x-small slds-m-left_small slds-m-right_x-small slds-show"><b>Related Offerings</b></span>
+            </h2>          
+            {{ $context := . }}                  
+            {{ partial "related-offerings.html" (dict "context"  $context )  }} 
+        </article>
+  
+        <!-- Suggest Articles -->
+        <article class="slds-card slds-m-bottom_medium">
+          <h2 class="slds-text-heading_medium slds-border_bottom slds-p-bottom_x-small slds-text-align_center">
+            <span class="slds-m-top_x-small slds-m-left_small slds-m-right_x-small slds-show"><b>Suggest Articles For Review</b></span>
+            </h2>
+          <div class="slds-m-bottom_xx-small slds-p-around_small slds-text-align_center">
+            <p class="slds-m-top_xx-small slds-text-body_medium">Your suggestion will be submitted to the reviewer and if found interesting we will Publish in this Community.</p>
+            <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Click here to add/suggest</button>
+          </div>
+        </article>
+      </div>
+   </div>
+   
+  <!-- content ends -->
+  
+  </div>
+  </section>
+{{ $communityName := $.Scratch.Get "communityName"}}
+{{ partial "footer" (dict  "activeMenu" "Communities" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

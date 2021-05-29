@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head" . }}
+<body>
+  {{ $context := . }}
+  {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "Communities" "context" $context )  }}       
+  {{ partial "bread-crumb" . }}
+  <section class="">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+     
+    
+    
+    <!-- content starts -->
+    <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+     
+      <div class="slds-grid slds-wrap slds-gutters inner-wrap">
+        {{ $paginator := .Paginate (where (where .Pages "Section" "communities" ) ".Params.layout" "!=" "pages") }}
+        {{ with .Site.Data.community_landing.community_landing }}
+          {{ range sort .communityDetails "communityListingOrder" "asc" }}
+            {{ $.Scratch.Set "communityTitle" .communityTitle }}
+            {{ $.Scratch.Set "communityDescription" .communityDescription }}
+            {{ $.Scratch.Set "communityFeaturedImage" .communityFeaturedImage }}
+            {{ $title :=  $.Scratch.Get "communityTitle" }}								
+            {{ $useTaxonomyAndJSON := .useTaxonomyAndJSON }}
+    <!-- community-1 -->
+            {{ range $paginator.Pages }}
+              {{  if eq .Title $title }}
+
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+      <article class="slds-card community-card">
+        <div class="slds-card__body slds-card__body_inner community-card-body">
+          <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-m-top_small"><a href="#."><img class="img-thumb-1" src="{{  $.Scratch.Get "communityFeaturedImage" }}" width="128" height="130" alt="{{- .Title -}}"></a></div>
+            <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-m-top_small">
+              <h2 class="slds-card__header-title slds-border_bottom slds-m-bottom_x-small slds-p-bottom_x-small">
+                {{ $link := print "/communities/" ( .Title | urlize) }}
+                <a href="{{ $link }}" class="" title=""><span>{{- .Title -}}</span></a>
+                </h2>
+              <ul class="">
+                <li class="slds-item">
+                  {{- $.Scratch.Get "communityDescription" -}}</li>
+             
+                </ul>
+            </div>
+          </div> 
+          {{ if $useTaxonomyAndJSON }}
+          {{- partial "community-insight-with-taxonomy" . -}}
+          {{ else }}
+          {{- partial "community-insight" . -}}
+          {{ end }}
+        </div>
+        <footer class="slds-card__footer">
+          <a class="slds-card__footer-action" href="{{ $link }}">Read More</a>
+        </footer>
+        </article>
+    </div>  
+            {{ end }}
+        {{ end }}
+      {{ end }}
+      
+    {{ end }}
+    
+    </div>
+    <!-- content ends -->
+    
+    </div>
+    </section>
+
+{{ partial "footer" (dict  "activeMenu" "Communities" "context" $context ) }}
+
+</body>
+</html>

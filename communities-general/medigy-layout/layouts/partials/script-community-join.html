@@ -1,0 +1,62 @@
+
+  
+
+<script>
+	var sessionID = getCookie('sessionId');
+	var communityId = {{ .communityId }};
+	$(document).ready(function () {
+		console.log("query{\n  getUserCommunity(authorization:{\n    sessionID:\"" + sessionID + "\"\n  }){\n    id\n    communityId\n    name\n    displayName\n     }\n}");
+		var serviceData = { "url": "{{ .graphqlUrl }}", "method": "GET", "query": "query{\n  getUserCommunity(authorization:{\n    sessionID:\"" + sessionID + "\"\n  }){\n    id\n    communityId\n    name\n    displayName\n     }\n}" };
+		ajaxPageServiceCall.serviceCall(serviceData).then(response => {
+			console.log("community id ", response.data.getUserCommunity.length);
+			var jointLength = response.data.getUserCommunity.length;
+			var joinccmArray = [];
+			for (var i = 0; i < jointLength; i++) {
+				if (communityId == response.data.getUserCommunity[i].communityId) {					
+					$(".{{ .badgenClass }}").attr("src","https://badgen.net/badge/{{ .joinedIconName }}");
+					$(".{{ .badgenClass }}").attr("alt","{{ .joinedIconName }}");
+					$('#tooltip_join_text').text("As a member you can connect with:");					
+					$('.{{ .badgenClass }}').css('cursor', 'default');
+				}
+			}
+		})
+			.catch(error => {
+				console.log(error);
+			});
+	});
+	$(".{{ .badgenClass }}").on("click", function () {
+		if (getCookie('personid') != null) {
+			$('.join-loader').show();
+			var serviceData = {
+				"url": "{{ .graphqlUrl }}", "method": "POST", "query": `mutation{
+				joinCommunity(authorization:{
+                      sessionID: "`+ sessionID + `"
+                      }
+                      communityId:"` + communityId + `"
+                      ){
+                        status
+                        message
+                        errorCode
+						data
+                        }
+                        }` };
+			ajaxPageServiceCall.serviceCall(serviceData).then(response => {
+				if (response.data.joinCommunity.status == "SUCCESS") {
+					$(".{{ .badgenClass }}").attr("src","https://badgen.net/badge/{{ .joinedIconName }}");
+					$('#tooltip_join_text').text("As a member you can connect with:");					
+					$('.{{ .badgenClass }}').css('cursor', 'default');
+					$('.join-loader').hide();
+				}
+				else {
+
+				}
+			})
+				.catch(error => {
+					console.log(error);
+				});
+		}
+		else {
+            window.location.href = "/login";
+		}
+	});
+</script>

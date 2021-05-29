@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "head" . }}
+  <body>
+  
+         
+      {{ $context := . }}
+      {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "CCM CoP" "context" $context )  }}       
+    
+      
+      {{ $title := .Params.title }} 				
+      {{ $communityTopic := .Params.communityTopics }}		
+      {{ $context := . }}		
+      {{ $.Scratch.Set "communityTopic" " " }}
+      {{ $siteData := $.Site.Data.communities }}         
+            {{ range $siteData }}
+             {{ range .topicDetails }}               
+                  {{ $topicTitle := print "Medigy: " .topicTitle }}  
+          {{ if in $communityTopic $topicTitle }}			
+             {{ $.Scratch.Set "communityTopic" $topicTitle }}
+              {{ $.Scratch.Set "communityUrl"  $topicTitle  }}
+          {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ $topicTitle :=  $.Scratch.Get "communityTopic" }}
+        {{ $topicUrl :=  print "/communities/chronic-care-management/" $topicTitle | urlize }}	
+         
+        {{ partial "ccm-bread-crumb" (dict  "topicTitle" $topicTitle "type" $title  "topicUrl" $topicUrl "context"  $context) }}   
+      
+<section class="">
+  <div class="slds-container_large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+  <article>
+          <!-- content starts -->
+            <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
+              {{ if ne .Params.openProjectWorkPackageType "Curated Video"}}
+                {{ $fpath:=  .File.Dir }}
+                {{ $fileDir := replace $fpath "\\" "/"}}
+                {{ $urlPath := print (.Site.BaseURL) "/" (.Params.openProjectWorkPackageType | urlize) "/" }}
+                <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small">
+                  <img src="/{{$fileDir}}{{ .Params.featuredImage.href  }}" alt="{{ .Title }}" class="post-figure">
+                </div>
+              {{ else }}
+              <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_small">
+                <img src="{{ print ( $.Scratch.Get "staticPath" ) "images/featuredimage/videos.jpg" }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" alt="{{ .Title }}" class="post-figure">
+              </div>
+              {{ end }}              
+              <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+                  <div class="news-content-overlap">
+                      <div class="slds-clearfix">
+                          <div class="slds-float_left">
+                              <h2 class="slds-text-heading_medium slds-m-bottom_xx-small"><b>{{ .Title }}</b></h2> 
+                              <div>Posted {{ .Date.Format "Jan 2, 2006" }} {{ if .Params.link.brand }} via <a itemprop="url" target="_blank" href="{{ .Params.link.href }}"><span itemprop="author">{{ .Params.link.brand }}</span></a>{{ end }}</div> 
+                          </div>
+                          <!-- <div class="slds-float_right">
+                          <span class="slds-badge card-bg-light">Community of Practice | Join</span>
+                          </div> -->
+                          {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+                          {{ $badgenClass:= "join-ccmcop-btn" }}
+                          {{ $badgenId:= "ccmcop-join-btn"}}
+                          {{ $communityId:= 845 }}
+                          {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5" }}
+                          {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+                          {{ $communityName:= "Chronic Care Management" }}
+                          {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}   
+			
+                        </div>
+                      <hr>
+                      <div class="slds-clearfix">
+                        <div class="slds-float_left">                            
+                          <aside class="slds-text-body_small">
+                            {{ if .Params.communityTopics }}
+                            {{ $taxo := "communityTopics" }}
+                            {{ range .Param $taxo }}
+                              {{ $name := . }}
+                              {{ with $.Site.GetPage (printf "/%s/%s" $taxo ($name | urlize)) }}
+                                  {{ $.Scratch.Set "permalink" .Permalink }}
+                              {{ end }}
+                              {{ $name := replace $name "-hash-" "#" }}
+                              <a href="{{ $.Scratch.Get "permalink" }}"><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">{{  $name }}</span></a>
+                              <!-- <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">Symplur: COVID-19</span></a>
+                              <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">Symplur: Telehealth</span></a>
+                              <a href="#."><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">Medigy: Business Survival & Continuity</span></a> -->
+                           
+                            {{ end }}
+	                          {{ end }}
+                          </aside>
+                          </div>
+                        </div>
+                        <hr>
+                        <!-- pdf viewer -->
+                        {{ if .Params.featuredpdf.href }}                       
+                        <iframe src="{{ print "../"  .Params.featuredpdf.href }}" width="100%" height="500">
+                        </iframe>
+                        {{ end }}
+                        <!-- Video section starts here-->                        
+                        <div class="slds-m-bottom_small">
+                      {{ if eq .Params.contentCategories "medigy-chronic-care-management-curated-video"}}
+                        {{if eq .Params.link.brand "youtube.com" }}
+                          {{ $Youtube :=  .Params.link.href }}
+                          {{ $splitedData := split $Youtube "https://www.youtube.com/watch?v=" }}
+                          {{ $splitedData:= delimit $splitedData "" }}
+                          {{ $splitedData := split  $splitedData "&" }}						
+                          {{ range first 1 $splitedData }}
+                          {{  $.Scratch.Set "data" . }} 
+                          {{ end }}
+                          {{$Data :=  $.Scratch.Get "data" }} 
+                          <iframe id="ytplayer" type="text/html" width="100%" height="360"
+                          src="https://www.youtube.com/embed/{{ $Data }} "
+                          frameborder="0"></iframe>
+                        {{ else }}
+                            {{ $Vimeo :=  .Params.openprojectcustomfields.videourl}}
+                            {{ $splitedData := split $Vimeo "https://vimeo.com/" }}
+                            {{ $splitedData:= delimit $splitedData ""}}
+                            {{/* $splitedData */}}
+                              {{if eq .Params.openprojectcustomfields.videosource "vimeo.com" }}
+                                <iframe src="https://player.vimeo.com/video/{{ $splitedData }}?title=0&byline=0&portrait=0" width="100%" height="360"
+                                frameborder="0" allowfullscreen allow="autoplay; encrypted-media">
+                                </iframe>
+                              {{ end }}  
+                          {{ end }}
+                            {{ if eq .Params.contentcategories "medigy-chronic-care-management-actionablecontent" }}
+                            {{ range $elem_index, $sourceUrl := .Params.sourceUrl  }}
+                              <span>Source<a target="_blank" href="{{ $sourceUrl }}">{{ $sourceUrl }}</a> </span>
+                            {{ end }}
+                            {{ end }}
+				                  {{ end }} 
+                        </div>
+                        <p>{{ .Content }}</p>
+          
+                      <div class="slds-clearfix">
+                        {{ if .Params.link.brand }}
+                        <div class="slds-float_left">
+                          <p class="slds-text-body_small">
+                              Continue reading at <a itemprop="url" target="_blank" href="{{ .Params.link.href }}"><span itemprop="author">{{ .Params.link.brand }}</span></a>
+                          </p>
+                        </div>
+                        {{ end }}
+                        
+                        <div class="slds-float_right">
+                          <span style="position: relative;">
+                            {{ $permaLink := .Permalink | safeURL}}
+                            {{ $safeUrl := $.Site.Params.siteUrl }}
+                            {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl .RelPermalink }}
+                            {{ $class := "fb-share-push fb-share" }}
+                            {{ $dataApp := .Params.id }}
+                            {{ $dataSlug := .Permalink }}
+                            {{ $dataName := .Title }}
+                            {{ $icon := "/images/facebook.svg" }}
+                            {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
+                  
+                            {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
+                            {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                          </span>
+                          <span style="position: relative;">
+                          {{ $permaLink := .Permalink | safeURL}}
+                          {{ $safeUrl := $.Site.Params.siteUrl }}
+                          {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl .RelPermalink }}
+                          {{ $class := "twitter-share-push fb-share" }}
+                          {{ $dataApp := .Params.id }}
+                          {{ $dataSlug := .Permalink }}
+                          {{ $dataName := .Title }}
+                          {{ $icon := "/images/twitter.svg" }}
+                          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                          {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
+                          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                        </span>
+                          <span style="position: relative;">
+                            {{ $permaLink := .Permalink | safeURL}}
+                            {{ $safeUrl := $.Site.Params.siteUrl }}
+                            {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl .RelPermalink }}
+                            {{ $class := "linkedin-share-push fb-share" }}
+                            {{ $dataApp := .Params.id }}
+                            {{ $dataSlug := .Permalink }}
+                            {{ $dataName := .Title }}
+                            {{ $icon := "/images/linkedin.svg" }}
+                            {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                            {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
+                            {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                            </span>
+                          <span style="position: relative;">
+                            {{ $icon := "/images/email.svg" }}
+                            {{$permaLink := .Permalink | safeURL}}
+                            {{ $safeUrl := $.Site.Params.siteUrl }}
+                            {{ $href := print "mailto:?subject=Check out the post, '" .Params.title "' in medigy.com!&body=" .Params.title "\n" $safeUrl $permaLink}}
+                            {{ $class := "email-share-push"}}
+                            {{ $dataApp := .Params.id }}
+                            {{ $dataSlug := .Permalink }}
+                            {{ $dataName := .Title }}
+                            {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                            {{ $toolTipContent := (`Email Share`| safeHTML) }}
+                            {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                            </span>
+                        </div>
+                      </div>
+                      <hr>
+                      {{ $related := .Site.RegularPages.Related . | first 5 }}
+                      <div class="slds-grid slds-wrap slds-gutters">
+                          <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            {{ with $related }}
+                            <h2 class="slds-text-heading_small slds-m-bottom_xx-small"><b>See Also</b></h2>        
+                              <ul class="slds-list_dotted slds-m-bottom_xx-small">
+                                {{ range . }}
+                                {{  $communityCategoriesString := "" }}
+                                {{$title := .Title }}
+                                {{$relPermalink := .RelPermalink }}	
+                                  <li><a href="{{ $relPermalink }}" class="dark-link">{{ $title }} </a></li>
+                                {{ end }}
+                                </ul>
+                                {{ end }}
+                          </div>
+                          <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                              <h2 class="slds-text-heading_small slds-m-bottom_xx-small"><b>Related Offerings</b></h2>        
+                              {{ $context := . }}
+						                  {{ partial "related-offerings-listing" (dict  "communityTopics"  .Params.communityTopics   "context"  $context )  }} 
+					
+                          </div>
+                          </div>
+              </div>
+              </div>
+            </div>
+          <!-- content ends -->
+          
+          <!-- next article starts -->
+          <div class="slds-welcome-mat slds-m-bottom_large slds-m-top_small">
+            {{ if .NextInSection }}
+              <div class="slds-m-bottom_x-small">
+                  <h2 class="slds-text-heading_small slds-text-align_center"><b>Next Article</b></h2>
+              </div>
+              <ul class="slds-size_1-of-1 list-card">
+                  <li class="slds-welcome-mat__tile">
+                      <article class="slds-box">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                                <a href="{{ .NextInSection.Permalink }}">
+                                  {{ $fpath:=  .File.Dir }}
+                                  {{ $fileDir := replace $fpath "\\" "/"}}
+                              {{ $urlPath := print (.Site.BaseURL) "/" (.NextInSection.Params.openProjectWorkPackageType | urlize) "/" }}
+                              <img src="{{ print .NextInSection.Params.basePath .NextInSection.Params.featuredimage.href }}" alt=""></a>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+                                <h2 class="slds-text-heading_medium"><a href="{{ .NextInSection.Permalink }}"><b>{{ .NextInSection.Title }}</b></a></h2>
+                                <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .NextInSection.Summary | safeHTML | truncate 200 }}</p>
+                                
+                                <div class="slds-clearfix">
+                                  <div class="slds-float_left">
+                                    <p class="slds-text-body_small slds-m-top_xx-small slds-m-bottom_xx-small">Posted {{ .NextInSection.Date.Format "Jan 2, 2006" }}</p>
+                                  </div>
+                                  
+                                  <div class="slds-float_right">
+                                    <span style="position: relative;">
+                                      {{ $permaLink := .Permalink | safeURL}}
+                                      {{ $safeUrl := $.Site.Params.siteUrl }}
+                                      {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl .RelPermalink }}
+                                      {{ $class := "fb-share-push fb-share" }}
+                                      {{ $dataApp := .Params.id }}
+                                      {{ $dataSlug := .Permalink }}
+                                      {{ $dataName := .Title }}
+                                      {{ $icon := "/images/facebook.svg" }}
+                                      {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
+                            
+                                      {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
+                                      {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                                    </span>
+                                    <span style="position: relative;">
+                                    {{ $permaLink := .Permalink | safeURL}}
+                                    {{ $safeUrl := $.Site.Params.siteUrl }}
+                                    {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl .RelPermalink }}
+                                    {{ $class := "twitter-share-push fb-share" }}
+                                    {{ $dataApp := .Params.id }}
+                                    {{ $dataSlug := .Permalink }}
+                                    {{ $dataName := .Title }}
+                                    {{ $icon := "/images/twitter.svg" }}
+                                    {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                                    {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
+                                    {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                                  </span>
+                                    <span style="position: relative;">
+                                      {{ $permaLink := .Permalink | safeURL}}
+                                      {{ $safeUrl := $.Site.Params.siteUrl }}
+                                      {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl .RelPermalink }}
+                                      {{ $class := "linkedin-share-push fb-share" }}
+                                      {{ $dataApp := .Params.id }}
+                                      {{ $dataSlug := .Permalink }}
+                                      {{ $dataName := .Title }}
+                                      {{ $icon := "/images/linkedin.svg" }}
+                                      {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                                      {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
+                                      {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                                      </span>
+                                    <span style="position: relative;">
+                                      {{ $icon := "/images/email.svg" }}
+                                      {{$permaLink := .Permalink | safeURL}}
+                                      {{ $safeUrl := $.Site.Params.siteUrl }}
+                                      {{ $href := print "mailto:?subject=Check out the post, '" .Params.title "' in medigy.com!&body=" .Params.title "\n" $safeUrl $permaLink}}
+                                      {{ $class := "email-share-push"}}
+                                      {{ $dataApp := .Params.id }}
+                                      {{ $dataSlug := .Permalink }}
+                                      {{ $dataName := .Title }}
+                                      {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                                      {{ $toolTipContent := (`Email Share`| safeHTML) }}
+                                      {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                                      </span>
+                                  </div>
+                                </div>
+                                </div>
+                            </div>
+                      </article>        
+                    </li>
+              </ul>
+              {{ end }}
+              </div>
+          <!-- next article ends -->
+  </article>
+  
+  </section>
+
+{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

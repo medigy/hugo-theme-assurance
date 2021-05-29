@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partial "head" . }}
+<body>
+
+       
+    {{ $context := . }}
+    {{ partial "navbar" (dict  "activeMenu" "Communities" "mastHead" "Pandemic Community CoP" "context" $context )  }}       
+  
+    {{ $currentTag := index (last 2 (split (delimit (split .Permalink "/") "," "") ",")) 0 }}
+    {{ partial "bread-crumb" . }}
+
+    <section class="">
+      <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section">
+      
+        <article class="slds-card slds-m-top_medium slds-m-bottom_medium card-bg-light-blue">
+          <div class="slds-grid slds-einstein-header slds-card__header content-banner-inr-1" style="background: url({{.Params.image}}) no-repeat top center;">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+              <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_4-of-4">
+                <div class="slds-media__body">
+                  <h1 class="" title="">
+                      <span class="slds-text-heading_large white-txt"><b>{{ .Title }}</b></span>
+                  </h1>
+                </div>
+              </div>
+            </header>
+            {{/*  <div class="slds-einstein-header__actions">
+              <span class="slds-badge slds-badge_lightest slds-text-heading_small">
+                  <b>CCM CoP</b> <span class="slds-p-left_xx-small slds-p-right_xx-small">|</span>
+                  <span class="slds-text-heading_small">Community of Practice</span>
+              </span>
+            </div>  */}}
+          </div>
+          <div class="slds-card__body slds-card__body_inner slds-text-heading_small">
+            <p>{{ .Description }}</p>
+            <div class="slds-clearfix">
+              {{ $iconName:= "Community%20of%20Practice/Join/green?scale=1.5" }}
+              {{ $badgenClass:= "join-pandemic-btn" }}
+              {{ $badgenId:= "pandemic-join-btn"}}
+              {{ $communityId:= 596 }}
+              {{ $joinedIconName:= "Community%20of%20Practice/Joined/green?scale=1.5"}}
+              {{ $graphqlUrl:=  $.Site.Params.GraphQLUrl  }}
+              {{ $communityName:= .Params.title }}
+              {{ partial "community-join-button.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName)}}   
+      
+            </div>
+          </div>
+        </article>  
+       
+      <!-- content starts -->
+      <div class="slds-welcome-mat slds-m-bottom_medium slds-m-top_medium community-section">
+      
+        <div class="slds-grid slds-wrap slds-gutters inner-wrap">
+    {{ $curCat:=  .Params.contentcategories}}			
+      {{ $valfiltered := (where .Site.RegularPages ".Params.contentcategories" "==" $curCat)  }}
+        {{ range $valfiltered }}
+          {{ $eventDate := .Params.eventDate }}
+            {{ .Render "li-community-without-taxonomy" }}
+        {{ end }}
+      </div>
+ 
+      <!-- content ends -->
+      
+      </div>
+      </section>
+
+{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+{{ partial "script-community-join.html" (dict "iconName" $iconName "badgenClass" $badgenClass "badgenId" $badgenId "communityId" $communityId "joinedIconName" $joinedIconName "graphqlUrl" $graphqlUrl "communityName" $communityName) }}
+</body>
+</html>

@@ -1,0 +1,15 @@
+<div class="slds-m-top_small">
+
+	{{ if gt (len .Sections) 0}}
+	{{ template "section-tree-nav" . }}
+	{{end}}
+
+
+</div>
+
+{{ define "section-tree-nav" }}
+	{{ range .Sections }}
+	<span class="slds-badge slds-m-left_x-small slds-m-bottom_x-small"><a href="{{.Permalink}}">{{ .LinkTitle }}: <em class="slds-text-color_error">{{ len .Pages }}</em></a></span>
+		{{ template "section-tree-nav" . }}
+	{{ end }}
+{{ end }}
