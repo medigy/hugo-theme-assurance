@@ -51,18 +51,20 @@
     {{ with $.Site.Data.awards_landing }}
     {{ range .awardDetails}}
     {{ $.Scratch.Set "awardUrl" .awardUrl }}
+    {{ $.Scratch.Set "awardTitle" .awardTitle }}
     <li class="slds-welcome-mat__tile">
     
         <article class="slds-box">
             <div class="slds-grid slds-wrap slds-gutters">
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                    <a href="{{ .awardUrl }}"><img src="{{ .awardUrl }}{{ .awardFeaturedImage }}" alt="medigy-awards"></a>
+                    <a href="{{ .awardUrl }}"><img src="{{ .awardUrl }}{{ .awardFeaturedImage }}" alt="medigy-awards" width="288" height="162"></a>
                 </div>
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
                     <h2 class="slds-text-heading_medium slds-m-top_xx-small"><a href="{{ .awardUrl }}"><b>{{ .awardTitle }}</b></a></h2>
                     <p class="slds-text-body_medium slds-m-top_xx-small slds-m-bottom_xx-small">{{ .awardDescription | base64Decode }}</p>
                     
                     {{ $awardUrl := $.Scratch.Get "awardUrl" }}
+                    {{ $awardTitle := $.Scratch.Get "awardTitle" }}
                     <div class="slds-clearfix">
                     <div class="slds-float_right">
                       <span style="position: relative;">
@@ -72,7 +74,7 @@
                         {{ $class := "fb-share-push fb-share" }}
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
-                        {{ $dataName := .Title }}
+                        {{ $dataName := $awardTitle }}
                         {{ $icon := "/images/facebook.svg" }}
                         {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
 
@@ -86,7 +88,7 @@
                       {{ $class := "twitter-share-push fb-share" }}
                       {{ $dataApp := .Params.id }}
                       {{ $dataSlug := .Permalink }}
-                      {{ $dataName := .Title }}
+                      {{ $dataName := $awardTitle }}
                       {{ $icon := "/images/twitter.svg" }}
                       {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
                       {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
@@ -99,7 +101,7 @@
                         {{ $class := "linkedin-share-push fb-share" }}
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
-                        {{ $dataName := .Title }}
+                        {{ $dataName := $awardTitle }}
                         {{ $icon := "/images/linkedin.svg" }}
                         {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
                         {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
@@ -113,7 +115,7 @@
                         {{ $class := "email-share-push"}}
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
-                        {{ $dataName := .Title }}
+                        {{ $dataName := $awardTitle }}
                         {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
                         {{ $toolTipContent := (`Email Share`| safeHTML) }}
                         {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
