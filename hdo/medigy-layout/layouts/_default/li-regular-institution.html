@@ -24,7 +24,7 @@
     {{ if ne .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating "Not Available" }}
     {{ $rating := int .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
     {{ $totalStar := 5}}
-    {{ partial  "star-rating.html" (dict  "rating"  $rating  "totalStar" $totalStar) .Params.facilityId}}
+    {{ partialCached  "star-rating.html" (dict  "rating"  $rating  "totalStar" $totalStar) .Params.facilityId }}
     {{ else }}
     {{ .Params.usDhhsCmsHospitalCompareModel.hospitalOverallRating }}
     {{ end }}
@@ -53,10 +53,10 @@
           {{ $dataSlug := .Permalink }}
           {{ $dataName := .Title }}
           {{ $icon := "/images/facebook.svg" }}
-          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
+          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
 
           {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
-          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
         </span>
         <span style="position: relative;">
         {{ $permaLink := .Permalink | safeURL}}
@@ -67,9 +67,9 @@
         {{ $dataSlug := .Permalink }}
         {{ $dataName := .Title }}
         {{ $icon := "/images/twitter.svg" }}
-        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+        {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
         {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
-        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+        {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
       </span>
         <span style="position: relative;">
           {{ $permaLink := .Permalink | safeURL}}
@@ -80,9 +80,9 @@
           {{ $dataSlug := .Permalink }}
           {{ $dataName := .Title }}
           {{ $icon := "/images/linkedin.svg" }}
-          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
           {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
-          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
           </span>
         <span style="position: relative;">
           {{ $icon := "/images/email.svg" }}
@@ -93,11 +93,11 @@
           {{ $dataApp := .Params.id }}
           {{ $dataSlug := .Permalink }}
           {{ $dataName := .Title }}
-          {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
           {{ $toolTipContent := (`Email Share`| safeHTML) }}
-          {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+          {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
           </span>
-        </div>
+      </div>
     </div>
     
     </div>
