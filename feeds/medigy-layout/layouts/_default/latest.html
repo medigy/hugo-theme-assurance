@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {{ partial "head" . }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.js"></script>
-<body>
+    <body>
 
        
     {{ $context := . }}
@@ -82,15 +81,13 @@
 
 </div>
 </section>
-
+<!-- footer starts -->
+{{ partial "footer" (dict  "activeMenu" "Feeds" "context" $context ) }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.js"></script>
 <script>
   $(document).ready(function() {
     $("time.timeago").timeago();
   });
 </script>
-
-<!-- footer starts -->
-{{ partial "footer" (dict  "activeMenu" "Feeds" "context" $context ) }}
-
 </body>
 </html>
