@@ -83,22 +83,22 @@
               {{ if ne .Params.featuredimage.href "Nil" }}
                 {{ if eq .Params.openprojectcustomfields.eventcancelled "t" }}
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" width="288" height="115" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
                     </div>
                 {{ else }}
                  {{ if ge .Params.eventenddate (now.Format "2006-01-02")}}
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" width="288" height="115" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
                     </div>
                  {{ else }}
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                        <a href="{{ .Permalink }}"><img src="{{ substr .Params.basePath 7  }}{{ .Params.featuredimage.href }}" alt="{{ .Params.title }}" width="288" height="115" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
                     </div>
                  {{ end }}
                 {{ end }}
                {{ else }} 
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-                    <a href="{{ .Permalink }}"><img src="/images/event-img-2.jpg" alt="{{ .Params.title }}" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
+                    <a href="{{ .Permalink }}"><img src="/images/event-img-2.jpg" alt="{{ .Params.title }}" width="288" height="115" onerror="this.onerror=null; this.src='/images/event-img-2.jpg'" class="img-style-1"></a>
                 </div>
               {{ end }}
               {{ end }}
