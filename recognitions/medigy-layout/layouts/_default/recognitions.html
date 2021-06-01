@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  {{ partial "head" . }}
+  {{ partialCached "head" . "awards-list" }}
 <body>
     {{ $context := . }}
-    {{ partial "navbar" (dict  "activeMenu" "Awards" "mastHead" "Awards" "context" $context )  }}   
+    {{ partialCached "navbar" (dict  "activeMenu" "Awards" "mastHead" "Awards" "context" $context )  "awards-list" }}   
 
     <!-- breadcrumbs starts -->
 <section class="breadcrumbs-wrap">
@@ -76,10 +76,10 @@
                         {{ $dataSlug := .Permalink }}
                         {{ $dataName := $awardTitle }}
                         {{ $icon := "/images/facebook.svg" }}
-                        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
+                        {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
 
                         {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
-                        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                        {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                       </span>
                       <span style="position: relative;">
                       {{ $permaLink := .Permalink | safeURL}}
@@ -90,9 +90,9 @@
                       {{ $dataSlug := .Permalink }}
                       {{ $dataName := $awardTitle }}
                       {{ $icon := "/images/twitter.svg" }}
-                      {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                      {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
                       {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
-                      {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                      {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                      </span>
                       <span style="position: relative;">
                         {{ $permaLink := .Permalink | safeURL}}
@@ -103,9 +103,9 @@
                         {{ $dataSlug := .Permalink }}
                         {{ $dataName := $awardTitle }}
                         {{ $icon := "/images/linkedin.svg" }}
-                        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                        {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
                         {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
-                        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                        {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                       </span>
                       <span style="position: relative;">
                         {{ $icon := "/images/email.svg" }}
@@ -116,9 +116,9 @@
                         {{ $dataApp := .Params.id }}
                         {{ $dataSlug := .Permalink }}
                         {{ $dataName := $awardTitle }}
-                        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                        {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
                         {{ $toolTipContent := (`Email Share`| safeHTML) }}
-                        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                        {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                         </span>
                     </div>
                     </div>
@@ -141,7 +141,7 @@
 
 <!-- footer starts -->
 
-{{ partial "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
+{{ partialCached "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
 
 </body>
 </html>

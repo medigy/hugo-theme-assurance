@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
+    {{ partialCached "head" . .Title }}
 <body>
 
        
     {{ $context := . }}
-    {{ partial "navbar" (dict  "activeMenu" "Awards" "mastHead" "Awards" "context" $context )  }}       
+    {{ partialCached "navbar" (dict  "activeMenu" "Awards" "mastHead" "Awards" "context" $context )  .Title }}       
   
       
 
-    {{ partial "bread-crumb" . }}
+    {{ partialCached "bread-crumb" . .Title }}
 
 <section class="">
   <div class="slds-container_large slds-container_center slds-p-left_small slds-p-right_small">
@@ -81,10 +81,10 @@
                 {{ $dataSlug := .Permalink }}
                 {{ $dataName := .Title }}
                 {{ $icon := "/images/facebook.svg" }}
-                {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
+                {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
 
                 {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
-                {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
               </span>
               <span style="position: relative;">
               {{ $permaLink := .Permalink | safeURL}}
@@ -95,9 +95,9 @@
               {{ $dataSlug := .Permalink }}
               {{ $dataName := .Title }}
               {{ $icon := "/images/twitter.svg" }}
-              {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+              {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
               {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
-              {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+              {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
             </span>
               <span style="position: relative;">
                 {{ $permaLink := .Permalink | safeURL}}
@@ -108,9 +108,9 @@
                 {{ $dataSlug := .Permalink }}
                 {{ $dataName := .Title }}
                 {{ $icon := "/images/linkedin.svg" }}
-                {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
                 {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
-                {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                 </span>
               <span style="position: relative;">
                 {{ $icon := "/images/email.svg" }}
@@ -121,9 +121,9 @@
                 {{ $dataApp := .Params.id }}
                 {{ $dataSlug := .Permalink }}
                 {{ $dataName := .Title }}
-                {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
+                {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
                 {{ $toolTipContent := (`Email Share`| safeHTML) }}
-                {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                 </span>
             </div>
           </div>
@@ -159,7 +159,7 @@
   </div>
   </section>
 <!-- footer starts -->
-{{ partial "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
+{{ partialCached "footer" (dict  "activeMenu" "Awards" "context" $context ) }}
 <script>
   $(document).ready(function () {
     $("#imageThumb").click(function(){        
