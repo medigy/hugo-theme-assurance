@@ -14,61 +14,61 @@
                 
                 
                 <div class="slds-clearfix">
-                <div class="slds-float_right">
+                  <div class="slds-float_right">
                     <span style="position: relative;">
-                        {{ $permaLink := .Permalink | safeURL}}
-                        {{ $safeUrl := $.Site.Params.siteUrl }}
-                        {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl .RelPermalink }}
-                        {{ $class := "fb-share-push fb-share" }}
-                        {{ $dataApp := .Params.id }}
-                        {{ $dataSlug := .Permalink }}
-                        {{ $dataName := .Title }}
-                        {{ $icon := "/images/facebook.svg" }}
-                        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon)}}
-
-                        {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
-                        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
-                      </span>
-                      <span style="position: relative;">
                       {{ $permaLink := .Permalink | safeURL}}
                       {{ $safeUrl := $.Site.Params.siteUrl }}
-                      {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl .RelPermalink }}
-                      {{ $class := "twitter-share-push fb-share" }}
+                      {{ $href := print "https://www.facebook.com/sharer/sharer.php?u="  $safeUrl .RelPermalink }}
+                      {{ $class := "fb-share-push fb-share" }}
                       {{ $dataApp := .Params.id }}
                       {{ $dataSlug := .Permalink }}
                       {{ $dataName := .Title }}
-                      {{ $icon := "/images/twitter.svg" }}
-                      {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
-                      {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
-                      {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
+                      {{ $icon := "/images/facebook.svg" }}
+                      {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+        
+                      {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
+                      {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
                     </span>
-                      <span style="position: relative;">
-                        {{ $permaLink := .Permalink | safeURL}}
-                        {{ $safeUrl := $.Site.Params.siteUrl }}
-                        {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl .RelPermalink }}
-                        {{ $class := "linkedin-share-push fb-share" }}
-                        {{ $dataApp := .Params.id }}
-                        {{ $dataSlug := .Permalink }}
-                        {{ $dataName := .Title }}
-                        {{ $icon := "/images/linkedin.svg" }}
-                        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
-                        {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
-                        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
-                        </span>
-                      <span style="position: relative;">
-                        {{ $icon := "/images/email.svg" }}
-                        {{$permaLink := .Permalink | safeURL}}
-                        {{ $safeUrl := $.Site.Params.siteUrl }}
-                        {{ $href := print "mailto:?subject=Check out the post, '" .Params.title "' in medigy.com!&body=" .Params.title "\n" $safeUrl $permaLink}}
-                        {{ $class := "email-share-push"}}
-                        {{ $dataApp := .Params.id }}
-                        {{ $dataSlug := .Permalink }}
-                        {{ $dataName := .Title }}
-                        {{ partial "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) }}
-                        {{ $toolTipContent := (`Email Share`| safeHTML) }}
-                        {{ partial "tool-tip" (dict  "toolTipContent" $toolTipContent ) }}
-                        </span>
-                </div>
+                    <span style="position: relative;">
+                    {{ $permaLink := .Permalink | safeURL}}
+                    {{ $safeUrl := $.Site.Params.siteUrl }}
+                    {{ $href := print "https://twitter.com/intent/tweet?url=" $safeUrl .RelPermalink }}
+                    {{ $class := "twitter-share-push fb-share" }}
+                    {{ $dataApp := .Params.id }}
+                    {{ $dataSlug := .Permalink }}
+                    {{ $dataName := .Title }}
+                    {{ $icon := "/images/twitter.svg" }}
+                    {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+                    {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
+                    {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
+                  </span>
+                    <span style="position: relative;">
+                      {{ $permaLink := .Permalink | safeURL}}
+                      {{ $safeUrl := $.Site.Params.siteUrl }}
+                      {{ $href := print "http://www.linkedin.com/shareArticle?url="  $safeUrl .RelPermalink }}
+                      {{ $class := "linkedin-share-push fb-share" }}
+                      {{ $dataApp := .Params.id }}
+                      {{ $dataSlug := .Permalink }}
+                      {{ $dataName := .Title }}
+                      {{ $icon := "/images/linkedin.svg" }}
+                      {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+                      {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
+                      {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
+                      </span>
+                    <span style="position: relative;">
+                      {{ $icon := "/images/email.svg" }}
+                      {{$permaLink := .Permalink | safeURL}}
+                      {{ $safeUrl := $.Site.Params.siteUrl }}
+                      {{ $href := print "mailto:?subject=Check out the post, '" .Params.title "' in medigy.com!&body=" .Params.title "\n" $safeUrl $permaLink}}
+                      {{ $class := "email-share-push"}}
+                      {{ $dataApp := .Params.id }}
+                      {{ $dataSlug := .Permalink }}
+                      {{ $dataName := .Title }}
+                      {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+                      {{ $toolTipContent := (`Email Share`| safeHTML) }}
+                      {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
+                      </span>
+                  </div>
                 </div>
                 
                 </div>

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.js"></script>
+    {{ partialCached "head" . "brief-latest-list-key" }}    
 <body>
 
        
     {{ $context := . }}
-    {{ partial "navbar" (dict  "activeMenu" "Daily Brief" "mastHead" "Daily Brief" "context" $context )  }}       
+    {{ partialCached "navbar" (dict  "activeMenu" "Daily Brief" "mastHead" "Daily Brief" "context" $context )  "brief-latest-list-key" }}       
   
       
 
-    {{ partial "bread-crumb" . }}
+    {{ partialCached "bread-crumb" . "brief-latest-list-key" }}
 
 
 <section class="">
@@ -68,20 +67,21 @@
 
 <!-- paginations starts -->
 <div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center"><span class="slds-m-right_small slds-m-left_small">{{ $postCount }} items</span>
-  {{  partial "pagination" . }}
+  {{  partialCached  "pagination" . "brief-latest-list-key"  }}
 </div>
 <!-- paginations ends -->
 
 </div>
 </section>
+
+{{ partialCached "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+<script src="/js/event-date.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.js"></script>
 <script>
     $(document).ready(function() {
       $("time.timeago").timeago();
     });
 </script>
-
-{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
-<script src="/js/event-date.js"></script>
 
 </body>
 </html>
