@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
+  {{ partialCached "head" . .Title }}
 <body>    
   {{ $context := . }}
-  {{ partial "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Innovator" "context" $context )  }}       
-  {{ partial "bread-crumb" . }}
+  {{ partialCached "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Innovator" "context" $context )  .Title }}       
+  {{ partialCached "bread-crumb" . .Title }}
 
   <section class="">
     <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
@@ -281,7 +281,7 @@
     </section>
     
     
-  {{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+  {{ partialCached "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
   {{ partial "script-upvote.html" . }}
   <script>
     $(document).ready(function() {      
