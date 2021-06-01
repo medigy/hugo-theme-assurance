@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{ partialCached "head" . "cookie-key" }}
+<body>
+{{ $context := . }}
+{{ partialCached "navbar" (dict  "mastHead" "Cookie Policies " "context" $context )  "cookie-key"}}       
+{{ partialCached "bread-crumb.html" . "cookie-key" }}
+<section>
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section slds-text-heading_small semi-light">
+
+        <!-- content starts -->
+        <div class="slds-m-bottom_medium slds-m-top_medium">
+            <h1 class="slds-text-heading_large slds-m-top_x-small semi-bold">{{ .Params.title }}</h1>
+            <div class="slds-box slds-m-top_small slds-m-bottom_large terms-privacy">
+            {{ if ne .Params.featuredimage "Nil" }}
+            <!--  <div class=""><a href="https://thehcbiz.com/decision-support-for-selecting-digital-health-tools/" target="blank"><img src="/img/Medigy-Decision-Support-for-Selecting-Digital-Health-Tools-Podcast.png" class="img-responsive mb-2" /></a></div>-->
+            {{ end }}
+
+            {{  .Content  | safeHTML}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- footer starts -->
+
+{{ partialCached "footer" (dict  "context" $context ) }}
+
+</body>
+</html>
