@@ -53,7 +53,7 @@
           {{ $dataSlug := .Permalink }}
           {{ $dataName := .Title }}
           {{ $icon := "/images/facebook.svg" }}
-          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
 
           {{ $toolTipContent := (`Facebook Share`| safeHTML) }}
           {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
@@ -67,7 +67,7 @@
         {{ $dataSlug := .Permalink }}
         {{ $dataName := .Title }}
         {{ $icon := "/images/twitter.svg" }}
-        {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+        {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
         {{ $toolTipContent := (`Twitter Share`| safeHTML) }}
         {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
       </span>
@@ -80,7 +80,7 @@
           {{ $dataSlug := .Permalink }}
           {{ $dataName := .Title }}
           {{ $icon := "/images/linkedin.svg" }}
-          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
           {{ $toolTipContent := (`Linkedin Share`| safeHTML) }}
           {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
           </span>
@@ -93,7 +93,7 @@
           {{ $dataApp := .Params.id }}
           {{ $dataSlug := .Permalink }}
           {{ $dataName := .Title }}
-          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon }}
+          {{ partialCached "social-share.html" (dict "href" $href "class" $class "dataApp" $dataApp "dataSlug" $dataSlug "dataName" $dataName "icon" $icon) $dataApp $icon $dataName }}
           {{ $toolTipContent := (`Email Share`| safeHTML) }}
           {{ partialCached "tool-tip" (dict  "toolTipContent" $toolTipContent ) $toolTipContent }}
           </span>
