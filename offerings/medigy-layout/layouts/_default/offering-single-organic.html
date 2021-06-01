@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "head" . }}
+  <body>
+  
+         
+      {{ $context := . }}
+      {{ partial "navbar" (dict  "activeMenu" "Daily Brief" "mastHead" .Params.mastHead "context" $context )  }}       
+    
+        
+      {{ partial "bread-crumb" . }}
+
+{{ $ownerVerifiedBadge := "" }}
+{{ $offeringTooltipData := .Site.Data.on_screen_tooltip_information.offeringProfileTooltips }}
+{{ range $offeringTooltipData }}
+{{ $ownerVerifiedBadge = .ownerVerifiedBadge }}
+{{ end }} 
+
+<section class="">
+<div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+
+<!-- content-1 starts -->
+<div class="slds-grid slds-wrap slds-gutters slds-p-top_large slds-p-bottom_large">
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+    <div class="slds-grid slds-wrap slds-gutters">
+      {{ if ( .Params.offeringlogo) }}
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+        <img src="{{ .Params.offeringlogo }}" alt="" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small" width="128" height="128">
+      </div>
+      {{ end }}
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_9-of-12">
+        {{ if ne (.Params.organization) "null" }}
+         {{ $organizationName:= trim .Params.organization "." }}
+         <h2 class="slds-text-heading_small"><b>{{ .Params.organization }}</b></h2>
+        {{ end }}
+        <h3 class="slds-text-heading_medium"><b>{{ .Title }}</b> {{ if .Params.claimStatus  }}<span class="slds-m-left_x-small"><img src="https://badgen.infra.medigy.com/badge/Owner/Verified?color=green" alt="{{ $ownerVerifiedBadge }}" title="{{ $ownerVerifiedBadge }}"></span>{{ end }}</h3>
+        <p>{{ .Params.shortdescription }}</p>
+        {{ if .Params.categories}}
+          <p class="slds-text-body_small">
+            {{ range $key, $value := .Params.categories }} 
+            {{if ne $value "null"}}
+             {{ $valueLink := $value | urlize }}
+              {{ $valueLink := replace $valueLink "#" "hash-"  }}
+               <a href="/topic/{{ $valueLink }}"><span class="slds-badge slds-m-top_xx-small slds-m-bottom_xx-small slds-m-left_none slds-m-right_x-small">{{ $value }}</span></a>          
+            {{ end }}
+            {{ end }}
+          </p>
+       {{ end }}
+      </div>
+      </div>
+  </div>
+  <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+    <div class="slds-grid slds-wrap slds-gutters slds-p-top_large">
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12"></div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12">
+          <div class="slds-border_left slds-border_top slds-border_right slds-border_bottom slds-m-bottom_xx-small slds-p-around_small slds-text-align_center">
+            <h2 class="slds-text-heading_small slds-m-bottom_xx-small "><b>{{ .Title }}</b></h2>
+            <button class="slds-button slds-button_brand slds-text-body_medium slds-p-around_x-small">Invite them to share their experience</button>
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<!-- content-1 ends -->
+
+<!-- git-buttons-row starts -->
+<div class="git-buttons-row slds-border_bottom slds-border_top slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center">
+  <div class="slds-button-group" role="group">
+        {{ $productId := .Params.id }}          
+        {{ $productName := .Title }}
+        {{ $countInFrontmatter := 0 }}
+        {{ range  first 1 .Site.Data.offering_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range first 4 .items}}             
+              {{ $tooltip := .prefix.tooltip }}              
+              {{ $type := .prefix.type }}
+              {{ $badgeQueryType := .prefix.badgeQueryType }}
+              {{ partial "cadds-common.html" (dict   "productId" $productId "productName" $productName  "countInFrontmatter" $countInFrontmatter   "tooltip" $tooltip "type" $type "badgeQueryType" $badgeQueryType)}}  
+              {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ range first 1 .Site.Data.offering_data_lhc_form.items }}
+          {{ range last 1 .items }}
+            {{ range last 1 .items}}
+              {{ $label := .question }}
+              {{ $countInFrontmatter := 0 }}          
+              {{ $tooltip := .prefix.tooltip }}
+              {{ partialCached "question-asked-offering" (dict  "label"  $label   "productId" $productId "productName" $productName  "tooltip" $tooltip ) $label}}
+              {{ end }}
+
+          {{ end }}
+        {{ end }}
+        
+  </div>
+</div>
+<!-- git-buttons-row ends -->
+
+<!-- content-2 starts -->
+<article class="content-inner-section slds-m-bottom_medium">
+  <section class="slds-grid slds-wrap slds-gutters">
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+<!-- left main content > -->
+        <section>
+          {{ .Content }}
+          <div class="slds-clearfix">
+            <div class="slds-float_left">
+              <!-- <p class="slds-m-bottom_xx-small"><a href="#.">See more</a></p> -->
+            </div>
+  
+            <div class="slds-float_right">
+              {{ if ne .Params.facebookUrl "Nil" }}
+              <a href="{{ .Params.facebookUrl }}" target="_blank" rel="noopener">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="/images/facebook.svg" class="ico-bt-sm-5" alt="facebook" width="16" height="16">
+                </button>
+              </a>
+              {{ end }}
+              {{ if ne .Params.twitterUrl "Nil" }}
+              <a href="{{ .Params.twitterUrl }}" target="_blank" rel="noopener">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="/images/twitter.svg" class="ico-bt-sm-5" alt="twitter" width="16" height="16">
+                </button>
+              </a>
+              {{ end }}
+              {{ if ne .Params.linkedinUrl "Nil" }}
+              <a href="{{ .Params.linkedinUrl }}" target="_blank" rel="noopener">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="/images/linkedin.svg" class="ico-bt-sm-5" alt="linkedin" width="16" height="16">
+                </button>
+              </a>
+              {{ end }}
+              {{ if ne .Params.websiteUrl "Nil" }}
+              <a href="{{ .Params.websiteUrl }}" target="_blank" rel="noopener">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-bottom_xx-small" aria-pressed="false" title="">
+                  <img src="/icons/utility/world.svg" class="ico-bt-sm-5" alt="Website Url" width="16" height="16">
+                </button>
+              </a>
+              {{ end }}
+            
+            </div>
+            </div>
+        </section>
+<!-- </ left main content -->
+
+        <hr>
+
+<!-- features > -->
+<section class="slds-grid slds-wrap slds-gutters slds-m-top_large sublisting-box">
+  <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-m-bottom_xx-small">
+  <aside class="b-r-1">
+      <h3 class="slds-text-heading_small slds-m-bottom_x-small"><b>{{ .Title }} Benefits</b></h3>
+      <ul class="slds-list_dotted features">
+          <li>Global Network</li>
+          <li>API proxying</li>
+          <li>SSL for custom domains</li>
+          <li>Instant Cache Validation</li>
+          <li>Continous Deployment</li>
+          <li>Atomic Deploys</li>
+          <li>Link to Github or Bitbucket</li>
+      </ul>
+  </aside>
+  </div>
+  <div class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-m-bottom_x-small">
+      <h3 class="slds-text-heading_small slds-m-bottom_x-small"><b>Classifications</b></h3>
+  <section class="slds-grid slds-wrap slds-gutters slds-m-top_x-small">
+      <aside class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_xx-small">
+          <h5 class="font-size-13">Developed For</h5>
+          <p class="font-size-12"><a href="#.">Clinicians &amp; Patients</a></p>
+      </aside>
+          
+      <aside class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_xx-small">
+          <h5 class="font-size-13">FHIR Compatibility</h5>
+          <p class="font-size-12"><a href="#.">DSTU 2</a>, <a href="#.">STU 3</a></p>
+      </aside>
+          
+      <aside class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_xx-small">
+          <h5 class="font-size-13">Categories</h5>
+          <p class="font-size-12"><a href="#.">Care Coordination</a>, <a href="#.">Population Health</a>, <a href="#.">Patient Engagement</a></p>
+      </aside>
+          
+      <aside class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_xx-small">
+          <h5 class="font-size-13">Specialities</h5>
+          <p class="font-size-12"><a href="#.">Trauma</a>, <a href="#.">Pediatrics</a>, <a href="#.">Cardiology</a></p>
+      </aside>
+  </section>        
+  </div>     
+  
+  </section>
+  <!-- </ features -->
+
+
+
+    </div>
+
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+    <!-- carousel-main-and-thumb > -->
+    <section>
+      {{ if .Params.isFeaturedOffering }}
+    <div>
+        {{ $length := (len .Params.carouselItemTypes) }}
+        {{ $count := 1}}
+        {{ range $elem_index, $carouselItemType := .Params.carouselItemTypes  }}
+          {{ $upcount := add $count $elem_index}}
+          {{ with $.Params.carouselItems }}
+            {{ $carouselItem := index . $elem_index }}
+            {{ if eq $carouselItemType "image" }}
+              <img src="{{ $carouselItem }}" alt="Carousel Image {{ $upcount }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" width="590" height="250" class="carousel-item {{ if ne $upcount 1 }} d-none {{ end }} carou-main-image" id="carousel-item-{{ $upcount }}">
+            {{ else }}
+						{{if eq $carouselItemType "youtube" }}
+              {{ $Youtube :=   $carouselItem }}
+              {{ $splitedData := split $Youtube "https://www.youtube.com/watch?v=" }}
+              {{ $splitedData:= delimit $splitedData "" }}
+              {{ $splitedData := split  $splitedData "&" }}						
+              {{ range first 1 $splitedData }}
+                {{  $.Scratch.Set "data" . }} 
+              {{ end }}
+              {{$Data :=  $.Scratch.Get "data" }} 
+              <div class="carousel-item {{ if ne $upcount 1 }} d-none {{ end }} " id="carousel-item-{{ $upcount }}">
+                <iframe id="ytplayer" type="text/html" width="590" height="250"
+                src="https://www.youtube.com/embed/{{ $Data }} "
+                frameborder="0" class="carou-bg" ></iframe>
+              </div>
+						{{ else }}
+						{{ $Vimeo :=  $carouselItem }}
+						{{ $splitedData := split $Vimeo "https://vimeo.com/" }}
+						{{ $splitedData:= delimit $splitedData ""}}
+						{{if eq $carouselItemType "vimeo" }}
+            <div class="carousel-item {{ if ne $upcount 1 }} d-none {{ end }} carou-bg" id="carousel-item-{{ $upcount }}">
+              <iframe src="https://player.vimeo.com/video/{{ $splitedData }}?title=0&byline=0&portrait=0" width="590" height="250" class="carou-bg" >
+              </iframe>
+            </div>
+						{{ end }}
+            {{ end }}
+						{{ end }}
+
+
+          {{ end }}
+        {{ end }}
+    </div>
+    <aside class="slds-grid slds-wrap">
+      {{ $length := (len .Params.carouselItemTypes) }}
+      {{ $count := 1}}
+      {{ range $elem_index, $carouselItemType := .Params.carouselItemTypes  }}
+        {{ $upcount := add $count $elem_index}}
+        {{ with $.Params.carouselItems }}
+          {{ $carouselItem := index . $elem_index }}
+          {{ if eq $carouselItemType "image" }}
+          <div class="slds-size_3-of-12">
+            <div class="slds-text-align_center slds-m-bottom_xx-small slds-m-right_x-small slds-m-top_x-small">
+                <img src="{{ $carouselItem }}" alt="Carousel thumb Image {{ $upcount }}" data-item="carousel-item-{{ $upcount }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="carou-thumb {{ if eq $upcount 1 }}carou-thumb-active {{ end }} border-r-0" width="138" height="75">
+            </div>
+          </div>
+          {{ else }}
+          {{ if eq $carouselItemType "youtube" }}
+            {{ $Youtube :=   $carouselItem }}
+            {{ $splitedData := split $Youtube "https://www.youtube.com/watch?v=" }}
+            {{ $splitedData:= delimit $splitedData "" }}
+            {{ $splitedData := split  $splitedData "&" }}						
+            {{ range first 1 $splitedData }}
+              {{  $.Scratch.Set "data" . }} 
+            {{ end }}
+            {{$Data :=  $.Scratch.Get "data" }} 
+
+          <div class="slds-size_3-of-12">
+            <div class="slds-text-align_center slds-m-bottom_xx-small slds-m-right_x-small slds-m-top_x-small">
+                <img src="https://img.youtube.com/vi/{{ $Data }}/0.jpg" title="Youtube video {{ $upcount }}" alt="Youtube video {{ $upcount }}" data-item="carousel-item-{{ $upcount }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="carou-thumb {{ if eq $upcount 1 }}carou-thumb-active {{ end }} border-r-0" width="138" height="75">
+            </div>
+          </div>
+          {{ else }}
+          {{ if eq $carouselItemType "vimeo" }}
+            {{ $Vimeo :=  $carouselItem }}
+            {{ $splitedData := split $Vimeo "https://vimeo.com/" }}
+            {{ $splitedData:= delimit $splitedData ""}}
+        <div class="slds-size_3-of-12">
+            <div class="slds-text-align_center slds-m-bottom_xx-small slds-m-right_x-small slds-m-top_x-small">
+                <img src="https://vumbnail.com/{{ $splitedData }}_medium.jpg" title="Vimeo video {{ $upcount }}" alt="Vimeo video {{ $upcount }}" data-item="carousel-item-{{ $upcount }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" class="carou-thumb {{ if eq $upcount 1 }}carou-thumb-active {{ end }} border-r-0" width="138" height="75">
+            </div>
+          </div>
+          {{ end }}
+          {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </aside>
+    {{ else }}
+    <div>
+      <img src="{{ .Params.featuredimage }}" alt="{{ .Params.alt }}" onerror="this.onerror=null; this.src='/images/offering-img-1.png'" width="590" height="300" class="carousel-item">
+    </div>
+
+    {{ end }}
+
+    </section>
+    <!-- </ carousel-main-and-thumb -->
+
+    <!-- resources > -->
+    <section class="slds-m-top_medium">
+        <h3 class="slds-text-heading_small"><b>Documents and resources</b></h3>
+        <article class="slds-grid slds-wrap slds-gutters slds-m-top_small slds-m-right_small other-doc-box">
+          {{ if .Params.resourceItemTypes }}
+            {{ $length := (len .Params.resourceItemTypes) }}
+            {{ $count := 1}}
+            {{ range $elem_index, $resourceItemTypes := .Params.resourceItemTypes  }}
+              {{ $upcount := add $count $elem_index}}
+              {{ with $.Params.resourceItems }}
+                {{ $resourceItems :=  index . $elem_index }}
+                {{ $.Scratch.Set "resourceItems" $resourceItems }}
+              {{ end }}
+              {{ with $.Params.resourceItemCaptions }}
+                {{ $resourceItemCaptions :=  index . $elem_index }}
+                {{ $.Scratch.Set "resourceItemCaptions" $resourceItemCaptions }}
+              {{ end }}
+              {{ if (fileExists (print "/static" ($.Scratch.Get "resourceItems"))) }}
+                <aside class="slds-col slds-size_1-of-1 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_x-small">
+              <a href="{{ $.Scratch.Get "resourceItems" }}" target="_blank"><div class="doc-box slds-grid slds-wrap slds-gutters slds-m-left_xx-small">
+                <div class="slds-col slds-size_3-of-12 slds-m-bottom_xx-small"><img src="/images/{{ $resourceItemTypes | urlize }}.jpg" alt=""></div>
+                <div class="slds-col slds-size_7-of-12 slds-m-bottom_xx-small">
+                  <p class="font-size-11 slds-m-bottom_none"><b>{{ $resourceItemTypes }}</b></p>
+                  <p class="font-size-11 slds-m-bottom_none dark-txt">{{ $.Scratch.Get "resourceItemCaptions" }}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-m-bottom_xx-small"><img src="/images/right-arrow.svg" alt="" class="doc-ico-op"></div>
+          </div></a>
+            </aside>
+            {{ end }}
+            {{ end }}
+        {{ end }}         
+        </article>
+    </section>
+    <!-- </ resources -->
+
+    </div>
+</section>
+ 
+
+
+
+<!-- Cadd Sections > -->
+  <section class="cadd-box-wrap slds-m-top_large">
+    <div class="slds-card slds-m-bottom_large inner-section">
+      <ul class="slds-accordion">
+
+      {{ $.Scratch.Set "productId"  .Params.id }}
+      {{ $.Scratch.Set "productName"  .Title }}
+      {{ $.Scratch.Set "tenantId"  .Params.tenantId }}
+      {{ partial "offering-cadd-questions.html" . }}  
+      </ul>
+    </div>
+    
+  </section>
+<!-- </ Cadd Sections -->
+
+
+</article>  
+<!-- content-2 ends -->
+
+<!-- content-3 starts -->
+<!-- content-3 ends -->
+
+</div>
+</section>
+
+{{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+
+<script>
+  $(document).ready(function () {
+  $(".slds-accordion__summary-action").click(function(){
+    if($(this).attr("aria-expanded") == "true"){
+      $(this).parent().parent().parent().removeClass("slds-is-open");
+      $(this).attr("aria-expanded","false")
+    }
+    else{
+      $(this).parent().parent().parent().addClass("slds-is-open");
+      $(this).attr("aria-expanded","true")
+    }
+  });
+  $(".carou-thumb").on("click", function(){
+    var carouselCurrentItem = "#"+$(this).attr("data-item");
+    $(".carou-thumb"). removeClass("carou-thumb-active");
+    $(this). addClass("carou-thumb-active");
+    $(".carousel-item").hide();
+    $(carouselCurrentItem).show();
+  });
+});
+</script>
+{{ partial "script-offering-cadd-questions.html" . }}  
+</body>
+</html>
