@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-{{ partial "head" . }}
+{{ partialCached "head" . "terms-of-services" }}
 <body>
 {{ $context := . }}
-{{ partial "navbar" (dict  "mastHead" "Terms of Services" "context" $context )  }}       
-{{ partial "bread-crumb" . }}
+{{ partialCached "navbar" (dict  "mastHead" "Terms of Services" "context" $context )  "terms-of-services" }}       
+{{ partialCached "bread-crumb" . "terms-of-services" }}
 <section>
     <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small content-inner-section slds-text-heading_small semi-light">
 
@@ -24,7 +24,7 @@
 
 <!-- footer starts -->
 
-{{ partial "footer" (dict  "context" $context ) }}
+{{ partialCached "footer" (dict  "context" $context ) }}
 
 </body>
 </html>

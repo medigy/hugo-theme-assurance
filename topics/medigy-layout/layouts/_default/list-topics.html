@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
+    {{ partialCached "head" . "topics-list-key" }}
 
 <body>
 
        
     {{ $context := . }}
-    {{ partial "navbar" (dict  "activeMenu" "Topics" "context" $context )  }}       
+    {{ partialCached "navbar" (dict  "activeMenu" "Topics" "context" $context )  "topics-list-key" }}       
   
 
-    {{ partial "bread-crumb" . }}
+    {{ partialCached "bread-crumb" . "topics-list-key" }}
 
 
 <section class="">
@@ -107,7 +107,7 @@
 </div>
 </section>
 
-{{ partial "footer" (dict  "activeMenu" "Topics" "context" $context ) }}
+{{ partialCached "footer" (dict  "activeMenu" "Topics" "context" $context ) }}
 
 </body>
 </html>

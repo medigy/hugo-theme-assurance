@@ -1,12 +1,12 @@
 <!DOCTYPE html>
   <html lang="en" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  {{ partial "head" . }}
+  {{ partialCached "head" . .Title }}
 
 <body>
 
        
     {{ $context := . }}
-    {{ partial "navbar" (dict  "activeMenu" "Topics" "context" $context )  }}       
+    {{ partialCached "navbar" (dict  "activeMenu" "Topics" "context" $context )  .Title }}       
   
 
    <!-- breadcrumbs starts -->
@@ -253,7 +253,7 @@
       </div>
       </section>
 
-      {{ partial "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
+      {{ partialCached "footer" (dict  "activeMenu" "Daily Brief" "context" $context ) }}
 
       <script>
         $(document).ready(function(){
