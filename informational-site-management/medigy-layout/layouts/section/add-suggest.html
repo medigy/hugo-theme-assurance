@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
+    {{ partialCached "head" . "add-suggest-key" }}
 <body>      
     {{ $context := . }}
-    {{ partial "navbar" (dict "mastHead" "Login" "context" $context )  }}        
+    {{ partialCached "navbar" (dict "mastHead" "Login" "context" $context )  "add-suggest-key" }}        
   
-    {{ partial "bread-crumb" . }}
+    {{ partialCached "bread-crumb" . "add-suggest-key" }}
     {{ range last 1 .Site.Data.on_screen_messages_lhc_form.items }}
       {{ range .items }}
        {{ if eq .questionCode "Add_offering_messages"}}
@@ -838,7 +838,7 @@
 <!-- footer starts -->
 
 <script type="text/javascript" src="/js/validations/validate.js"></script>
-{{ partial "footer" (dict  "activeMenu" "News" "context" $context ) }}
+{{ partialCached "footer" (dict  "activeMenu" "News" "context" $context ) }}
 <link rel="stylesheet" href="/css/select2.min.css" />
 <script type="text/javascript" src="/js/select2.min.js"></script>
 <!-- footer ends -->

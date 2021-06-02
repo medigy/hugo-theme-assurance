@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
+    {{ partialCached "head" . "login-key" }}
 <body>      
     {{ $context := . }}
-    {{ partial "navbar" (dict "mastHead" "Login" "context" $context )  }}        
+    {{ partialCached "navbar" (dict "mastHead" "Login" "context" $context )  "login-key" }}        
   
-    {{ partial "bread-crumb" . }}
+    {{ partialCached "bread-crumb" . "login-key" }}
 <section class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
 <!-- content starts -->
 <div class="slds-m-bottom_large slds-p-bottom_medium slds-m-top_large slds-p-top_medium login-section">
@@ -81,7 +81,7 @@
 
 <!-- footer starts -->
 
-{{ partial "footer" (dict  "activeMenu" "News" "context" $context ) }}
+{{ partialCached "footer" (dict  "activeMenu" "News" "context" $context ) }}
 
 
 <script>
