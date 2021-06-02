@@ -8,13 +8,13 @@
           {{ if .Params.featuredimage.href }}
           {{ $fpath:=  .File.Dir }}
           {{ $fileDir := replace $fpath "\\" "/" }}
-          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredImage.href  }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82" ></a></div>
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-4" src="/{{ $fileDir }}{{ .Params.featuredImage.href  }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82" ></a></div>
           {{ else if  .Params.featuredimage }}
           {{ $fpath:=  .File.Dir }}
           {{ $fileDir := replace $fpath "\\" "/" }}
-          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-1" src="/{{ $fileDir }}{{ .Params.featuredimage }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82"></a></div>            
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-4" src="/{{ $fileDir }}{{ .Params.featuredimage }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82"></a></div>            
           {{ else }}
-          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-1" src="{{ print ( $.Scratch.Get "default-image" )  }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82" ></a></div>            
+          <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 slds-m-top_x-small"><a href="{{.Permalink}}"><img class="img-thumb-4" src="{{ print ( $.Scratch.Get "default-image" )  }}" alt="{{ .Params.title  | safeHTML | truncate 80 }}" width="128" height="82" ></a></div>            
           {{ end }}
           <div class="slds-col slds-size_1-of-1 slds-small-size_9-of-12 slds-large-size_9-of-12 slds-order_1 slds-small-order_2 slds-m-top_x-small">
             <h2 class="slds-text-heading_small slds-border_bottom slds-m-bottom_xx-small slds-p-bottom_x-small">
@@ -46,3 +46,4 @@
       </div>
       </article>
   </div>  
+  
