@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partialCached "head" . "Coming-Soon-key" }}
+<body>
+  {{ $context := . }}
+  {{ partialCached "navbar" (dict  "mastHead" "Coming Soon" "context" $context )  "Coming-Soon-key" }}       
+  {{ partialCached "bread-crumb" . "Coming-Soon-key" }}
+
+  <section class="coming-soon slds-p-bottom_large slds-p-top_large">
+    <div class="slds-container_x-large slds-container_center slds-p-left_small slds-p-right_small">
+    <div class="coming-box">
+    <div class="slds-box">
+        <h2 class="slds-text-heading_large">Coming Soon!!!</h2>
+        <a href="/"><button class="slds-button slds-button_neutral slds-m-bottom_small slds-m-top_medium"><b>Go Home</b></button></a>
+    </div>
+    </div>
+    
+    
+    </div>
+    </section>
+
+<!-- footer starts -->
+
+{{ partialCached "footer" (dict  "activeMenu" "Coming Soon" "context" $context ) }}
+
+</body>
+</html>
