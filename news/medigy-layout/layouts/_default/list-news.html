@@ -25,6 +25,9 @@
           </span> Add News</button></p>
       </div>
     </div>
+    
+  
+    <ul class="slds-size_1-of-1 list-card">
          {{ $newsWithArchetypePages :=   (where .Site.RegularPages "Params.archetype" "in" (slice "news" "external-bookmark-news")) | union ( where .Site.RegularPages "Section" "in" (slice "news" )) }}
          {{/* $newsWithArchetypePages :=    (where .Site.RegularPages "Params.archetype" "=" "news") | union (where .Site.RegularPages "Params.archetype" "=" "external-bookmark-news") */}}
 
@@ -35,6 +38,7 @@
                          {{ .Render "li-news" }}
                         {{ end }}  
 
+    </ul>
   </div>
 <!-- paginations starts -->
 <div class="git-buttons-row slds-p-top_x-small slds-p-bottom_x-small slds-m-bottom_large slds-text-align_center"><span class="slds-m-right_small slds-m-left_small">{{ $postCount }} items</span>
