@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{ partial "head" . }}
+    {{ partialCached "head" . "Institution-Types" }}
 <body>
 {{ $context := . }}
-{{ partial "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Hospital" "context" $context )  }}       
+{{ partialCached "navbar" (dict  "activeMenu" "Institutions" "mastHead" "Hospital" "context" $context )  "Institution-Types" }}       
   
 <!-- breadcrumbs starts -->
 <section class="breadcrumbs-wrap">
@@ -100,7 +100,7 @@
       </div>
         </article>
    </section>
-{{ partial "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
+{{ partialCached "footer" (dict  "activeMenu" "Institutions" "context" $context ) }}
 
 </body>
 </html>
